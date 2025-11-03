@@ -1,10 +1,17 @@
-// 스타일 import
-import './styles/index.scss';
+/**
+ * @digital-wallet/ui
+ * Digital Wallet PoC UI Components
+ */
 
-// Vue UI 컴포넌트들을 export
-export * from './components';
-export * from './composables';
-export * from './assets';
+// Components
+export { Button, type ButtonProps } from "./components/Button";
+export { SmallButton, type SmallButtonProps } from "./components/SmallButton";
+export { Card, CardHeader, CardContent, type CardProps, type CardHeaderProps, type CardContentProps } from "./components/Card";
+export { Input, type InputProps } from "./components/Input";
+export { Badge, type BadgeProps } from "./components/Badge";
+export { Divider, type DividerProps } from "./components/Divider";
+export { ActionCard, type ActionCardProps } from "./components/ActionCard";
 
-// AG Grid 타입들 re-export (BaseDataGrid 사용자를 위해)
-export type { GridOptions, ColDef, GridApi } from 'ag-grid-community';
+// Utils
+export { cn } from "./utils/cn";
+
