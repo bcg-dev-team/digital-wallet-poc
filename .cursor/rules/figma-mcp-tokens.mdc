@@ -1,0 +1,35 @@
+# Figma MCP 디자인 토큰 활용 규칙 (Tailwind 프리셋 기반)
+
+## 기본 원칙
+
+- Figma에서 정의된 디자인 토큰은 Tailwind 프리셋(tailwind-preset-light.js, tailwind-preset-dark.js)에 이미 반영되어 있습니다.
+- **컴포넌트에서는 Tailwind 유틸리티 클래스(`bg-primary800`, `text-red800`, `rounded-lg` 등)만 사용하면 Figma 토큰이 자동 적용**됩니다.
+- 별도의 토큰 유틸리티 함수(getButtonTokens 등)는 JS에서 동적으로 토큰 값을 써야 할 때만 사용합니다.
+- 토큰이 없는 값만 하드코딩하며, 반드시 `// TODO) 디자인 토큰 적용 요청` 주석을 남깁니다.
+- 조건문/분기 없이 Figma 상태별 1:1 매핑을 지향합니다.
+
+## 예시
+
+```vue
+<template>
+  <button
+    class="bg-primary800 text-[#131313] rounded-lg px-4 py-3 text-[16px] font-semibold hover:bg-primary-deep"
+  >
+    <span class="mr-2">
+      <PlusCircleIcon />
+    </span>
+    Button
+    <span class="ml-2">
+      <PlusCircleIcon />
+    </span>
+  </button>
+</template>
+```
+
+- 위 코드에서 `bg-primary800`, `rounded-lg`, `text-[16px]` 등은 모두 Figma 토큰이 Tailwind 프리셋에 반영된 결과입니다.
+- 토큰이 없는 값만 하드코딩 + 반드시 `// TODO) 디자인 토큰 적용 요청` 주석
+
+## 결론
+
+- **Tailwind 유틸리티 클래스만 사용하면 Figma 토큰이 자동 적용**됩니다.
+- 토큰 유틸리티 함수는 JS에서 동적으로 토큰 값을 써야 할 때만 사용하세요.

@@ -1,0 +1,192 @@
+
+# Vue 3 베스트 프랙티스
+
+## Git 커밋 메시지 규칙
+
+Vue 관련 변경사항 커밋 시 다음 scope를 사용하세요 (scope는 선택사항):
+- `apps/desktop`: 데스크톱 Vue 앱 관련
+- `apps/mobile`: 모바일 Vue 앱 관련  
+- `packages/ui`: Vue UI 컴포넌트 관련
+- `packages/api`: Vue 앱의 API 통신 관련
+
+예시:
+```
+feat(apps/desktop): 사용자 프로필 컴포넌트 추가
+fix(packages/ui): 버튼 컴포넌트 이벤트 핸들링 버그 수정
+feat: Vue 3 Composition API 마이그레이션 (전체 프로젝트)
+```
+
+## Composition API 사용
+- Composition API를 사용하여 더 나은 상태 관리와 재사용성을 구현하세요.
+- `<script setup>`을 사용하여 더 깔끔하고 간결한 컴포넌트 코드를 작성하세요.
+- 컴포넌트의 적절한 prop 검증과 기본값을 보장하세요.
+- 효율적인 네비게이션과 라우트의 지연 로딩을 위해 Vue Router를 활용하세요.
+
+## 컴포넌트 설계 원칙
+- **단일 책임 원칙**: 각 컴포넌트는 하나의 명확한 책임을 가져야 합니다.
+- **재사용성**: 공통 컴포넌트는 packages/ui에 배치하고 재사용 가능하게 설계하세요.
+- **Props 검증**: 모든 props에 대해 TypeScript 타입과 기본값을 정의하세요.
+- **이벤트 처리**: emit을 사용하여 부모 컴포넌트와 통신하세요.
+
+## TypeScript 타입 분리 기준
+
+### 타입 분리 원칙
+UI 컴포넌트의 props에서 union 타입을 별도 파일로 분리할 때는 다음 기준을 따르세요:
+
+#### ✅ 타입 분리 기준
+1. **도메인 공통성**: 여러 컴포넌트에서 실제로 사용되는 타입
+   ```typescript
+   // ✅ 분리: 여러 컴포넌트에서 사용
+   type TextAlign = 'left' | 'center' | 'right';
+   type ComponentSize = 'sm' | 'md' | 'lg';
+   ```
+
+2. **복잡성**: 3개 이상 + 의미적으로 복잡한 타입
+   ```typescript
+   // ✅ 분리: 복잡하고 의미가 명확함
+   type ChipVariant = 'surface' | 'primary' | 'secondary' | 'success' | 'warning' | 'error';
+   ```
+
+3. **유지보수성**: 변경 가능성이 높은 타입
+   ```typescript
+   // ✅ 분리: 디자인 시스템 변경 시 영향받을 수 있음
+   type ButtonVariant = 'primary' | 'outline' | 'red' | 'blue' | 'pill' | ...;
+   ```
+
+#### ❌ 타입 분리하지 않는 기준
+1. **단순한 2개 옵션**: 직관적이고 안정적인 타입
+   ```typescript
+   // ❌ 분리 안함: 단순하고 직관적
+   type Direction = 'left' | 'right';
+   type State = 'On' | 'Off';
+   type Type = 'type1' | 'type2';
+   ```
+
+2. **컴포넌트 특화**: 특정 컴포넌트에서만 사용되는 타입
+   ```typescript
+   // ❌ 분리 안함: 특정 컴포넌트에만 특화
+   type InputStatus = 'Static' | 'Focus' | 'Error' | 'Filled' | 'Disabled';
+   type CheckboxState = 'On' | 'Off';
+   ```
+
+3. **안정적인 기본 타입**: 변경 가능성이 낮은 타입
+   ```typescript
+   // ❌ 분리 안함: 안정적인 기본 타입
+   type TextAlign = 'left' | 'center' | 'right';
+   ```
+
+### 타입 분리 위치
+- **공통 타입**: `packages/ui/src/types/components.ts`
+- **컴포넌트 특화 타입**: 각 컴포넌트 파일 내에서 정의
+
+### 예시
+```typescript
+// packages/ui/src/types/components.ts
+export type TextAlign = 'left' | 'center' | 'right';
+export type ComponentSize = 'sm' | 'md' | 'lg';
+export type ChipVariant = 'surface' | 'primary' | 'secondary' | 'success' | 'warning' | 'error';
+
+// BaseButton.vue
+interface Props {
+  variant?: 'primary' | 'outline' | 'red' | 'blue'; // 컴포넌트 특화
+  size?: ComponentSize; // 공통 타입 사용
+  align?: TextAlign; // 공통 타입 사용
+}
+```
+
+## 성능 최적화
+- **Virtual Scrolling**: 대용량 데이터셋에는 vue-virtual-scroller를 사용하세요.
+- **메모이제이션**: computed와 watch를 적절히 사용하여 불필요한 재계산을 방지하세요.
+- **지연 로딩**: 라우트와 컴포넌트의 지연 로딩을 구현하세요.
+- **번들 최적화**: 코드 분할과 트리 셰이킹을 활용하세요.
+
+## 모노레포 구조 준수
+- **공통 컴포넌트**: packages/ui에 배치
+- **비즈니스 로직**: packages/utils에 배치
+- **API 통신**: packages/api에 배치
+- **타입 정의**: packages/types에 배치
+
+## 예시 코드 패턴
+
+```vue
+<script setup lang="ts">
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import type { User } from '@template/types'
+
+// Props 정의
+interface Props {
+  userId: string
+  showDetails?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  showDetails: false
+})
+
+// Emits 정의
+interface Emits {
+  (e: 'user-selected', user: User): void
+  (e: 'error', error: Error): void
+}
+
+const emit = defineEmits<Emits>()
+
+// 반응형 상태
+const user = ref<User | null>(null)
+const loading = ref(false)
+const error = ref<string | null>(null)
+
+// Computed 속성
+const displayName = computed(() => {
+  return user.value ? `${user.value.firstName} ${user.value.lastName}` : ''
+})
+
+// 메서드
+const fetchUser = async () => {
+  try {
+    loading.value = true
+    // API 호출 로직
+    emit('user-selected', user.value!)
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'Unknown error'
+    emit('error', err as Error)
+  } finally {
+    loading.value = false
+  }
+}
+
+// 생명주기 훅
+onMounted(() => {
+  fetchUser()
+})
+
+onUnmounted(() => {
+  // 정리 작업
+})
+</script>
+
+<template>
+  <div class="user-profile">
+    <div v-if="loading" class="loading">로딩 중...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <div v-else-if="user" class="user-info">
+      <h3>{{ displayName }}</h3>
+      <div v-if="showDetails" class="details">
+        <!-- 상세 정보 -->
+      </div>
+    </div>
+  </div>
+</template>
+
+## Figma 컴포넌트 제작 규칙
+
+- Figma 디자인을 바탕으로 Vue 컴포넌트를 제작할 때는 **Headless UI**의 컴포넌트와 패턴을 기본적으로 활용하세요.
+- Headless UI의 props, slot, 이벤트 시스템을 적극적으로 사용하여 일관된 API를 제공합니다.
+- **스타일 커스터마이징**은 반드시 **TailwindCSS** 유틸리티 클래스를 우선적으로 사용하세요.
+- TailwindCSS로 커버되지 않는 세부 스타일은 **PostCSS**(예: @apply, 커스텀 미디어 쿼리, 변수 등)를 활용해 확장하세요.
+- 직접적인 CSS(SFC <style> 등) 작성은 최소화하고, 스타일 레이어는 Tailwind → PostCSS → SFC 순으로 적용을 권장합니다.
+- 디자인 토큰, 색상, 폰트, radius 등은 반드시 공통 토큰 시스템(@template/theme 등)과 연동하세요.
+- 컴포넌트 예시, 스토리북, 문서화 시에도 위 규칙을 준수해야 합니다.
+
+  </div>
+</template>

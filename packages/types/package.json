@@ -1,0 +1,37 @@
+{
+  "name": "@template/types",
+  "version": "1.0.0",
+  "description": "공통 TypeScript 타입 정의 패키지",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && pnpm run copy:proto",
+    "copy:proto": "mkdir -p dist/proto && cp src/proto/realtime_message.js dist/proto/ && cp src/proto/realtime_message.d.ts dist/proto/",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "protobufjs": "^7.2.5",
+    "long": "^5.2.3"
+  },
+  "devDependencies": {
+    "@types/long": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,126 @@
+---
+alwaysApply: true
+---
+
+# Git 커밋 메시지 규칙
+
+## Conventional Commits 규칙
+
+모든 커밋 메시지는 [Conventional Commits](mdc:https:/www.conventionalcommits.org) 규칙을 따라야 합니다.
+
+### 기본 형식
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**참고**: `<scope>`는 선택사항(optional)입니다. scope 없이 `<type>: <description>` 형식으로도 사용 가능합니다.
+
+### Type 종류
+- `feat`: 새로운 기능 추가
+- `fix`: 버그 수정
+- `docs`: 문서 수정
+- `style`: 코드 포맷팅, 세미콜론 누락 등 (코드 변경 없음)
+- `refactor`: 코드 리팩토링
+- `perf`: 성능 개선
+- `test`: 테스트 추가 또는 수정
+- `chore`: 빌드 프로세스 또는 보조 도구 변경
+
+### Scope 정의
+
+이 프로젝트에서는 다음 scope를 사용합니다:
+
+#### Apps
+- `apps/desktop`: 데스크톱 애플리케이션 관련
+- `apps/mobile`: 모바일 애플리케이션 관련
+
+#### Packages
+- `packages/ui`: UI 컴포넌트 라이브러리
+- `packages/api`: API 관련 패키지
+- `packages/utils`: 유틸리티 함수들
+- `packages/types`: TypeScript 타입 정의
+
+#### Shared
+- `shared/config`: 공유 설정 파일들
+- `shared/scripts`: 공유 스크립트들
+
+#### 기타
+- `docs`: 문서 관련
+- `cursor/rules`: Cursor AI 규칙 파일들
+- `cursor/workflows`: Cursor AI 워크플로우
+- `cursor/commands`: Cursor AI 명령어 정의
+
+### 커밋 메시지 예시
+
+#### 한글 커밋 메시지 (권장)
+```
+feat(apps/desktop): 사용자 대시보드 컴포넌트 추가
+
+- 차트 컴포넌트 구현
+- 데이터 시각화 기능 추가
+- 반응형 레이아웃 적용
+
+Closes #123
+```
+
+```
+fix(packages/ui): 버튼 컴포넌트 스타일 버그 수정
+
+- 호버 상태에서 색상 변경 문제 해결
+- 접근성 개선
+
+Fixes #456
+```
+
+#### 영문 커밋 메시지
+```
+feat(packages/api): user authentication endpoints
+
+- Add login/logout endpoints
+- Implement JWT token validation
+- Add user profile management
+
+Closes #789
+```
+
+### 커밋 메시지 작성 가이드라인
+
+1. **첫 번째 줄은 50자 이내로 작성**
+2. **설명은 명령형으로 작성** (예: "add" not "added" or "adds")
+3. **첫 번째 줄은 마침표로 끝내지 않음**
+4. **본문과 제목을 빈 줄로 구분**
+5. **본문은 무엇을, 왜를 설명**
+6. **각 줄은 72자 이내로 작성**
+
+### 커밋 범위 결정 방법
+
+1. **단일 패키지/앱 변경**: 해당 scope 사용
+   - `feat(apps/desktop): ...`
+   - `fix(packages/ui): ...`
+
+2. **전역 설정 변경**: 적절한 scope 사용
+   - `chore(shared/config): ...`
+   - `docs: ...`
+
+3. **여러 패키지에 영향**: 가장 관련성 높은 scope 사용하거나 scope 생략
+   - `feat: add new shared utility functions`
+   - `fix: resolve global configuration issues`
+
+### Scope 사용 가이드라인
+
+- **scope 사용 권장**: 특정 패키지/앱에만 영향을 주는 변경사항
+- **scope 생략 권장**: 
+  - 전체 프로젝트에 영향을 주는 변경사항
+  - 여러 패키지에 걸친 변경사항
+  - 범위를 명확히 하기 어려운 변경사항
+
+### 커밋 전 체크리스트
+
+- [ ] 커밋 메시지가 conventional commits 형식을 따르는가?
+- [ ] 적절한 scope가 사용되었는가?
+- [ ] 변경사항이 명확하게 설명되었는가?
+- [ ] 불필요한 파일이 포함되지 않았는가?
+- [ ] 테스트가 통과하는가?

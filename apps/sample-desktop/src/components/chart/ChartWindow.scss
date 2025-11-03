@@ -1,0 +1,146 @@
+.chart-window {
+  @apply flex flex-col rounded-md border-2 border-transparent transition-all duration-200;
+
+  &.selected {
+    background-color: var(--chart-chart-bg-on);
+  }
+
+  &.unselected {
+    background-color: var(--chart-chart-bg-off);
+    @apply border-transparent;
+  }
+}
+
+.chart-header {
+  @apply flex items-center justify-between rounded-t-md bg-inherit p-1;
+}
+
+.header-left {
+  @apply flex flex-1 items-center gap-3;
+}
+
+.sync-color-badge {
+  @apply flex h-4 w-4 items-center justify-center rounded text-[12px] font-normal text-white;
+}
+
+.symbol-info {
+  @apply flex items-center gap-1;
+}
+
+.symbol-dropdown-trigger {
+  @apply flex items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-gray-100;
+
+  &.dropdown-open {
+    @apply bg-gray-100;
+  }
+}
+
+.symbol-dropdown-content {
+  @apply absolute left-0 z-50 mt-1 min-w-60 rounded-lg border border-gray-200 bg-white shadow-md;
+}
+
+.symbol-option {
+  @apply flex cursor-pointer items-center px-3 py-2 text-sm text-[#131313] hover:bg-gray-50;
+
+  &.selected {
+    background-color: var(--base-colors-blue-blue050);
+    @apply font-medium text-[var(--font-color-blue)];
+  }
+}
+
+.symbol-name {
+  @apply text-[14px] font-semibold text-[#131313];
+}
+
+.unselected .symbol-name {
+  @apply text-[#717375];
+}
+
+.dropdown-icon {
+  @apply text-[#717375];
+}
+
+.timeframe-info {
+  @apply flex items-center gap-1;
+}
+
+.timeframe-dropdown-trigger {
+  @apply flex items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-gray-100;
+
+  &.dropdown-open {
+    @apply bg-gray-100;
+  }
+}
+
+.timeframe-dropdown-content {
+  @apply absolute right-0 z-50 mt-1 min-w-24 rounded-lg border border-gray-200 bg-white shadow-md;
+}
+
+.timeframe-option {
+  @apply flex cursor-pointer items-center px-3 py-2 text-sm text-[#131313] hover:bg-gray-50;
+
+  &.selected {
+    background-color: var(--base-colors-blue-blue050);
+    @apply font-medium text-[var(--font-color-blue)];
+  }
+}
+
+.header-right {
+  @apply flex items-center gap-2;
+}
+
+.header-button {
+  @apply flex h-5 w-5 items-center justify-center rounded transition-colors;
+
+  &:hover {
+    background-color: var(--button-outline-background-hover);
+  }
+}
+
+.chart-content {
+  @apply mx-1 flex-1 rounded bg-white;
+}
+
+.chart-controls {
+  @apply flex items-center justify-between rounded-b-md bg-inherit p-0.5;
+}
+
+.controls-left {
+  @apply flex flex-1 items-center gap-2;
+}
+
+.control-button {
+  @apply flex h-6 w-6 items-center justify-center rounded transition-colors hover:bg-[#eaecee];
+}
+
+.progress-bar {
+  @apply h-1.5 flex-1 rounded-full bg-[#babcbe];
+}
+
+.progress-fill {
+  @apply h-full rounded-full bg-[#babcbe];
+}
+
+.sync-panel {
+  @apply absolute left-2 top-8 z-10 rounded-lg bg-white p-3 shadow-lg;
+}
+
+.sync-panel-content {
+  @apply flex flex-col gap-2;
+}
+
+.sync-title {
+  @apply text-[12px] font-medium text-[#131313];
+}
+
+.sync-colors {
+  @apply grid grid-cols-3 gap-2;
+}
+
+.sync-color-button {
+  @apply flex h-4 w-4 items-center justify-center rounded text-[12px] font-normal text-white transition-all;
+
+  &.active {
+    @apply ring-2 ring-gray-400 ring-offset-1;
+  }
+}

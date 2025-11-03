@@ -1,0 +1,43 @@
+{
+  "name": "@template/sample-desktop",
+  "version": "0.1.0",
+  "description": "SAMPLE 데스크톱 애플리케이션",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "vite --host --mode dev",
+    "build": "vue-tsc --noEmit && vite build",
+    "build:analyze": "ANALYZE=true vite build",
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path ../../.gitignore",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@template/api": "workspace:*",
+    "@template/theme": "workspace:*",
+    "@template/types": "workspace:*",
+    "@template/ui": "workspace:*",
+    "@template/utils": "workspace:*",
+    "ag-grid-community": "^34.1.2",
+    "ag-grid-vue3": "^34.1.2",
+    "axios": "^1.12.0",
+    "vuedraggable": "^4.1.0"
+  },
+  "devDependencies": {
+    "msw": "^2.10.5",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "vite-plugin-checker": "^0.10.3",
+    "vue-tsc": "^3.0.6",
+    "vite": "^6.3.6"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}

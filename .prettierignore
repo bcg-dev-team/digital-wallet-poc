@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Build outputs
+dist/
+build/
+
+# Configuration files
+*.config.js
+*.config.ts
+*.config.cjs
+*.config.mjs
+tsconfig*.json
+vite.config.*
+postcss.config.*
+tailwind.config.*
+eslint.config.*
+.prettierrc*
+
+# Auto-generated files
+*.d.ts
+*.d.ts.map
+*.js.map
+*.css.map
+*.js
+__*
+packages/theme/dist/
+packages/theme/tokens/
+
+# HTML and Markdown files
+*.html
+*.md
+
+# Logs
+*.log
+npm-debug.log*
+
+# Coverage directory
+coverage/
+*.lcov
+
+# Cache directories
+.cache
+.parcel-cache
+.eslintcache
+.npm
+
+# Environment files
+.env*
+
+# Cursor AI
+.cursor/ 

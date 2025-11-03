@@ -1,0 +1,98 @@
+[
+  {
+    "key": "cmd+alt+c",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a Vue 3 component with TypeScript, performance optimizations, and Storybook integration. Follow the monorepo structure and include proper testing."
+    }
+  },
+  {
+    "key": "cmd+alt+p",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a new package in the monorepo structure with proper TypeScript configuration, testing setup, and Storybook integration."
+    }
+  },
+  {
+    "key": "cmd+alt+a",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create an API service with WebSocket multiplexing, data batching, and proper error handling. Include TypeScript types and comprehensive testing."
+    }
+  },
+  {
+    "key": "cmd+alt+s",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a comprehensive Storybook story for the current component with multiple variants, controls, and accessibility testing."
+    }
+  },
+  {
+    "key": "cmd+alt+t",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a comprehensive test suite for the current file including unit tests, component tests, and performance tests."
+    }
+  },
+  {
+    "key": "cmd+alt+o",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Add performance optimizations to the current component including virtual scrolling, memoization, and proper cleanup."
+    }
+  },
+  {
+    "key": "cmd+alt+u",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a Pinia store with TypeScript, proper state management, getters, actions, and comprehensive testing."
+    }
+  },
+  {
+    "key": "cmd+alt+v",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a Vuetify component wrapper with proper props, events, slots, and accessibility features."
+    }
+  },
+  {
+    "key": "cmd+alt+w",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a component using Tailwind CSS with responsive design, custom utilities, and proper styling patterns."
+    }
+  },
+  {
+    "key": "cmd+alt+e",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create a comprehensive Cypress E2E test for user flows with proper selectors, assertions, and error handling."
+    }
+  },
+  {
+    "key": "cmd+alt+b",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Analyze and optimize the current bundle size, implement code splitting, tree shaking, and performance improvements."
+    }
+  },
+  {
+    "key": "cmd+alt+d",
+    "command": "cursor.chat.focus",
+    "when": "editorTextFocus",
+    "args": {
+      "message": "Create comprehensive documentation for the current component including JSDoc, README, and usage examples."
+    }
+  }
+]

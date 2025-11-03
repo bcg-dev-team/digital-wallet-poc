@@ -1,0 +1,42 @@
+.color-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  border: 1px solid #dadbdd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s;
+
+  &:hover:not(.disabled) {
+    border-color: #999;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #ffc300;
+  }
+}
+
+.color-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hidden-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}

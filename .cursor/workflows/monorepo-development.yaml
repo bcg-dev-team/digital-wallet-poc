@@ -1,0 +1,66 @@
+name: Monorepo Development Workflow
+description: Complete monorepo development workflow with performance optimization
+
+steps:
+  - name: "Analyze Requirements"
+    prompt: |
+      Analyze the development requirements and create a plan:
+      - Identify monorepo structure needs
+      - Plan for performance optimization
+      - Consider real-time data requirements
+      - Define testing strategy
+      - Plan Storybook integration
+
+  - name: "Setup Monorepo Structure"
+    prompt: |
+      Setup the monorepo structure:
+      - Create PNPM workspace configuration
+      - Setup shared packages (ui, api, utils, types)
+      - Configure TypeScript for monorepo
+      - Setup cross-package imports
+      - Configure build tools
+
+  - name: "Create Shared Packages"
+    prompt: |
+      Create shared packages with proper configuration:
+      - @template/ui: Reusable UI components
+      - @template/api: API communication module
+      - @template/utils: Utility functions
+      - @template/types: Type definitions
+      - Include tests and Storybook for each package
+
+  - name: "Implement Performance Features"
+    prompt: |
+      Implement performance optimization features:
+      - Virtual scrolling for large datasets
+      - WebSocket multiplexing and batching
+      - Memory management and cleanup
+      - Bundle optimization
+      - Responsive design patterns
+
+  - name: "Setup Testing Infrastructure"
+    prompt: |
+      Setup comprehensive testing infrastructure:
+      - Unit tests with Vitest
+      - Component tests with Vue Test Utils
+      - E2E tests with Cypress
+      - Storybook for component documentation
+      - Performance testing
+
+  - name: "Configure Git Workflow"
+    prompt: |
+      Configure Git workflow and quality assurance:
+      - Setup Husky for Git hooks
+      - Configure Conventional Commits
+      - Setup pre-commit linting and formatting
+      - Configure commit-msg validation
+      - Setup automated testing
+
+  - name: "Create Documentation"
+    prompt: |
+      Create comprehensive documentation:
+      - README with setup instructions
+      - API documentation
+      - Component documentation with Storybook
+      - Architecture diagrams
+      - Performance guidelines

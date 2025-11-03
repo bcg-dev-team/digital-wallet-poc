@@ -1,0 +1,379 @@
+---
+alwaysApply: true
+---
+
+# 날짜/시간 및 차트 베스트 프랙티스
+
+## 날짜/시간 처리 (date-fns-tz)
+
+### 기본 원칙
+- **타임존 명시**: 모든 날짜/시간 작업에서 타임존을 명시적으로 지정하세요
+- **일관성**: 프로젝트 전체에서 동일한 날짜 포맷과 처리 방식을 사용하세요
+- **성능**: 자주 사용되는 날짜 계산은 메모이제이션하세요
+
+### 권장 패턴
+
+```typescript
+// packages/utils/src/date.ts
+import { 
+  format, 
+  parseISO, 
+  formatInTimeZone, 
+  zonedTimeToUtc,
+  utcToZonedTime 
+} from 'date-fns-tz'
+
+// 기본 타임존 설정
+export const DEFAULT_TIMEZONE = 'Asia/Seoul'
+
+// 날짜 포맷팅
+export const formatDateTime = (
+  date: string | Date, 
+  timezone: string = DEFAULT_TIMEZONE,
+  formatStr: string = 'yyyy-MM-dd HH:mm:ss'
+) => {
+  const parsedDate = typeof date === 'string' ? parseISO(date) : date
+  return formatInTimeZone(parsedDate, timezone, formatStr)
+}
+
+// 상대적 시간 표시
+export const formatRelativeTime = (date: string | Date) => {
+  const parsedDate = typeof date === 'string' ? parseISO(date) : date
+  const now = new Date()
+  const diffInMinutes = Math.floor((now.getTime() - parsedDate.getTime()) / (1000 * 60))
+  
+  if (diffInMinutes < 1) return '방금 전'
+  if (diffInMinutes < 60) return `${diffInMinutes}분 전`
+  if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}시간 전`
+  return formatDateTime(parsedDate, DEFAULT_TIMEZONE, 'MM/dd')
+}
+
+// 타임존 변환
+export const convertTimezone = (
+  date: Date, 
+  fromTimezone: string, 
+  toTimezone: string
+) => {
+  const utcDate = zonedTimeToUtc(date, fromTimezone)
+  return utcToZonedTime(utcDate, toTimezone)
+}
+```
+
+### Vue 컴포넌트에서 사용
+
+```vue
+<script setup lang="ts">
+import { computed } from 'vue'
+import { formatDateTime, formatRelativeTime } from '@template/utils/date'
+
+interface Props {
+  createdAt: string
+  updatedAt: string
+  timezone?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  timezone: 'Asia/Seoul'
+})
+
+const formattedCreatedAt = computed(() => 
+  formatDateTime(props.createdAt, props.timezone)
+)
+
+const relativeUpdatedAt = computed(() => 
+  formatRelativeTime(props.updatedAt)
+)
+</script>
+```
+
+## 차트 및 데이터 시각화 (TradingView)
+
+### 기본 원칙
+- **성능 최적화**: 대용량 데이터셋에서는 가상화와 데이터 샘플링을 사용하세요
+- **반응형 디자인**: 다양한 화면 크기에 대응할 수 있도록 설계하세요
+- **접근성**: 차트에 적절한 ARIA 라벨과 키보드 네비게이션을 제공하세요
+
+### 권장 패턴
+
+```vue
+<!-- packages/ui/src/components/Chart.vue -->
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { 
+  createChart, 
+  IChartApi, 
+  ISeriesApi, 
+  LineData,
+  ColorType 
+} from 'lightweight-charts'
+
+interface Props {
+  data: LineData[]
+  height?: number
+  width?: number
+  theme?: 'light' | 'dark'
+  showGrid?: boolean
+  autoSize?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  height: 400,
+  width: 600,
+  theme: 'light',
+  showGrid: true,
+  autoSize: true
+})
+
+const emit = defineEmits<{
+  'chart-ready': [chart: IChartApi]
+  'data-update': [data: LineData[]]
+}>()
+
+const chartContainer = ref<HTMLElement>()
+let chart: IChartApi | null = null
+let series: ISeriesApi<'Line'> | null = null
+
+// 차트 생성
+const createChartInstance = () => {
+  if (!chartContainer.value) return
+
+  chart = createChart(chartContainer.value, {
+    height: props.height,
+    width: props.width,
+    layout: {
+      background: { 
+        type: ColorType.Solid, 
+        color: props.theme === 'light' ? '#ffffff' : '#1e222d' 
+      },
+      textColor: props.theme === 'light' ? '#191919' : '#ffffff'
+    },
+    grid: {
+      vertLines: { visible: props.showGrid },
+      horzLines: { visible: props.showGrid }
+    },
+    crosshair: {
+      mode: 1
+    },
+    rightPriceScale: {
+      borderColor: '#cccccc'
+    },
+    timeScale: {
+      borderColor: '#cccccc',
+      timeVisible: true
+    }
+  })
+
+  // 라인 시리즈 추가
+  series = chart.addLineSeries({
+    color: '#2962FF',
+    lineWidth: 2
+  })
+
+  // 데이터 설정
+  if (props.data.length > 0) {
+    series.setData(props.data)
+  }
+
+  emit('chart-ready', chart)
+}
+
+// 자동 크기 조정
+const handleResize = () => {
+  if (chart && props.autoSize) {
+    chart.applyOptions({
+      width: chartContainer.value?.clientWidth || props.width
+    })
+  }
+}
+
+// 데이터 업데이트 감시
+watch(() => props.data, (newData) => {
+  if (series && newData.length > 0) {
+    series.setData(newData)
+    emit('data-update', newData)
+  }
+}, { deep: true })
+
+// 테마 변경 감시
+watch(() => props.theme, () => {
+  if (chart) {
+    chart.applyOptions({
+      layout: {
+        background: { 
+          type: ColorType.Solid, 
+          color: props.theme === 'light' ? '#ffffff' : '#1e222d' 
+        },
+        textColor: props.theme === 'light' ? '#191919' : '#ffffff'
+      }
+    })
+  }
+})
+
+onMounted(async () => {
+  await nextTick()
+  createChartInstance()
+  
+  if (props.autoSize) {
+    window.addEventListener('resize', handleResize)
+  }
+})
+
+onUnmounted(() => {
+  if (chart) {
+    chart.remove()
+  }
+  
+  if (props.autoSize) {
+    window.removeEventListener('resize', handleResize)
+  }
+})
+</script>
+
+<template>
+  <div ref="chartContainer" class="chart-container"></div>
+</template>
+
+<style scoped>
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+</style>
+```
+
+### 실시간 데이터 처리
+
+```typescript
+// packages/utils/src/chart.ts
+import type { LineData } from 'lightweight-charts'
+
+export interface ChartDataPoint {
+  time: number
+  value: number
+}
+
+export class RealTimeChartManager {
+  private data: LineData[] = []
+  private maxDataPoints: number = 1000
+  private updateCallbacks: Array<(data: LineData[]) => void> = []
+
+  constructor(maxDataPoints: number = 1000) {
+    this.maxDataPoints = maxDataPoints
+  }
+
+  addDataPoint(point: ChartDataPoint) {
+    this.data.push(point)
+    
+    // 최대 데이터 포인트 수 제한
+    if (this.data.length > this.maxDataPoints) {
+      this.data = this.data.slice(-this.maxDataPoints)
+    }
+    
+    this.notifyUpdate()
+  }
+
+  updateData(newData: LineData[]) {
+    this.data = newData
+    this.notifyUpdate()
+  }
+
+  getData(): LineData[] {
+    return [...this.data]
+  }
+
+  onUpdate(callback: (data: LineData[]) => void) {
+    this.updateCallbacks.push(callback)
+  }
+
+  private notifyUpdate() {
+    this.updateCallbacks.forEach(callback => callback(this.getData()))
+  }
+}
+```
+
+### 성능 최적화 팁
+
+1. **데이터 샘플링**: 대용량 데이터셋의 경우 적절한 샘플링을 적용하세요
+2. **메모이제이션**: 차트 설정과 데이터 변환을 메모이제이션하세요
+3. **가상화**: 수천 개 이상의 데이터 포인트가 있는 경우 가상화를 고려하세요
+4. **지연 로딩**: 차트 컴포넌트를 필요할 때만 로드하세요
+
+### 접근성 고려사항
+
+```vue
+<template>
+  <div 
+    ref="chartContainer" 
+    class="chart-container"
+    role="img"
+    :aria-label="`${chartTitle} 차트`"
+    tabindex="0"
+    @keydown="handleKeyboardNavigation"
+  >
+    <div v-if="loading" class="chart-loading">
+      차트 로딩 중...
+    </div>
+  </div>
+</template>
+```
+
+## 설치 가이드
+
+### date-fns-tz 설치
+```bash
+pnpm add date-fns date-fns-tz
+```
+
+### TradingView Lightweight Charts 설치
+```bash
+pnpm add lightweight-charts
+```
+
+## 타입 정의
+
+```typescript
+// packages/types/src/date.ts
+export interface DateTimeConfig {
+  timezone: string
+  format: string
+  locale?: string
+}
+
+export interface ChartConfig {
+  theme: 'light' | 'dark'
+  height: number
+  width: number
+  showGrid: boolean
+  autoSize: boolean
+}
+
+export interface ChartDataPoint {
+  time: number
+  value: number
+  volume?: number
+}
+```
+
+이제 모든 변경사항이 적용되었습니다! 
+
+**변경된 내용 요약:**
+
+1. **`cursor.json`**: 
+   - `specializations`에 `date-time-handling`, `financial-charts` 추가
+   - `recommendedLibraries` 섹션 추가하여 `date-fns-tz`와 `TradingView` 권장
+   - `fileTemplates`에 `chart`와 `dateTime` 템플릿 추가
+   - `performance` 섹션에 차트와 날짜/시간 관련 설정 추가
+   - `dependencies.recommended` 섹션 추가
+
+2. **`.cursor/rules/vue-best-practices.mdc`**: 
+   - 권장 라이브러리 섹션 추가
+   - 날짜/시간 처리와 차트 관련 가이드라인 추가
+   - 예시 코드에 `date-fns-tz` 사용 패턴 포함
+
+3. **`.cursor/rules/date-time-charts-best-practices.mdc`**: 
+   - 새로운 베스트 프랙티스 파일 생성
+   - `date-fns-tz`와 TradingView 사용에 대한 상세한 가이드라인
+   - 성능 최적화 및 접근성 고려사항 포함
+
+이제 AI 어시스턴트가 날짜/시간 처리에는 `date-fns-tz`를, 차트 관련 작업에는 TradingView를 권장하도록 설정되었습니다.

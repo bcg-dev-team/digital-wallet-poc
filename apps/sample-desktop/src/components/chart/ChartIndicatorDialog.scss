@@ -1,0 +1,133 @@
+// 차트 지표 다이얼로그 스타일
+
+.search-container {
+  margin-bottom: 16px;
+}
+
+.search-input {
+  position: relative;
+  width: 100%;
+}
+
+.search-field {
+  width: 100%;
+  padding: 8px 15px 8px 15px;
+  border: 1px solid var(--input-color-border-static);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--font-color-default);
+  background: var(--input-color-surface);
+
+  &::placeholder {
+    color: var(--input-color-text-placeholder);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #0067ef;
+  }
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333740;
+}
+
+.indicator-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+.indicator-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  gap: 4px;
+}
+
+.indicator-categories {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-header {
+  margin-bottom: 4px;
+}
+
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--background-bg-surface);
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--font-color-default);
+  line-height: 20px;
+  transition: all 0.2s ease;
+}
+
+.category-name {
+  font-weight: 500;
+}
+
+.category-indicators {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.indicator-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--background-bg-default);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-left: 3px solid #0067ef;
+  }
+
+  &.selected {
+    background: #f0f9ff;
+    border-left: 3px solid #0067ef;
+  }
+}
+
+.indicator-info {
+  flex: 1;
+}
+
+.indicator-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--font-color-default);
+  line-height: 16px;
+  margin-bottom: 2px;
+}
+
+.indicator-description {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 14px;
+}
+
+.indicator-check {
+  margin-left: 8px;
+}

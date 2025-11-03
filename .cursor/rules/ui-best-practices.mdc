@@ -1,0 +1,137 @@
+# Headless UI + Tailwind CSS 베스트 프랙티스
+
+## UI 컴포넌트 설계
+- **단순한 UI (button, input, div 등)**: HTML 기본 요소 + Tailwind CSS 사용
+- **복합 UI (Menu, Dialog, Tabs 등)**: Headless UI의 접근성 내장 로직 적극 활용
+- Tailwind CSS 유틸리티 클래스를 사용해 Figma 디자인을 1:1로 구현하세요.
+- 디자인 토큰(색상, 간격, 폰트 등)은 Tailwind config와 theme 패키지에서 통합 관리하세요.
+- TypeScript로 props, emits, slots 타입을 엄격하게 정의하세요.
+- 컴포넌트는 최대한 단순하게, 상태/로직은 composable로 분리하세요.
+
+## CSS 클래스 방식 및 스타일 관리
+
+> **참고**: 자세한 CSS 클래스 방식 가이드는 [Tailwind CSS 베스트 프랙티스](./tailwindcss-best-practices.mdc)를 참조하세요.
+
+### 핵심 원칙
+- **미리 정의된 클래스 방식 사용**: 개발자 도구 가독성을 위해 동적 CSS 변수 클래스 대신 미리 정의된 클래스 사용
+- **SCSS 파일 분리**: 컴포넌트별로 별도의 SCSS 파일 생성
+- **클래스 매핑 패턴**: Vue 컴포넌트에서 variant별 클래스 매핑 사용
+
+### 간단한 예시
+```vue
+<!-- ❌ 피해야 할 방식 -->
+<button :class="`bg-[var(--button-${variant}-background)]`">
+
+<!-- ✅ 권장 방식 -->
+<button :class="`btn-${variant}`">
+```
+
+```scss
+/* BaseButton.scss */
+.btn-primary {
+  background-color: var(--button-primary-background);
+  color: var(--button-primary-text);
+}
+```
+
+## Headless UI 사용 범위
+### ✅ 사용해야 하는 경우 (복합 UI)
+- 드롭다운 메뉴 (Menu, Listbox, Combobox)
+- 모달/팝오버 (Dialog, Popover)
+- 탭 인터페이스 (Tabs)
+- 아코디언 (Disclosure)
+- 토글 스위치 (Switch)
+- 라디오 그룹 (RadioGroup)
+
+### ❌ 사용하지 않는 경우 (단순 UI)
+- 기본 버튼 (HTML button)
+- 기본 입력 (HTML input)
+- 기본 div, span 등
+
+## 모노레포 Headless UI + Tailwind 구조
+- **공통 컴포넌트**: packages/ui/src/components에 Headless UI 기반 컴포넌트 배치(복합 UI만)
+- **디자인 토큰/테마**: packages/theme에서 Tailwind config 및 토큰 관리
+- **컴포저블/훅**: packages/ui/src/composables에 상태/로직 분리
+- **Storybook 통합**: 모든 컴포넌트에 스토리와 autoDocs 태그 작성
+- **스타일 파일**: 각 컴포넌트별로 .scss 파일 분리
+
+## 성능 및 확장성
+- **JIT 모드**: Tailwind JIT 모드로 빌드 속도와 번들 크기 최적화
+- **반응형/다크모드**: Tailwind의 responsive, dark: 유틸리티 적극 활용
+- **컴포넌트 추출**: 반복되는 UI 패턴은 별도 컴포넌트로 분리
+- **접근성**: Headless UI의 a11y 보장 + 추가 ARIA 속성 필요시 직접 추가
+- **스타일 최적화**: 미리 정의된 클래스로 동적 스타일 생성 최소화
+
+## 예시 컴포넌트 패턴
+
+### 단순한 버튼 (Headless UI 불필요)
+```vue
+<script setup lang="ts">
+import './BaseButton.scss';
+
+const variantClasses = {
+  primary: 'btn-primary',
+  outline: 'btn-outline',
+  // ... 기타 variant
+};
+</script>
+
+<template>
+  <button
+    :class="[
+      'inline-flex items-center justify-center font-sans font-semibold transition-all',
+      variantClasses[variant] || 'btn-primary'
+    ]"
+    :disabled="disabled"
+  >
+    {{ label }}
+  </button>
+</template>
+```
+
+### 복합 메뉴 (Headless UI 필요)
+```vue
+<script setup lang="ts">
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import './BaseMenu.scss';
+</script>
+
+<template>
+  <Menu as="div" class="relative">
+    <MenuButton class="btn-primary">
+      Options
+    </MenuButton>
+    <MenuItems class="menu-items">
+      <MenuItem v-slot="{ active }">
+        <a :class="{ 'menu-item-active': active }" href="/settings">
+          Settings
+        </a>
+      </MenuItem>
+    </MenuItems>
+  </Menu>
+</template>
+```
+
+## 테마/토큰 시스템
+- Tailwind config에서 디자인 토큰(색상, 폰트, 간격 등) 확장
+- theme 패키지에서 Figma 연동 토큰 자동화
+- 예시: shared/config/tailwind.config.js 참고
+- CSS 변수를 SCSS 파일에서 활용하여 디자인 토큰 적용
+
+## Storybook/테스트
+- 모든 컴포넌트에 __stories__ 폴더에 base/variant 스토리 작성
+- autoDocs 태그 필수
+- 접근성 테스트(Storybook a11y addon 등) 권장
+
+## 체크리스트
+- [ ] Headless UI는 복합 UI(드롭다운, 모달, 탭 등)에만 사용한다
+- [ ] 단순 UI(button, input 등)는 HTML 기본 요소 + Tailwind CSS로 구현한다
+- [ ] Tailwind 유틸리티로 Figma 1:1 구현
+- [ ] 디자인 토큰 일원화 및 theme 패키지 연동
+- [ ] 타입 안전성(Props/Emits/Slots) 보장
+- [ ] Storybook/테스트/문서화
+- [ ] 접근성(a11y) 구현
+- [ ] 반응형/다크모드 지원
+- [ ] 미리 정의된 클래스 방식 사용
+- [ ] 컴포넌트별 SCSS 파일 분리
+- [ ] 동적 CSS 변수 클래스 생성 지양

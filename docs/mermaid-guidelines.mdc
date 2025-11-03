@@ -1,0 +1,286 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Mermaid 다이어그램 작성 규칙
+
+## 🎯 기본 원칙
+
+### 1. 시작/종료 노드
+- **시작 노드**: stadium 형태 `((시작)):::start`
+- **종료 노드**: stadium 형태 `((종료)):::end`
+
+### 2. 계층 구조
+- **subgraph** 사용으로 논리적 그룹핑
+- **direction TB** (Top to Bottom) 또는 **LR** (Left to Right) 명시적 지정
+
+### 3. 시각적 강조
+- **핵심 흐름**: `:::main` 스타일로 강조
+- **각 그룹별**: `classDef`로 색상 및 시각 강조 지정
+
+### 4. 의존성 표현
+- **병렬 의존성**: `&` 연산자 사용
+- **순차 의존성**: `-->` 화살표 사용
+
+### 5. 한글 주석
+- 다이어그램 해석을 돕는 한글 주석 추가
+
+## ⚠️ 특수 문자 및 이스케이프 처리 규칙
+
+### 1. 금지된 특수 문자
+다음 문자들은 Mermaid 노드 텍스트에서 사용을 피해야 합니다:
+- `[`, `]`, `{`, `}`, `(`, `)`, `|`, `"`, `'`, `\`, `@`, `#`, `$`, `%`, `^`, `&`, `*`, `+`, `=`, `~`, `` ` ``
+- 이모지: 🎨, 🟦, 📁, ✅, 📈, 🔄, 📋, 🧾, 🔧, 🌐, 🎯, ⚠️ 등
+
+### 2. 안전한 대체 방법
+
+#### 이모지 대체
+```mermaid
+%% ❌ 문제가 되는 코드
+START((🎨 Vue 3 Monorepo)):::start
+
+%% ✅ 안전한 코드
+START((Vue 3 Monorepo)):::start
+```
+
+#### 특수 문자 대체
+```mermaid
+%% ❌ 문제가 되는 코드
+NODE["package.json\npnpm-workspace.yaml\ntsconfig.base.json"]:::main
+
+%% ✅ 안전한 코드
+NODE["package.json<br/>pnpm-workspace.yaml<br/>tsconfig.base.json"]:::main
+```
+
+### 3. 텍스트 포맷팅 규칙
+
+#### 줄바꿈 처리
+- **사용**: `<br/>` 태그
+- **금지**: `\n` 문자
+
+#### 특수 문자 이스케이프
+- **괄호**: `\(`, `\)` 사용
+- **따옴표**: `&quot;` 사용
+- **앰퍼샌드**: `&amp;` 사용
+
+### 4. 주석에서 이모지 사용
+주석에서는 이모지를 안전하게 사용할 수 있습니다:
+```mermaid
+%% 🎨 스타일 정의
+%% 🟦 시작 지점
+%% 📁 주요 그룹
+%% ✅ 완료 지점
+```
+
+## 🎨 스타일 정의 규칙
+
+### 기본 스타일 클래스
+```mermaid
+classDef start fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px;
+classDef endNode fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px;
+classDef main fill:#fff3e0,stroke:#fb8c00,stroke-width:2px;
+classDef detail fill:#f3e5f5,stroke:#ab47bc,stroke-width:1px;
+```
+
+### 계층별 스타일 클래스
+```mermaid
+classDef foundation fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+classDef utility fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+classDef service fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px;
+classDef ui fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+classDef app fill:#fce4ec,stroke:#880e4f,stroke-width:2px;
+classDef config fill:#fff8e1,stroke:#f57c00,stroke-width:2px;
+classDef tools fill:#f1f8e9,stroke:#33691e,stroke-width:2px;
+```
+
+## 📋 작성 템플릿
+
+### 기본 구조 (안전한 버전)
+```mermaid
+graph TD
+    %% 스타일 정의
+    classDef start fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px;
+    classDef endNode fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px;
+    classDef main fill:#fff3e0,stroke:#fb8c00,stroke-width:2px;
+    classDef detail fill:#f3e5f5,stroke:#ab47bc,stroke-width:1px;
+
+    %% 시작 지점
+    START((시작)):::start
+
+    %% 주요 그룹
+    subgraph "그룹명"
+    direction TB
+        MAIN_NODE["핵심 노드"]:::main
+        DETAIL_NODE["상세 노드"]:::detail
+    end
+
+    %% 완료 지점
+    END((완료)):::endNode
+
+    %% 흐름 연결
+    START --> MAIN_NODE
+    MAIN_NODE --> DETAIL_NODE
+    DETAIL_NODE --> END
+```
+
+### 계층 구조 예시 (안전한 버전)
+```mermaid
+graph TD
+    %% 스타일 정의
+    classDef start fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px;
+    classDef endNode fill:#e8f5e9,stroke:#66bb6a,stroke-width:2px;
+    classDef foundation fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef service fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px;
+    classDef app fill:#fce4ec,stroke:#880e4f,stroke-width:2px;
+
+    %% 시작 지점
+    START((프로젝트 시작)):::start
+
+    %% Foundation Layer
+    subgraph "Foundation Layer"
+    direction LR
+        TYPES["Types Package"]:::foundation
+        UTILS["Utils Package"]:::foundation
+    end
+
+    %% Service Layer
+    subgraph "Service Layer"
+    direction LR
+        API["API Package"]:::service
+        UI["UI Package"]:::service
+    end
+
+    %% Application Layer
+    subgraph "Application Layer"
+    direction LR
+        DESKTOP["Desktop App"]:::app
+        MOBILE["Mobile App"]:::app
+    end
+
+    %% 완료 지점
+    END((구성 완료)):::endNode
+
+    %% 의존성 흐름
+    START --> TYPES
+    TYPES --> UTILS
+    TYPES & UTILS --> API
+    TYPES --> UI
+    API & UI --> DESKTOP
+    API & UI --> MOBILE
+    DESKTOP & MOBILE --> END
+```
+
+## 🔄 병렬 의존성 표현
+
+### & 연산자 사용
+```mermaid
+graph TD
+    A --> B & C
+    B & C --> D
+```
+
+### 실제 예시
+```mermaid
+graph TD
+    TYPES --> UTILS
+    TYPES --> API
+    UTILS --> API
+    TYPES --> UI
+    
+    %% Apps는 여러 패키지에 병렬 의존
+    TYPES & UTILS & API & UI --> DESKTOP
+    TYPES & UTILS & API & UI --> MOBILE
+```
+
+## 📝 주석 규칙
+
+### 주석 스타일 (이모지 사용 가능)
+- `%% 스타일 정의` - 스타일 관련
+- `%% 시작 지점` - 시작 노드
+- `%% 주요 그룹` - 그룹 구조
+- `%% 완료 지점` - 종료 노드
+- `%% 흐름 연결` - 연결 관계
+- `%% 의존성` - 의존성 관계
+
+### 예시
+```mermaid
+graph TD
+    %% 스타일 정의
+    classDef start fill:#e3f2fd,stroke:#42a5f5,stroke-width:2px;
+    
+    %% 시작 지점
+    START((Vue 3 Monorepo)):::start
+    
+    %% 패키지 구성
+    subgraph "Packages"
+    direction LR
+        UI["UI Package"]:::main
+        API["API Package"]:::main
+    end
+    
+    %% 완료 지점
+    END((구성 완료)):::endNode
+    
+    %% 흐름 연결
+    START --> UI & API
+    UI & API --> END
+```
+
+## 🛠️ 문제 해결 가이드
+
+### 1. "Unsupported markdown: escape" 오류 해결
+
+#### 원인
+- 노드 텍스트에 특수 문자 포함
+- 이모지 사용
+- 이스케이프 시퀀스 사용
+
+#### 해결 방법
+```mermaid
+%% ❌ 문제가 되는 코드
+NODE["🎨 Design System<br/>📦 UI Components"]:::main
+
+%% ✅ 안전한 코드
+NODE["Design System<br/>UI Components"]:::main
+```
+
+### 2. 줄바꿈 처리
+```mermaid
+%% ❌ 문제가 되는 코드
+NODE["Line 1\nLine 2\nLine 3"]:::main
+
+%% ✅ 안전한 코드
+NODE["Line 1<br/>Line 2<br/>Line 3"]:::main
+```
+
+### 3. 특수 문자 처리
+```mermaid
+%% ❌ 문제가 되는 코드
+NODE["package.json (config)"]:::main
+
+%% ✅ 안전한 코드
+NODE["package.json config"]:::main
+```
+
+## 🎯 적용 가이드라인
+
+1. **모든 다이어그램에 시작/종료 노드 포함**
+2. **subgraph로 논리적 그룹핑**
+3. **direction 명시적 지정**
+4. **핵심 노드는 main 스타일 적용**
+5. **병렬 의존성은 & 연산자 사용**
+6. **한글 주석으로 가독성 향상**
+7. **일관된 색상 체계 사용**
+8. **노드 텍스트에서 이모지 사용 금지**
+9. **줄바꿈은 &lt;br/&gt; 태그 사용**
+10. **특수 문자는 안전한 대체 문자 사용**
+
+## 📚 참고 사항
+
+- Mermaid 공식 문서: https://mermaid.js.org/
+- 색상 팔레트: Material Design Colors
+- 방향성: TB (세로), LR (가로) 권장
+- 복잡한 다이어그램은 여러 개로 분할
+- 특수 문자 사용 시 테스트 필수
+- 이모지는 주석에서만 사용 권장

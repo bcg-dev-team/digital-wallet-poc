@@ -1,0 +1,284 @@
+---
+alwaysApply: false
+---
+# Vue 3 모노레포 빌드 패턴
+
+## 핵심 원칙
+
+### 1. 타입 참조 경로 통일
+모노레포에서 패키지 간 타입 참조 시 반드시 빌드 산출물(`dist`)을 참조해야 합니다.
+
+```json
+// ❌ 잘못된 설정 (소스 직접 참조)
+"@template/types": ["packages/types/src"]
+
+// ✅ 올바른 설정 (빌드 산출물 참조)  
+"@template/types": ["packages/types/dist"]
+```
+
+### 2. 빌드 산출물 분리
+- `src` 폴더: 소스 코드만
+- `dist` 폴더: 빌드 산출물만
+- 중복 파일 정리 필수
+
+### 3. 패키지 진입점 명확화
+```json
+{
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  }
+}
+```
+
+## 빌드 도구 선택 전략
+
+### 패키지별 빌드 도구 매트릭스
+| 패키지 | 용도 | 빌드 도구 | 이유 |
+|--------|------|-----------|------|
+| `types` | 타입 정의 | **tsc** | `.d.ts`만 필요, 빠른 컴파일 |
+| `ui` | Vue 컴포넌트 | **Vite** | Vue SFC, CSS 처리, 번들링 |
+| `api` | API 클라이언트 | **Vite** | Tree shaking, 번들 최적화 |
+| `theme` | 테마 관리 | **Vite** | CSS, 디자인 토큰 처리 |
+| `utils` | 유틸리티 함수 | **Vite** | Tree shaking, Vue composables |
+
+### Types 패키지 (TypeScript 기반)
+```json
+// tsconfig.build.json
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noEmit": false,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": false,
+    "preserveConstEnums": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "src/**/__tests__/**/*"]
+}
+```
+
+### 나머지 패키지들 (Vite 기반)
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { resolve } from 'node:path';
+import dts from 'vite-plugin-dts';
+
+export default defineConfig({
+  plugins: [
+    vue(), // Vue composables가 있는 경우
+    dts({
+      insertTypesEntry: true,
+      rollupTypes: true,
+      outDir: 'dist',
+    }),
+  ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'TemplatePackage',
+      formats: ['es'],
+      fileName: () => 'index.js',
+    },
+    target: 'esnext',
+    minify: 'esbuild',
+    rollupOptions: {
+      external: ['vue', '@template/types', '@template/theme'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          '@template/types': 'TemplateTypes',
+          '@template/theme': 'TemplateTheme',
+        },
+        exports: 'named',
+        preserveModules: true,
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src'),
+    },
+  },
+});
+```
+
+## Import 패턴 가이드
+
+### Types 패키지 - 항상 type import 사용
+```typescript
+// ✅ 권장
+import type { User, ApiResponse } from '@template/types'
+
+// ❌ 피해야 함 (런타임 코드가 없어서 오류 발생)
+import { User, ApiResponse } from '@template/types'
+```
+
+### 다른 패키지들 - 상황에 따라 선택
+```typescript
+// ✅ 타입만 필요한 경우
+import type { BaseButtonProps } from '@template/ui'
+import type { ApiClientConfig } from '@template/api'
+import type { ThemeConfig } from '@template/theme'
+import type { ValidationRule } from '@template/utils'
+
+// ✅ 실제 코드도 필요한 경우
+import { BaseButton } from '@template/ui'
+import { ApiClient } from '@template/api'
+import { createNaiveTheme } from '@template/theme'
+import { formatDate, useDebounce } from '@template/utils'
+
+// ✅ 타입과 코드를 함께 사용하는 경우
+import { BaseButton } from '@template/ui'
+import type { BaseButtonProps } from '@template/ui'
+
+// 또는
+import { BaseButton, type BaseButtonProps } from '@template/ui'
+```
+
+### 트리 쉐이킹 동작
+- **import type**: 컴파일 타임에만 사용, 런타임 번들에 포함되지 않음
+- **일반 import**: 트리 쉐이킹으로 미사용 코드 자동 제거
+- **Vite/Webpack**: 자동으로 최적화 처리
+
+### 실전에서 타입 import 구분하는 팁
+
+- **함수, 변수, 클래스, 컴포넌트**를 "실행"하거나 "참조"하면 → 일반 import
+- **interface, type, enum, 타입 유틸리티**만 쓰면 → import type
+- **import한 이름이 코드에서 타입 위치(콜론, 제네릭, as, extends 등)에만 등장** → import type
+
+#### 예시
+
+```typescript
+// 타입만 필요 (함수 시그니처, 변수 타입 등)
+import type { User } from '@template/types';
+const user: User = { ... };
+
+// 실제 코드 필요 (함수 호출, 컴포넌트 등록 등)
+import { formatDate } from '@template/utils';
+console.log(formatDate(new Date()));
+
+// 둘 다 필요
+import { BaseButton, type BaseButtonProps } from '@template/ui';
+```
+
+| 상황                              | import type | 일반 import |
+|-----------------------------------|:-----------:|:-----------:|
+| 타입 선언/타입 체크만 필요        |      ✅     |      ❌     |
+| 함수/컴포넌트/실제 값이 필요      |      ❌     |      ✅     |
+| 둘 다 필요                        |      ✅     |      ✅     |
+
+## 빌드 순서
+1. `@template/types` (타입 정의)
+2. `@template/theme` (테마 관리 - types 의존)
+3. `@template/utils` (유틸리티 - types 의존)
+4. `@template/mocks` (API 모킹 - types 의존)
+5. `@template/api` (API 클라이언트 - types, utils 의존)
+6. `@template/ui` (UI 컴포넌트 - types, theme 의존)
+7. `apps/desktop` (데스크톱 앱)
+8. `apps/mobile` (모바일 앱)
+9. `apps/sample-desktop` (샘플 데스크톱 앱)
+
+## 인터랙티브 빌드 시스템
+
+### 개요
+모노레포는 인터랙티브 빌드 시스템을 제공하여 개발자가 필요한 작업만 선택적으로 수행할 수 있습니다.
+
+### 빌드 모드
+
+**인터랙티브 빌드 (일반 개발)**
+```bash
+pnpm build  # --interactive 플래그 포함
+```
+
+**자동 빌드 (CI/CD)**
+```bash
+pnpm build:all  # 모든 작업 자동 수행
+```
+
+### 선택 가능한 옵션
+
+1. **API 자동 생성**: OpenAPI Generator로 타입/서비스 생성 (Java 17+ 필요)
+2. **Design Tokens 생성**: style-dictionary로 디자인 토큰 변환
+3. **아이콘 최적화**: SVGO로 SVG 아이콘 최적화
+4. **순환참조 검사**: 패키지 간 순환 의존성 검사
+5. **앱 선택**: 빌드할 앱 범위 선택 (1개 ~ 모든 앱)
+
+### 시나리오별 권장 설정
+
+| 시나리오 | API | Tokens | Icons | 순환참조 | 앱 |
+|---------|:---:|:------:|:-----:|:-------:|:--:|
+| 일반 개발 | Skip | Skip | Skip | Skip | sample-desktop |
+| 디자인 변경 | Skip | **Run** | **Run** | Skip | sample-desktop |
+| API 변경 | **Run** | Skip | Skip | Skip | sample-desktop |
+| 패키지 구조 변경 | Skip | Skip | Skip | **Run** | sample-desktop |
+| CI/CD | Run | Run | Run | Run | **All** |
+
+### 상세 가이드
+- [빌드 스크립트 가이드](../../shared/scripts/README.md)
+- [API 자동 생성 가이드](../../docs/api-generation-guide.md)
+
+## 문제 해결 패턴
+
+### 타입 충돌 (TS6059, TS6307)
+```bash
+# 1. 빌드 산출물 정리
+rm packages/[package-name]/src/*.d.ts
+rm packages/[package-name]/src/*.js
+rm packages/[package-name]/src/*.js.map
+
+# 2. 클린 빌드
+pnpm --filter @package-name run clean
+pnpm --filter @package-name run build
+
+# 3. 워크스페이스 캐시 정리
+pnpm install
+```
+
+### UI 패키지 진입점 문제
+```bash
+# vite-plugin-dts 설치
+pnpm add -D vite-plugin-dts
+
+# 빌드 재시도
+pnpm --filter @template/ui run build
+```
+
+### 타입 선언 파일 누락 (TS2307)
+```json
+// tsconfig.json에 추가
+{
+  "compilerOptions": {
+    "declarationDir": "./dist"
+  }
+}
+```
+
+## 예방 조치
+
+### .gitignore 설정
+
+- `TS6307`: 프로젝트 참조로 인한 파일 중복 포함  
+- `TS2307`: 모듈을 찾을 수 없음 (타입 선언 파일 누락)
+- `TS2554`: 인자 개수 불일치 (코드 로직 오류)
+- `TS7053`: 암시적 any 타입 (타입 정의 누락)

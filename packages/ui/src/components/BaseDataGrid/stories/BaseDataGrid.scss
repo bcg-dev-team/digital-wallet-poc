@@ -1,0 +1,44 @@
+/* AG Grid 커스텀 스타일 */
+
+/* AG Grid 전체에 Pretendard GOV 폰트 적용 */
+.ag-root-wrapper {
+  font-family:
+    'Pretendard GOV',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    sans-serif;
+}
+
+/* AG Grid 헤더 글자 크기: 12px */
+.ag-header-cell-label,
+.ag-header-cell-text,
+.ag-header-cell {
+  font-size: 12px !important;
+  font-family: 'Pretendard GOV', sans-serif !important;
+}
+
+/* AG Grid 본문 셀 글자 크기: 13px */
+.ag-cell,
+.ag-cell-value {
+  font-size: 13px !important;
+  font-family: 'Pretendard GOV', sans-serif !important;
+}
+
+/* AG Grid 페이지네이션 글자 크기 */
+.ag-paging-panel {
+  font-size: 12px !important;
+  font-family: 'Pretendard GOV', sans-serif !important;
+}
+
+/* AG Grid 빈 데이터 메시지 */
+.ag-overlay-no-rows-wrapper {
+  font-size: 13px !important;
+  font-family: 'Pretendard GOV', sans-serif !important;
+}

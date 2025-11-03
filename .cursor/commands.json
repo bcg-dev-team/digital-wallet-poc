@@ -1,0 +1,59 @@
+{
+  "commands": [
+  {
+      "name": "vue:create-component",
+      "description": "Create Vue 3 component with TypeScript and Storybook",
+      "prompt": "Create a Vue 3 component with TypeScript, performance optimizations, and Storybook integration. Follow the monorepo structure and include proper testing."
+  },
+  {
+      "name": "vue:create-package",
+      "description": "Create a new package in monorepo",
+      "prompt": "Create a new package in the monorepo structure with proper TypeScript configuration, testing setup, and Storybook integration."
+  },
+  {
+      "name": "vue:create-api-service",
+      "description": "Create API service with WebSocket support",
+      "prompt": "Create an API service with WebSocket multiplexing, data batching, and proper error handling. Include TypeScript types and comprehensive testing."
+    },
+  {
+      "name": "vue:create-storybook",
+      "description": "Create Storybook story for component",
+      "prompt": "Create a comprehensive Storybook story for the current component with multiple variants, controls, and accessibility testing."
+    },
+  {
+      "name": "vue:create-test",
+      "description": "Create comprehensive test suite",
+      "prompt": "Create a comprehensive test suite for the current file including unit tests, component tests, and performance tests."
+    },
+    {
+      "name": "vue:add-performance",
+      "description": "Add performance optimization to component",
+      "prompt": "Add performance optimizations to the current component including virtual scrolling, memoization, and proper cleanup."
+    },
+  {
+      "name": "vue:create-pinia-store",
+      "description": "Create Pinia store with TypeScript",
+      "prompt": "Create a Pinia store with TypeScript, proper state management, getters, actions, and comprehensive testing."
+  },
+  {
+      "name": "vue:create-tailwind",
+      "description": "Create Tailwind CSS component",
+      "prompt": "Create a component using Tailwind CSS with responsive design, custom utilities, and proper styling patterns."
+  },
+  {
+      "name": "vue:create-e2e",
+      "description": "Create Cypress E2E test",
+      "prompt": "Create a comprehensive Cypress E2E test for user flows with proper selectors, assertions, and error handling."
+  },
+  {
+      "name": "vue:optimize-bundle",
+      "description": "Optimize bundle size and performance",
+      "prompt": "Analyze and optimize the current bundle size, implement code splitting, tree shaking, and performance improvements."
+  },
+  {
+      "name": "vue:create-docs",
+      "description": "Create component documentation",
+      "prompt": "Create comprehensive documentation for the current component including JSDoc, README, and usage examples."
+  }
+] 
+} 

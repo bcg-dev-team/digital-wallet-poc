@@ -1,0 +1,467 @@
+---
+alwaysApply: false
+---
+
+# Testing 베스트 프랙티스
+
+## 테스팅 전략
+- 모든 비즈니스 로직과 유틸리티 함수에 대한 단위 테스트를 작성하세요.
+- 모킹된 의존성을 사용하여 Vue Test Utils로 컴포넌트 테스트를 수행하세요.
+- 중요한 사용자 플로우에 대해 Cypress로 엔드투엔드 테스트를 구현하세요.
+- 코드 신뢰성을 보장하기 위해 높은 테스트 커버리지를 유지하세요.
+
+## 모노레포 테스팅 구조
+- **단위 테스트**: 각 패키지별로 독립적인 테스트를 작성하세요.
+- **통합 테스트**: 패키지 간 상호작용을 테스트하세요.
+- **E2E 테스트**: 전체 애플리케이션 플로우를 테스트하세요.
+- **성능 테스트**: 실시간 기능에 대한 부하 테스트를 구현하세요.
+
+## 성능 최적화
+- **병렬 실행**: 테스트를 병렬로 실행하여 속도를 향상시키세요.
+- **모킹 최적화**: 무거운 의존성은 모킹하여 테스트 속도를 개선하세요.
+- **테스트 데이터**: 효율적인 테스트 데이터 생성을 구현하세요.
+- **커버리지 분석**: 테스트 커버리지를 분석하여 누락된 부분을 식별하세요.
+
+## 예시 테스트 패턴
+
+```typescript
+// packages/utils/__tests__/format-date.test.ts
+import { describe, it, expect } from 'vitest'
+import { formatDate, formatRelativeTime } from '../format-date'
+
+describe('Date Formatting Utils', () => {
+  describe('formatDate', () => {
+    it('should format date correctly', () => {
+      const date = new Date('2024-01-15T10:30:00Z')
+      const result = formatDate(date, 'ko-KR')
+      
+      expect(result).toBe('2024년 1월 15일')
+    })
+
+    it('should handle invalid date', () => {
+      const result = formatDate('invalid-date', 'ko-KR')
+      
+      expect(result).toBe('날짜 형식이 올바르지 않습니다')
+    })
+
+    it('should format with custom format', () => {
+      const date = new Date('2024-01-15T10:30:00Z')
+      const result = formatDate(date, 'ko-KR', 'yyyy-MM-dd')
+      
+      expect(result).toBe('2024-01-15')
+    })
+  })
+
+  describe('formatRelativeTime', () => {
+    it('should format relative time correctly', () => {
+      const now = new Date('2024-01-15T12:00:00Z')
+      const past = new Date('2024-01-15T11:30:00Z')
+      
+      const result = formatRelativeTime(past, now)
+      
+      expect(result).toBe('30분 전')
+    })
+
+    it('should handle future dates', () => {
+      const now = new Date('2024-01-15T12:00:00Z')
+      const future = new Date('2024-01-15T12:30:00Z')
+      
+      const result = formatRelativeTime(future, now)
+      
+      expect(result).toBe('30분 후')
+    })
+  })
+})
+```
+
+## 컴포넌트 테스트
+
+```typescript
+// packages/ui/__tests__/BaseButton.test.ts
+import { describe, it, expect, vi } from 'vitest'
+import { mount } from '@vue/test-utils'
+import BaseButton from '../components/BaseButton.vue'
+
+describe('BaseButton', () => {
+  it('should render correctly', () => {
+    const wrapper = mount(BaseButton, {
+      props: {
+        variant: 'primary',
+      },
+      slots: {
+        default: 'Click me',
+      },
+    })
+
+    expect(wrapper.text()).toContain('Click me')
+    expect(wrapper.classes()).toContain('btn-primary')
+  })
+
+  it('should emit click event', async () => {
+    const wrapper = mount(BaseButton, {
+      props: {
+        variant: 'primary',
+      },
+      slots: {
+        default: 'Click me',
+      },
+    })
+
+    await wrapper.trigger('click')
+    
+    expect(wrapper.emitted('click')).toBeTruthy()
+    expect(wrapper.emitted('click')).toHaveLength(1)
+  })
+
+  it('should not emit click when disabled', async () => {
+    const wrapper = mount(BaseButton, {
+      props: {
+        variant: 'primary',
+        disabled: true,
+      },
+      slots: {
+        default: 'Click me',
+      },
+    })
+
+    await wrapper.trigger('click')
+    
+    expect(wrapper.emitted('click')).toBeFalsy()
+  })
+
+  it('should show loading state', () => {
+    const wrapper = mount(BaseButton, {
+      props: {
+        variant: 'primary',
+        loading: true,
+      },
+      slots: {
+        default: 'Click me',
+      },
+    })
+
+    expect(wrapper.find('.loading-spinner').exists()).toBe(true)
+    expect(wrapper.attributes('disabled')).toBeDefined()
+  })
+
+  it('should render icon correctly', () => {
+    const wrapper = mount(BaseButton, {
+      props: {
+        variant: 'primary',
+        icon: 'mdi-heart',
+      },
+      slots: {
+        default: 'Like',
+      },
+    })
+
+    const icon = wrapper.find('.v-icon')
+    expect(icon.exists()).toBe(true)
+    expect(icon.text()).toBe('mdi-heart')
+  })
+})
+```
+
+## Pinia 스토어 테스트
+
+```typescript
+// apps/desktop/__tests__/stores/user-store.test.ts
+import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { setActivePinia, createPinia } from 'pinia'
+import { useUserStore } from '../../stores/user-store'
+import { userApi } from '@template/api'
+
+// API 모킹
+vi.mock('@template/api', () => ({
+  userApi: {
+    getUsers: vi.fn(),
+    createUser: vi.fn(),
+    updateUser: vi.fn(),
+    deleteUser: vi.fn(),
+  },
+}))
+
+describe('User Store', () => {
+  beforeEach(() => {
+    setActivePinia(createPinia())
+    vi.clearAllMocks()
+  })
+
+  describe('fetchUsers', () => {
+    it('should fetch users successfully', async () => {
+      const mockUsers = [
+        { id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com' },
+        { id: '2', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com' },
+      ]
+      
+      const mockResponse = {
+        data: mockUsers,
+        pagination: {
+          page: 1,
+          limit: 20,
+          total: 2,
+          totalPages: 1,
+        },
+      }
+
+      vi.mocked(userApi.getUsers).mockResolvedValue(mockResponse)
+
+      const store = useUserStore()
+      
+      await store.fetchUsers()
+
+      expect(store.users).toEqual(mockUsers)
+      expect(store.pagination).toEqual(mockResponse.pagination)
+      expect(store.loading).toBe(false)
+      expect(store.error).toBeNull()
+    })
+
+    it('should handle fetch error', async () => {
+      const error = new Error('Network error')
+      vi.mocked(userApi.getUsers).mockRejectedValue(error)
+
+      const store = useUserStore()
+      
+      await expect(store.fetchUsers()).rejects.toThrow('Network error')
+      
+      expect(store.error).toBe('사용자 목록을 불러오는데 실패했습니다.')
+      expect(store.loading).toBe(false)
+    })
+  })
+
+  describe('createUser', () => {
+    it('should create user successfully', async () => {
+      const newUser = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john@example.com',
+      }
+      
+      const createdUser = {
+        id: '1',
+        ...newUser,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+
+      vi.mocked(userApi.createUser).mockResolvedValue(createdUser)
+
+      const store = useUserStore()
+      store.users = []
+      
+      const result = await store.createUser(newUser)
+
+      expect(result).toEqual(createdUser)
+      expect(store.users).toContain(createdUser)
+      expect(store.pagination.total).toBe(1)
+    })
+  })
+
+  describe('filteredUsers', () => {
+    it('should filter users by search query', () => {
+      const store = useUserStore()
+      store.users = [
+        { id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com' },
+        { id: '2', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com' },
+      ]
+      store.filters.search = 'john'
+
+      const filtered = store.filteredUsers
+
+      expect(filtered).toHaveLength(1)
+      expect(filtered[0].firstName).toBe('John')
+    })
+
+    it('should filter users by role', () => {
+      const store = useUserStore()
+      store.users = [
+        { id: '1', firstName: 'John', lastName: 'Doe', email: 'john@example.com', role: 'admin' },
+        { id: '2', firstName: 'Jane', lastName: 'Smith', email: 'jane@example.com', role: 'user' },
+      ]
+      store.filters.role = 'admin'
+
+      const filtered = store.filteredUsers
+
+      expect(filtered).toHaveLength(1)
+      expect(filtered[0].role).toBe('admin')
+    })
+  })
+})
+```
+
+## E2E 테스트 (Cypress)
+
+```typescript
+// cypress/e2e/user-management.cy.ts
+describe('User Management', () => {
+  beforeEach(() => {
+    cy.visit('/users')
+    cy.intercept('GET', '/api/users*').as('getUsers')
+    cy.wait('@getUsers')
+  })
+
+  it('should display user list', () => {
+    cy.get('[data-testid="user-table"]').should('be.visible')
+    cy.get('[data-testid="user-row"]').should('have.length.greaterThan', 0)
+  })
+
+  it('should search users', () => {
+    const searchTerm = 'john'
+    
+    cy.get('[data-testid="search-input"]').type(searchTerm)
+    cy.get('[data-testid="user-row"]').each(($row) => {
+      cy.wrap($row).should('contain.text', searchTerm)
+    })
+  })
+
+  it('should create new user', () => {
+    cy.intercept('POST', '/api/users').as('createUser')
+    
+    cy.get('[data-testid="create-user-btn"]').click()
+    
+    cy.get('[data-testid="user-form"]').within(() => {
+      cy.get('[data-testid="first-name-input"]').type('John')
+      cy.get('[data-testid="last-name-input"]').type('Doe')
+      cy.get('[data-testid="email-input"]').type('john.doe@example.com')
+      cy.get('[data-testid="role-select"]').click()
+      cy.get('[data-value="user"]').click()
+      cy.get('[data-testid="submit-btn"]').click()
+    })
+    
+    cy.wait('@createUser')
+    cy.get('[data-testid="success-message"]').should('be.visible')
+  })
+
+  it('should edit user', () => {
+    cy.intercept('PUT', '/api/users/*').as('updateUser')
+    
+    cy.get('[data-testid="user-row"]').first().within(() => {
+      cy.get('[data-testid="edit-btn"]').click()
+    })
+    
+    cy.get('[data-testid="user-form"]').within(() => {
+      cy.get('[data-testid="first-name-input"]').clear().type('Updated Name')
+      cy.get('[data-testid="submit-btn"]').click()
+    })
+    
+    cy.wait('@updateUser')
+    cy.get('[data-testid="success-message"]').should('be.visible')
+  })
+
+  it('should delete user', () => {
+    cy.intercept('DELETE', '/api/users/*').as('deleteUser')
+    
+    cy.get('[data-testid="user-row"]').first().within(() => {
+      cy.get('[data-testid="delete-btn"]').click()
+    })
+    
+    cy.get('[data-testid="confirm-dialog"]').within(() => {
+      cy.get('[data-testid="confirm-btn"]').click()
+    })
+    
+    cy.wait('@deleteUser')
+    cy.get('[data-testid="success-message"]').should('be.visible')
+  })
+
+  it('should handle pagination', () => {
+    cy.get('[data-testid="pagination"]').within(() => {
+      cy.get('[data-testid="next-page-btn"]').click()
+    })
+    
+    cy.wait('@getUsers')
+    cy.get('[data-testid="current-page"]').should('contain', '2')
+  })
+})
+```
+
+## 성능 테스트
+
+```typescript
+// packages/utils/__tests__/performance.test.ts
+import { describe, it, expect } from 'vitest'
+import { measurePerformance } from '../performance'
+
+describe('Performance Tests', () => {
+  it('should handle large dataset efficiently', async () => {
+    const largeDataset = Array.from({ length: 10000 }, (_, i) => ({
+      id: i.toString(),
+      name: `Item ${i}`,
+      value: Math.random(),
+    }))
+
+    const result = await measurePerformance(() => {
+      return largeDataset.filter(item => item.value > 0.5)
+    })
+
+    expect(result.duration).toBeLessThan(100) // 100ms 이내
+    expect(result.memoryUsage).toBeLessThan(50 * 1024 * 1024) // 50MB 이내
+  })
+
+  it('should handle virtual scrolling performance', async () => {
+    const items = Array.from({ length: 100000 }, (_, i) => ({
+      id: i.toString(),
+      content: `Item ${i}`,
+    }))
+
+    const result = await measurePerformance(() => {
+      // 가상 스크롤링 시뮬레이션
+      const visibleItems = items.slice(0, 100)
+      return visibleItems.map(item => ({
+        ...item,
+        rendered: true,
+      }))
+    })
+
+    expect(result.duration).toBeLessThan(50) // 50ms 이내
+  })
+})
+```
+
+## 테스트 설정
+
+```typescript
+// vitest.config.ts
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+
+export default defineConfig({
+  plugins: [vue()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./test/setup.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        'node_modules/',
+        'dist/',
+        '**/*.d.ts',
+        '**/*.config.*',
+        'test/',
+        'cypress/',
+      ],
+    },
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './'),
+      '@template/ui': resolve(__dirname, './packages/ui'),
+      '@template/api': resolve(__dirname, './packages/api'),
+      '@template/utils': resolve(__dirname, './packages/utils'),
+      '@template/types': resolve(__dirname, './packages/types'),
+    },
+  },
+})
+```
+
+## Testing 베스트 프랙티스 체크리스트
+- [ ] 단위 테스트 작성
+- [ ] 컴포넌트 테스트 구현
+- [ ] E2E 테스트 구성
+- [ ] 성능 테스트 추가
+- [ ] 테스트 커버리지 분석
+- [ ] 모킹 전략 수립
+- [ ] 테스트 데이터 관리
+- [ ] CI/CD 통합

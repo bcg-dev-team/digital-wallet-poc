@@ -1,0 +1,27 @@
+/* 파란색 그라데이션 (#62A6FF -> #006EFF) */
+.bg-gradient-blue {
+  background: linear-gradient(135deg, #62a6ff 0%, #006eff 100%);
+}
+
+/* 빨간색 그라데이션 (#FF7E81 -> #FF373C) */
+.bg-gradient-red {
+  background: linear-gradient(135deg, #ff7e81 0%, #ff373c 100%);
+}
+
+/* 초록색 그라데이션 (#1BD93E -> #00935B) */
+.bg-gradient-green {
+  background: linear-gradient(135deg, #1bd93e 0%, #00935b 100%);
+}
+
+/* 오른쪽 아래 방향 그라데이션 (to bottom right) */
+.bg-gradient-to-br-blue {
+  background: linear-gradient(to bottom right, #62a6ff 0%, #006eff 100%);
+}
+
+.bg-gradient-to-br-red {
+  background: linear-gradient(to bottom right, #ff7e81 0%, #ff373c 100%);
+}
+
+.bg-gradient-to-br-green {
+  background: linear-gradient(to bottom right, #1bd93e 0%, #00935b 100%);
+}

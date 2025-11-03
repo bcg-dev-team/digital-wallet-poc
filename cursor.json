@@ -1,0 +1,138 @@
+{
+  "projectType": "vue3-monorepo-template",
+  "aiAssistant": {
+    "role": "senior-vue-monorepo-developer",
+    "specializations": [
+      "vue3-composition-api",
+      "typescript-strict",
+      "monorepo-architecture",
+      "performance-optimization",
+      "real-time-data",
+      "responsive-design",
+      "testing-strategy",
+      "storybook-integration",
+      "date-time-handling",
+      "financial-charts",
+      "tailwindcss-postcss"
+    ],
+    "performanceFocus": {
+      "virtualScrolling": true,
+      "websocketMultiplexing": true,
+      "dataBatching": true,
+      "memoryOptimization": true,
+      "bundleOptimization": true
+    },
+    "monorepoFeatures": {
+      "pnpmWorkspace": true,
+      "sharedPackages": true,
+      "crossPackageImports": true,
+      "unifiedBuild": true
+    },
+    "testingStrategy": {
+      "unitTests": true,
+      "componentTests": true,
+      "e2eTests": true,
+      "storybook": true,
+      "performanceTests": true
+    },
+    "recommendedLibraries": {
+      "dateTime": "date-fns-tz",
+      "charts": "TradingView",
+      "styling": "tailwindcss-postcss",
+      "reasoning": {
+        "date-fns-tz": "타임존 지원과 함께 가벼우면서도 강력한 날짜/시간 처리",
+        "TradingView": "금융 차트와 실시간 데이터 시각화에 최적화된 전문 라이브러리",
+        "tailwindcss-postcss": "유틸리티 우선 CSS 프레임워크와 PostCSS 플러그인을 조합한 현대적인 스타일링 솔루션"
+      }
+    }
+  },
+  "fileTemplates": {
+    "component": {
+      "template": "vue3-composition-ts-performance",
+      "include": ["props", "emits", "types", "performance", "tests", "storybook"]
+    },
+    "store": {
+      "template": "pinia-typed-performance",
+      "include": ["state", "getters", "actions", "real-time", "types", "tests"]
+    },
+    "service": {
+      "template": "api-service-with-websocket",
+      "include": ["types", "error-handling", "interceptors", "batching", "tests"]
+    },
+    "package": {
+      "template": "monorepo-package",
+      "include": ["package.json", "tsconfig.json", "index.ts", "tests", "storybook"]
+    },
+    "chart": {
+      "template": "tradingview-chart-component",
+      "include": ["props", "emits", "types", "performance", "real-time", "tests"]
+    },
+    "dateTime": {
+      "template": "date-fns-tz-utility",
+      "include": ["types", "timezone", "formatting", "validation", "tests"]
+    },
+    "styling": {
+      "template": "tailwindcss-postcss-component",
+      "include": ["responsive", "theming", "utilities", "accessibility", "performance"]
+    }
+  },
+  "performance": {
+    "virtualScrolling": {
+      "enabled": true,
+      "threshold": 100
+    },
+    "realTime": {
+      "batching": 100,
+      "multiplexing": true,
+      "reconnection": true
+    },
+    "memory": {
+      "cleanup": true,
+      "garbageCollection": true
+    },
+    "charts": {
+      "tradingView": {
+        "enabled": true,
+        "optimization": true,
+        "realTimeUpdates": true
+      }
+    },
+    "dateTime": {
+      "dateFnsTz": {
+        "enabled": true,
+        "timezoneSupport": true,
+        "formatting": true
+      }
+    },
+    "styling": {
+      "tailwindcss": {
+        "enabled": true,
+        "jitMode": true,
+        "purgeCSS": true
+      },
+      "postcss": {
+        "enabled": true,
+        "autoprefixer": true,
+        "cssnano": true,
+        "nested": true
+      }
+    }
+  },
+  "monorepo": {
+    "structure": {
+      "apps": ["desktop", "mobile"],
+      "packages": ["ui", "api", "utils", "types"],
+      "shared": ["config", "scripts", "docs"]
+    },
+    "dependencies": {
+      "shared": ["vue", "typescript", "vite"],
+      "apps": ["@template/ui", "@template/api", "@template/utils", "@template/types"],
+      "dev": ["vitest", "cypress", "storybook", "eslint", "prettier"],
+      "recommended": {
+        "dateTime": ["date-fns", "date-fns-tz"],
+        "charts": ["lightweight-charts", "@tradingview/lightweight-charts"],
+        "styling": ["tailwindcss", "postcss", "autoprefixer", "cssnano"]
+      }
+    }
+  }
+}

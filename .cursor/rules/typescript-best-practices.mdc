@@ -1,0 +1,142 @@
+---
+alwaysApply: true
+---
+
+# TypeScript 베스트 프랙티스
+
+## 타입 안전성
+- 더 나은 타입 안전성과 오류 감지를 위해 strict 모드를 활성화하세요.
+- 객체 형태를 정의할 때는 types보다 interfaces를 선호하세요.
+- 런타임에 타입 안전성을 보장하기 위해 타입 가드와 단언을 사용하세요.
+- 중복을 줄이기 위해 적절한 타입 추론을 구현하세요.
+
+## 타입 정의 원칙
+- **Interface vs Type**: 객체 형태는 interface, 유니온/교차 타입은 type을 사용하세요.
+- **제네릭 활용**: 재사용 가능한 타입을 위해 제네릭을 적극 활용하세요.
+- **유틸리티 타입**: Partial, Pick, Omit 등을 활용하여 타입을 조합하세요.
+- **타입 가드**: 런타임 타입 검사를 위한 타입 가드를 구현하세요.
+
+## 모노레포 타입 관리
+- **공통 타입**: packages/types에 배치하여 재사용성을 높이세요.
+- **도메인별 타입**: 각 패키지별로 도메인에 특화된 타입을 정의하세요.
+- **API 타입**: packages/api에서 API 응답 타입을 관리하세요.
+- **UI 타입**: packages/ui에서 컴포넌트 props 타입을 관리하세요.
+
+## 성능 최적화
+- **타입 추론**: 명시적 타입 선언보다 타입 추론을 활용하세요.
+- **조건부 타입**: 복잡한 타입 로직에는 조건부 타입을 사용하세요.
+- **타입 캐싱**: 자주 사용되는 타입은 별도로 정의하여 재사용하세요.
+
+## 예시 코드 패턴
+
+```typescript
+// packages/types/index.ts
+export interface BaseEntity {
+  id: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface User extends BaseEntity {
+  firstName: string
+  lastName: string
+  email: string
+  role: UserRole
+  isActive: boolean
+}
+
+export type UserRole = 'admin' | 'user' | 'guest'
+
+export interface ApiResponse<T> {
+  data: T
+  message: string
+  success: boolean
+}
+
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
+}
+
+// 유틸리티 타입
+export type CreateUserRequest = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
+export type UpdateUserRequest = Partial<CreateUserRequest>
+export type UserListResponse = PaginatedResponse<User>
+
+// 타입 가드
+export const isUser = (obj: unknown): obj is User => {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    'id' in obj &&
+    'firstName' in obj &&
+    'lastName' in obj &&
+    'email' in obj
+  )
+}
+
+// 제네릭 유틸리티
+export type AsyncState<T> = {
+  data: T | null
+  loading: boolean
+  error: string | null
+}
+
+export type AsyncAction<T> = {
+  execute: () => Promise<T>
+  reset: () => void
+}
+
+// 조건부 타입
+export type ApiEndpoint<T> = T extends BaseEntity
+  ? `/api/${string}/${T['id']}`
+  : `/api/${string}`
+
+// packages/api/types.ts
+export interface ApiConfig {
+  baseURL: string
+  timeout: number
+  headers: Record<string, string>
+}
+
+export interface ApiError {
+  code: string
+  message: string
+  details?: Record<string, unknown>
+}
+
+// packages/ui/types.ts
+export interface ComponentProps<T = unknown> {
+  modelValue?: T
+  disabled?: boolean
+  loading?: boolean
+  error?: string | null
+}
+
+export interface TableColumn<T> {
+  key: keyof T
+  label: string
+  sortable?: boolean
+  width?: string | number
+  render?: (value: T[keyof T], row: T) => string | VNode
+}
+
+// 성능 최적화를 위한 타입
+export type MemoizedFunction<T extends (...args: any[]) => any> = T & {
+  cache: Map<string, ReturnType<T>>
+}
+```
+
+## 타입 안전성 체크리스트
+- [ ] 모든 함수 매개변수에 타입 정의
+- [ ] 모든 함수 반환값에 타입 정의
+- [ ] 제네릭을 활용한 재사용 가능한 타입 설계
+- [ ] 런타임 타입 검사를 위한 타입 가드 구현
+- [ ] API 응답 타입 정의
+- [ ] 컴포넌트 props 타입 정의
+- [ ] 상태 관리 타입 정의
+- [ ] 유틸리티 타입 활용

@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": false,
+    "composite": false,
+    "incremental": false,
+    "baseUrl": "../..",
+    "paths": {
+      "@template/types": ["packages/types/dist"],
+      "@template/types/*": ["packages/types/dist/*"],
+      "@template/utils": ["packages/utils/dist"],
+      "@template/utils/*": ["packages/utils/dist/*"]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/__tests__/**/*",
+    "src/__generated__/**/*"
+  ]
+} 

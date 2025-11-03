@@ -1,0 +1,47 @@
+// BaseTableCell 컴포넌트 스타일
+// Figma 디자인 토큰을 기반으로 한 테이블 셀 스타일 정의
+
+// 테이블 셀 기본 스타일
+.table-cell {
+  vertical-align: middle;
+}
+
+// 헤더 셀 스타일
+.table-cell-header {
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem; // text-sm
+  line-height: 1.25; // leading-tight
+  color: var(--base-colors-neutral-neutral800);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--table-header-hover-bg, rgba(0, 0, 0, 0.05));
+  }
+}
+
+// 바디 셀 스타일
+.table-cell-body {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.375;
+  color: var(--base-colors-neutral-neutral800);
+  text-align: left;
+  background-color: transparent; // 부모 행의 배경색을 사용
+}
+
+// 푸터 셀 스타일
+.table-cell-footer {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.375;
+  color: var(--base-colors-neutral-neutral800);
+  text-align: left;
+}
+
+// 셀 텍스트 스타일
+.table-cell-text {
+  display: block;
+  white-space: pre;
+}

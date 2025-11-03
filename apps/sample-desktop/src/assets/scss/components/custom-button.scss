@@ -1,0 +1,15 @@
+.custom-green-auth-complete {
+  background-color: var(--base-colors-green-green050) !important;
+  color: var(--base-colors-green-green800) !important;
+  border: 1px solid var(--base-colors-green-green800) !important;
+  transition: all 0.2s ease !important;
+}
+.custom-green-auth-complete:hover {
+  background-color: var(--base-colors-green-green100) !important;
+  border-color: var(--base-colors-green-green900) !important;
+}
+.btn-no-events {
+  pointer-events: none;
+  user-select: none;
+  cursor: default;
+}

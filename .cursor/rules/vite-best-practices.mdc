@@ -1,0 +1,191 @@
+---
+alwaysApply: false
+---
+# Vite 베스트 프랙티스
+
+## 개발 환경 최적화
+- Vite의 핫 모듈 교체(HMR)를 활용하여 더 빠른 개발을 구현하세요.
+- 번들 크기를 최적화하기 위해 코드 분할과 트리 셰이킹을 사용하세요.
+- 다양한 빌드 환경을 위한 환경 변수를 구성하세요.
+- 향상된 기능을 위해 Vite 플러그인을 활용하세요 (예: PWA 지원).
+
+## 모노레포 Vite 설정
+- **공통 설정**: shared/config에 공통 Vite 설정을 관리하세요.
+- **앱별 설정**: 각 앱(desktop, mobile)에 특화된 설정을 구성하세요.
+- **패키지별 설정**: 각 패키지에 적절한 빌드 설정을 적용하세요.
+- **개발 서버**: 모노레포 전체를 위한 통합 개발 서버를 구성하세요.
+
+## 성능 최적화
+- **코드 분할**: 동적 import를 활용한 라우트별 코드 분할
+- **트리 셰이킹**: 사용하지 않는 코드 자동 제거
+- **번들 분석**: webpack-bundle-analyzer를 활용한 번들 크기 분석
+- **캐싱 전략**: 브라우저 캐싱을 위한 파일명 해싱
+
+## 환경별 설정
+- **개발 환경**: 빠른 HMR과 디버깅 지원
+- **스테이징 환경**: 프로덕션과 유사한 설정으로 테스트
+- **프로덕션 환경**: 최적화된 빌드와 압축
+
+## 예시 설정 파일
+
+```typescript
+// shared/config/vite.base.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
+
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, '../../'),
+      '@template/ui': resolve(__dirname, '../../packages/ui'),
+      '@template/api': resolve(__dirname, '../../packages/api'),
+      '@template/utils': resolve(__dirname, '../../packages/utils'),
+      '@template/types': resolve(__dirname, '../../packages/types'),
+    },
+  },
+  build: {
+    target: 'esnext',
+    minify: 'terser',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['vue', 'vue-router', 'pinia'],
+          ui: ['vuetify', '@template/ui'],
+          utils: ['@template/utils'],
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['vue', 'vue-router', 'pinia', 'vuetify'],
+  },
+})
+
+// apps/desktop/vite.config.ts
+import { defineConfig, mergeConfig } from 'vite'
+import baseConfig from '../../shared/config/vite.base'
+
+export default defineConfig(
+  mergeConfig(baseConfig, {
+    root: resolve(__dirname),
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+    },
+    server: {
+      port: 3000,
+      host: true,
+    },
+    define: {
+      __APP_ENV__: JSON.stringify(process.env.NODE_ENV),
+    },
+  })
+)
+
+// apps/mobile/vite.config.ts
+import { defineConfig, mergeConfig } from 'vite'
+import baseConfig from '../../shared/config/vite.base'
+
+export default defineConfig(
+  mergeConfig(baseConfig, {
+    root: resolve(__dirname),
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+    },
+    server: {
+      port: 3001,
+      host: true,
+    },
+    define: {
+      __APP_ENV__: JSON.stringify(process.env.NODE_ENV),
+      __MOBILE__: true,
+    },
+  })
+)
+
+// packages/ui/vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
+import { resolve } from 'path'
+
+export default defineConfig({
+  plugins: [
+    vue(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'TemplateUI',
+      fileName: 'template-ui',
+    },
+    rollupOptions: {
+      external: ['vue', 'vuetify'],
+      output: {
+        globals: {
+          vue: 'Vue',
+          vuetify: 'Vuetify',
+        },
+      },
+    },
+  },
+})
+```
+
+## 환경 변수 관리
+
+```typescript
+// shared/config/env.ts
+export const env = {
+  NODE_ENV: process.env.NODE_ENV || 'development',
+  VITE_API_BASE_URL: process.env.VITE_API_BASE_URL || 'http://localhost:8080',
+  VITE_WS_URL: process.env.VITE_WS_URL || 'ws://localhost:8080',
+  VITE_APP_TITLE: process.env.VITE_APP_TITLE || 'Vue3 Monorepo Template',
+  VITE_APP_VERSION: process.env.VITE_APP_VERSION || '1.0.0',
+}
+
+// .env.development
+VITE_API_BASE_URL=http://localhost:8080
+VITE_WS_URL=ws://localhost:8080
+VITE_APP_TITLE=Vue3 Monorepo Template (Dev)
+
+// .env.production
+VITE_API_BASE_URL=https://api.example.com
+VITE_WS_URL=wss://api.example.com
+VITE_APP_TITLE=Vue3 Monorepo Template
+```
+
+## 빌드 스크립트
+
+```json
+// package.json
+{
+  "scripts": {
+    "dev:desktop": "vite --config apps/desktop/vite.config.ts",
+    "dev:mobile": "vite --config apps/mobile/vite.config.ts",
+    "build:desktop": "vite build --config apps/desktop/vite.config.ts",
+    "build:mobile": "vite build --config apps/mobile/vite.config.ts",
+    "build:ui": "vite build --config packages/ui/vite.config.ts",
+    "build:all": "pnpm run build:ui && pnpm run build:desktop && pnpm run build:mobile",
+    "preview:desktop": "vite preview --config apps/desktop/vite.config.ts",
+    "preview:mobile": "vite preview --config apps/mobile/vite.config.ts"
+  }
+}
+```
+
+## 성능 최적화 체크리스트
+- [ ] 코드 분할 구현
+- [ ] 트리 셰이킹 활성화
+- [ ] 번들 크기 분석
+- [ ] 환경별 설정 분리
+- [ ] HMR 최적화
+- [ ] 캐싱 전략 구현
+- [ ] 소스맵 설정
+- [ ] 압축 최적화

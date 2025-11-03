@@ -1,0 +1,33 @@
+.qna-table {
+  width: 100%;
+  font-size: 15px;
+  background: #fff;
+}
+
+.qna-table th,
+.qna-table td {
+  padding: 15px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid var(--table-type2-body-border);
+  border-bottom: 1px solid var(--table-type2-body-border);
+}
+
+.qna-table th {
+  background: var(--table-type2-header-bg);
+  vertical-align: middle;
+  color: var(--font-color-default);
+  font-size: var(--font-size-font-13);
+  width: 130px;
+  font-weight: 500;
+}
+
+.qna-table td {
+  font-size: var(--font-size-font-14);
+  width: 542px;
+  font-weight: 400;
+}
+
+.qna-content {
+  padding: 24px !important;
+}

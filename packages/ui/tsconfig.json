@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "baseUrl": "./src",
+    "paths": {
+      "@template/types": ["../../types/dist/index.d.ts"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.spec.ts"
+  ],
+  "references": [
+    { "path": "../types" }
+  ]
+} 

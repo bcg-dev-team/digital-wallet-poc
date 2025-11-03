@@ -1,0 +1,39 @@
+{
+  "recommendations": [
+    // Vue.js 개발
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    
+    // Tailwind CSS
+    "bradlc.vscode-tailwindcss",
+    
+    // 코드 품질
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "csstools.postcss",
+    
+    // Git & 버전 관리
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github",
+    "mhutchie.git-graph",
+    
+    // UI & 테마
+    "pkief.material-icon-theme",
+    "naumovs.color-highlight",
+    "oderwat.indent-rainbow",
+    
+    // 생산성 도구
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "alefragnani.bookmarks",
+    "gruntfuggly.todo-tree",
+    "wix.vscode-import-cost",
+    
+    // 웹 개발
+    "ecmel.vscode-html-css",
+    "pranaygp.vscode-css-peek",
+    
+    // 언어 지원
+    "ms-ceintl.vscode-language-pack-ko"
+  ]
+}

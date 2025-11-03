@@ -1,0 +1,56 @@
+.default-table {
+  .table-container {
+    position: relative;
+  }
+
+  .scroll-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 32px;
+    pointer-events: none;
+    z-index: 10;
+
+    /* GridWidthButton 위치 조정 */
+    .w-size-20 {
+      pointer-events: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      &:first-child {
+        left: 120px; /* 주문일자 컬럼 너비만큼 오른쪽으로 이동 */
+      }
+
+      &:last-child {
+        right: 8px; /* 오른쪽 여백 */
+      }
+    }
+  }
+
+  /* AG-Grid 전체 테두리와 radius 제거 */
+  .ag-root-wrapper {
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* AG-Grid 헤더 전체 가운데 정렬 */
+  .ag-header-cell-label,
+  .ag-header-group-cell-label {
+    justify-content: center !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    font-family: 'Pretendard GOV', sans-serif !important;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--font-color-default);
+  }
+
+  /* No Rows Overlay 텍스트 색상 */
+  .ag-overlay-no-rows-center {
+    color: var(--font-color-default) !important;
+  }
+}
