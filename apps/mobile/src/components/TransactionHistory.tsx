@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Component04Usdc from "../imports/WalletMainUsdc";
+import TransactionHistoryComponent from "../imports/TransactionHistory";
 import WalletMenu from "../imports/WalletMenu";
 
-export default function DigitalWallet() {
+export default function TransactionHistory() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -23,7 +23,8 @@ export default function DigitalWallet() {
     };
 
     const clickableTargets = [
-      ...container.querySelectorAll('[data-name="img_00com_qm_grd_50_menu"], [data-name="btn_main_n.9"], [data-name="scroll"] [role="button"], [data-name="img_08ac_bn_320x104_multi_01"]')
+      container.querySelector('[data-name="ic_00com_28_line_arrow_l_111"]'),
+      container.querySelector('[data-name="img_00com_qm_grd_50_menu"]')
     ];
 
     clickableTargets.forEach((element) => {
@@ -33,7 +34,9 @@ export default function DigitalWallet() {
     });
 
     container.addEventListener("click", handleClick);
-    return () => container.removeEventListener("click", handleClick);
+    return () => {
+      container.removeEventListener("click", handleClick);
+    };
   }, [navigate]);
 
   useEffect(() => {
@@ -61,15 +64,15 @@ export default function DigitalWallet() {
       if (!menuItem) return;
 
       const text = menuItem.textContent?.replace(/\s+/g, "");
-      if (text?.includes("토큰증권거래")) {
-        setMenuOpen(false);
-        navigate("/token-securities");
-        return;
-      }
-
       if (text?.includes("SOL디지털월렛")) {
         setMenuOpen(false);
         navigate("/wallet");
+        return;
+      }
+
+      if (text?.includes("토큰증권거래")) {
+        setMenuOpen(false);
+        navigate("/token-securities");
         return;
       }
     };
@@ -80,14 +83,7 @@ export default function DigitalWallet() {
 
   return (
     <div ref={containerRef} className="relative min-h-full">
-      <Component04Usdc
-        onNavigateToDeposit={() => navigate("/deposit")}
-        onNavigateToExchange={() => navigate("/exchange")}
-        onNavigateToHome={() => navigate("/")}
-        onNavigateToWithdrawal={() => navigate("/withdrawal")}
-        onNavigateToHistory={() => navigate("/transaction-history")}
-        onNavigateToTokenSecurities={() => navigate("/token-securities")}
-      />
+      <TransactionHistoryComponent onNavigateBack={() => navigate("/wallet")} />
 
       {isMenuOpen && (
         <div
@@ -106,3 +102,4 @@ export default function DigitalWallet() {
     </div>
   );
 }
+

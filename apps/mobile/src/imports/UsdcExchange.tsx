@@ -632,9 +632,9 @@ function Btn() {
   );
 }
 
-export default function Component08UsdcDt() {
+export default function Component08() {
   return (
-    <div className="bg-white relative w-full min-h-screen" data-name="08.USDC->DT환전">
+    <div className="bg-white relative w-full min-h-full" data-name="08.USDC->DT환전">
       <Frame2117921423 />
       <Frame2117921424 />
       <Btn />

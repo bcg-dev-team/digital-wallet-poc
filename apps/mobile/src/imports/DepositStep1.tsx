@@ -1,5 +1,6 @@
-import svgPaths from "./svg-3j7okfeojy";
-import { Button } from "@digital-wallet/ui";
+import svgPaths from "./svg-79j1gdg19g";
+import { Button, Input, SmallButton } from "@digital-wallet/ui";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
   return (
@@ -256,16 +257,16 @@ function Frame2117921381({ onNavigateBack }: { onNavigateBack?: () => void }) {
 
 function Btn({ onNavigateNext }: { onNavigateNext?: () => void }) {
   return (
-    <div className="absolute bottom-0 left-0 right-0 pb-[20px] px-[20px] bg-gradient-to-t from-white via-white to-transparent pt-[24px]">
-      <Button 
-        variant="primary" 
+    <MobileStickyFooter>
+      <Button
+        variant="primary"
         size="lg"
         className="w-full"
         onClick={onNavigateNext}
       >
         USDC 입금하기
       </Button>
-    </div>
+    </MobileStickyFooter>
   );
 }
 
@@ -276,7 +277,7 @@ interface Component0501Props {
 
 export default function Component0501({ onNavigateBack, onNavigateNext }: Component0501Props) {
   return (
-    <div className="bg-white relative w-full min-h-screen" data-name="05.입금-01">
+    <div className="bg-white relative flex w-full min-h-full flex-col" data-name="05.입금-01">
       <Frame2117921381 onNavigateBack={onNavigateBack} />
       <Btn onNavigateNext={onNavigateNext} />
     </div>

@@ -1,6 +1,7 @@
 import svgPaths from "./svg-n4hol6m2lc";
 import { img, img1 } from "./svg-au6w2";
 import { Button } from "@digital-wallet/ui";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
   return (
@@ -50,16 +51,16 @@ function Frame2117921381() {
 
 function Btn({ onNavigateHome }: { onNavigateHome?: () => void }) {
   return (
-    <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[360px] z-10 pb-[20px] px-[20px] bg-gradient-to-t from-white via-white to-transparent pt-[24px]">
-      <Button 
-        variant="primary" 
+    <MobileStickyFooter className="z-10">
+      <Button
+        variant="primary"
         size="lg"
         className="w-full"
         onClick={onNavigateHome}
       >
         홈 화면으로 가기
       </Button>
-    </div>
+    </MobileStickyFooter>
   );
 }
 
@@ -422,7 +423,7 @@ function Contents() {
 
 export default function Component09({ onNavigateHome }: { onNavigateHome?: () => void }) {
   return (
-    <div className="bg-white relative w-full min-h-screen" data-name="09.입금진행중">
+    <div className="bg-white relative flex w-full min-h-full flex-col" data-name="09.입금진행중">
       <Frame2117921381 />
       <Btn onNavigateHome={onNavigateHome} />
       <Contents />

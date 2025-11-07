@@ -1,5 +1,6 @@
 import svgPaths from "./svg-79j1gdg19g";
 import { Button, Input, SmallButton } from "@digital-wallet/ui";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
   return (
@@ -9,7 +10,7 @@ function Group820325() {
   );
 }
 
-function Header() {
+function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ HEADER">
       <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="bg">
@@ -17,7 +18,11 @@ function Header() {
           <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
         </svg>
       </div>
-      <div className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px]" data-name="ic_00com_28_line_arrow_l_111">
+      <div
+        className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px] cursor-pointer"
+        data-name="ic_00com_28_line_arrow_l_111"
+        onClick={onNavigateBack}
+      >
         <div className="absolute inset-0" data-name="Vector">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
             <g id="Vector"></g>
@@ -170,35 +175,41 @@ function Frame2117921386() {
   );
 }
 
-function Frame2117921381() {
+function Frame2117921381({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="absolute content-stretch flex flex-col items-start left-0 top-0 w-[360px]">
-      <Header />
+      <Header onNavigateBack={onNavigateBack} />
       <Frame2117921382 />
       <Frame2117921386 />
     </div>
   );
 }
 
-function Btn() {
+function Btn({ onNavigateNext }: { onNavigateNext?: () => void }) {
   return (
-    <div className="absolute bottom-0 left-0 right-0 pb-[20px] px-[20px] bg-gradient-to-t from-white via-white to-transparent pt-[24px]">
-      <Button 
-        variant="primary" 
+    <MobileStickyFooter>
+      <Button
+        variant="primary"
         size="lg"
         className="w-full"
+        onClick={onNavigateNext}
       >
         다음
       </Button>
-    </div>
+    </MobileStickyFooter>
   );
 }
 
-export default function Component0502() {
+interface DepositStep2Props {
+  onNavigateBack?: () => void;
+  onNavigateNext?: () => void;
+}
+
+export default function Component0502({ onNavigateBack, onNavigateNext }: DepositStep2Props) {
   return (
-    <div className="bg-white relative w-full min-h-screen" data-name="05.입금-02">
-      <Frame2117921381 />
-      <Btn />
+    <div className="bg-white relative flex w-full min-h-full flex-col" data-name="05.입금-02">
+      <Frame2117921381 onNavigateBack={onNavigateBack} />
+      <Btn onNavigateNext={onNavigateNext} />
     </div>
   );
 }

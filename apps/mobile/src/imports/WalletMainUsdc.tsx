@@ -287,7 +287,7 @@ function Frame2117921385() {
   );
 }
 
-function Scroll({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
+function Scroll({ onNavigateToDeposit, onNavigateToWithdrawal, onNavigateToHistory }: { onNavigateToDeposit?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void }) {
   return (
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full" data-name="scroll">
       <ActionCard 
@@ -300,41 +300,43 @@ function Scroll({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
         icon="💵" 
         title="출금" 
         variant="withdraw"
+        onClick={onNavigateToWithdrawal}
       />
       <ActionCard 
         icon="📊" 
         title="거래내역" 
         variant="history"
+        onClick={onNavigateToHistory}
       />
     </div>
   );
 }
 
-function IndexArea({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
+function IndexArea({ onNavigateToDeposit, onNavigateToWithdrawal, onNavigateToHistory }: { onNavigateToDeposit?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full" data-name="index_area">
-      <Scroll onNavigateToDeposit={onNavigateToDeposit} />
+      <Scroll onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
     </div>
   );
 }
 
-function Container({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
+function Container({ onNavigateToDeposit, onNavigateToWithdrawal, onNavigateToHistory }: { onNavigateToDeposit?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void }) {
   return (
     <div className="bg-white relative shrink-0 w-full" data-name="container">
       <div className="flex flex-col justify-center size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start justify-center p-[20px] relative w-full">
-          <IndexArea onNavigateToDeposit={onNavigateToDeposit} />
+          <IndexArea onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
         </div>
       </div>
     </div>
   );
 }
 
-function Component01Container({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
+function Component01Container({ onNavigateToDeposit, onNavigateToWithdrawal, onNavigateToHistory }: { onNavigateToDeposit?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="01_container">
       <Frame2117921385 />
-      <Container onNavigateToDeposit={onNavigateToDeposit} />
+      <Container onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />
       </div>
@@ -829,10 +831,10 @@ function Component11() {
   );
 }
 
-function AllContents({ onNavigateToDeposit, onNavigateToExchange }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void }) {
+function AllContents({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="all_contents">
-      <Component01Container onNavigateToDeposit={onNavigateToDeposit} />
+      <Component01Container onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
       <Component onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
       <Component11 />
     </div>
@@ -1244,11 +1246,11 @@ function Quick1() {
   );
 }
 
-function ContentsFooter({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToHome?: () => void }) {
+function ContentsFooter({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToHome?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1149px] items-start relative shrink-0 w-full" data-name="contents+footer">
       <Header onNavigateToHome={onNavigateToHome} />
-      <AllContents onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
+      <AllContents onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
       <Quick1 />
     </div>
   );
@@ -1258,12 +1260,34 @@ interface Component04UsdcProps {
   onNavigateToDeposit?: () => void;
   onNavigateToExchange?: () => void;
   onNavigateToHome?: () => void;
+  onNavigateToWithdrawal?: () => void;
+  onNavigateToHistory?: () => void;
+  onNavigateToTokenSecurities?: () => void;
 }
 
-export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome }: Component04UsdcProps) {
+export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: Component04UsdcProps) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full" data-name="04.홈-디지털월렛 메인-USDC탭">
-      <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} />
+      <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
+    </div>
+  );
+}
+
+function Component18({ onSelectFirst }: { onSelectFirst?: () => void }) {
+  const handleClick = () => {
+    if (onSelectFirst) {
+      onSelectFirst();
+    }
+  };
+
+  return (
+    <div className="bg-white content-stretch flex flex-col gap-[20px] items-center overflow-clip relative shrink-0 w-[360px]" data-name="실시간순위_거래대금">
+      <div className="h-[104px] relative shrink-0 w-[320px] cursor-pointer" data-name="img_08ac_bn_320x104_multi_01" onClick={handleClick}>
+        <div className="absolute inset-0" data-name="np_00com_bn_4434ff_sld.9">
+          <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none size-full" src={imgImage12} />
+        </div>
+      </div>
+      <Frame2117921143 />
     </div>
   );
 }

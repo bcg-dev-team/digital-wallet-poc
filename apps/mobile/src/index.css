@@ -88,3 +88,11 @@
   font-style: normal;
   src: local("Spoqa Han Sans Neo Bold");
 }
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
