@@ -5,6 +5,8 @@ import img3 from "../assets/c07375a0ac069eb65d39e36b0f1fdae69675787b.png";
 import img4 from "../assets/37ac58a7f911dc76efb484419f1aff741808dcec.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { Img5, img, img6, imgRectangle157576 } from "./svg-n1neo";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import BottomNavigation from "../components/layout/BottomNavigation";
 
 function Group820325() {
   return (
@@ -843,44 +845,10 @@ function Inner() {
   );
 }
 
-function Quickmenu() {
-  return (
-    <div className="bg-white h-[52px] relative shrink-0 w-[360px]" data-name="quickmenu">
-      <Inner />
-    </div>
-  );
-}
-
-function Frame1707480888() {
-  return (
-    <div className="absolute content-stretch flex flex-col items-start left-0 top-0">
-      <Quickmenu />
-    </div>
-  );
-}
-
-function Quick() {
-  return (
-    <div className="bg-[#f6f6f9] h-[52px] relative shrink-0 w-full" data-name="+ QUICK">
-      <Frame1707480888 />
-    </div>
-  );
-}
-
-function Quick1() {
-  return (
-    <div className="bg-[#f6f6f9] box-border content-stretch flex flex-col h-[235px] items-start pb-0 pt-[20px] px-0 relative shrink-0 w-[360px]" data-name="+Quick_주식">
-      <Frame2117921334 />
-      <Quick />
-    </div>
-  );
-}
-
 function ContentsFooter({ onSelectFirst }: { onSelectFirst?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[883px] items-start relative shrink-0 w-full" data-name="contents+footer">
       <AllContents onSelectFirst={onSelectFirst} />
-      <Quick1 />
     </div>
   );
 }
@@ -891,9 +859,12 @@ interface TokenSecuritiesScreenProps {
 
 export default function Component10({ onSelectFirst }: TokenSecuritiesScreenProps) {
   return (
-    <div className="bg-white content-stretch flex flex-col items-start relative size-full" data-name="10.음악저작권토큰증권">
+    <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="10.음악저작권토큰증권">
       <Header />
       <ContentsFooter onSelectFirst={onSelectFirst} />
+      <MobileStickyFooter variant="flat">
+        <BottomNavigation activeTab="order" />
+      </MobileStickyFooter>
     </div>
   );
 }

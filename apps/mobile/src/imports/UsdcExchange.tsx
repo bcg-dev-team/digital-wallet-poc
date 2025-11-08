@@ -1,6 +1,7 @@
 import svgPaths from "./svg-1smkh0pnj5";
 import { img } from "./svg-ojjt5";
 import { Button } from "@digital-wallet/ui";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
   return (
@@ -611,24 +612,24 @@ function Frame2117921424() {
 
 function Btn() {
   return (
-    <div className="absolute bottom-0 left-0 right-0 pb-[20px] px-[20px] bg-gradient-to-t from-white via-white to-transparent pt-[24px]">
-      <div className="flex gap-[8px] w-full">
-        <Button 
-          variant="secondary" 
+    <MobileStickyFooter>
+      <div className="flex w-full gap-[8px]">
+        <Button
+          variant="secondary"
           size="lg"
           className="flex-1"
         >
           취소
         </Button>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           size="lg"
           className="flex-1"
         >
           환전하기
         </Button>
       </div>
-    </div>
+    </MobileStickyFooter>
   );
 }
 

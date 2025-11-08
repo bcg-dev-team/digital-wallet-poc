@@ -5,6 +5,8 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import BottomNavigation from "../components/layout/BottomNavigation";
 
 function Group820325() {
   return (
@@ -1213,45 +1215,11 @@ function Inner() {
   );
 }
 
-function Quickmenu() {
-  return (
-    <div className="bg-white h-[52px] relative shrink-0 w-[360px]" data-name="quickmenu">
-      <Inner />
-    </div>
-  );
-}
-
-function Frame1707480888() {
-  return (
-    <div className="absolute content-stretch flex flex-col items-start left-0 top-0">
-      <Quickmenu />
-    </div>
-  );
-}
-
-function Quick() {
-  return (
-    <div className="bg-[#f6f6f9] h-[52px] relative shrink-0 w-full" data-name="+ QUICK">
-      <Frame1707480888 />
-    </div>
-  );
-}
-
-function Quick1() {
-  return (
-    <div className="bg-[#f6f6f9] box-border content-stretch flex flex-col h-[235px] items-start pb-0 pt-[20px] px-0 relative shrink-0 w-[360px]" data-name="+Quick_주식">
-      <Frame2117921334 />
-      <Quick />
-    </div>
-  );
-}
-
 function ContentsFooter({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToHome?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1149px] items-start relative shrink-0 w-full" data-name="contents+footer">
       <Header onNavigateToHome={onNavigateToHome} />
       <AllContents onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
-      <Quick1 />
     </div>
   );
 }
@@ -1267,8 +1235,11 @@ interface Component04UsdcProps {
 
 export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: Component04UsdcProps) {
   return (
-    <div className="bg-white content-stretch flex flex-col items-start relative size-full" data-name="04.홈-디지털월렛 메인-USDC탭">
+    <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="04.홈-디지털월렛 메인-USDC탭">
       <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
+      <MobileStickyFooter variant="flat">
+        <BottomNavigation activeTab="balance" />
+      </MobileStickyFooter>
     </div>
   );
 }

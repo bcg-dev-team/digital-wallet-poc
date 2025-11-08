@@ -1,5 +1,6 @@
-import { ReactNode, RefObject } from "react";
+import { ReactNode, RefObject, useMemo, useRef } from "react";
 import clsx from "clsx";
+import MobileViewportContext from "./MobileViewportContext";
 
 interface MobileViewportProps {
   children: ReactNode;
@@ -20,25 +21,46 @@ export default function MobileViewport({
   contentRef,
   scrollable = true,
 }: MobileViewportProps) {
+  const mergedContentRef = useRef<HTMLDivElement>(null);
+  const footerContainerRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+
+  const resolvedContentRef = contentRef ?? mergedContentRef;
+
+  const contextValue = useMemo(
+    () => ({
+      footerContainerRef,
+      viewportRef,
+    }),
+    []
+  );
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f6f6f9] py-6">
-      <div
-        className={clsx(
-          "relative w-[360px] h-[776px] overflow-hidden rounded-[10px] bg-white shadow-[0_20px_60px_rgba(29,31,89,0.1)]",
-          className
-        )}
-      >
+    <MobileViewportContext.Provider value={contextValue}>
+      <div className="flex min-h-screen items-center justify-center bg-[#f6f6f9] py-6">
         <div
-          ref={contentRef}
           className={clsx(
-            "relative flex h-full flex-col",
-            scrollable ? "overflow-y-auto scrollbar-hide" : "overflow-hidden",
-            contentClassName
+            "mobile-viewport relative h-[776px] w-[360px] overflow-hidden rounded-[10px] bg-white shadow-[0_20px_60px_rgba(29,31,89,0.1)]",
+            className
           )}
+          ref={viewportRef}
         >
-          {children}
+          <div
+            ref={resolvedContentRef}
+            className={clsx(
+              "relative flex h-full flex-col",
+              scrollable ? "overflow-y-auto scrollbar-hide" : "overflow-hidden",
+              contentClassName
+            )}
+          >
+            {children}
+          </div>
+          <div
+            ref={footerContainerRef}
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-50 flex flex-col items-center"
+          />
         </div>
       </div>
-    </div>
+    </MobileViewportContext.Provider>
   );
 }

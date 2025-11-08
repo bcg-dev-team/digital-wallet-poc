@@ -1,5 +1,7 @@
 import svgPaths from "./svg-p8d53q79zu";
 import { imgRectangle157576, img, img1 } from "./svg-lwrrr";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import BottomNavigation from "../components/layout/BottomNavigation";
 
 function Group829739() {
   return (
@@ -172,23 +174,6 @@ function Inner() {
       </div>
       <div className="absolute bg-[#f4f4f4] bottom-[98.08%] left-0 right-0 top-0" data-name="divider" />
       <div className="absolute bg-[#eeeeee] bottom-0 left-0 right-0 top-[98.08%]" data-name="Rectangle153280" />
-    </div>
-  );
-}
-
-function Quickmenu() {
-  return (
-    <div className="absolute bottom-0 h-[52px] left-0 w-[360px]" data-name="quickmenu">
-      <div className="absolute bg-white h-[52px] left-0 top-0 w-[360px]" />
-      <Inner />
-    </div>
-  );
-}
-
-function Quick() {
-  return (
-    <div className="absolute bottom-0 contents left-0" data-name="+ QUICK">
-      <Quickmenu />
     </div>
   );
 }
@@ -1677,9 +1662,11 @@ function Frame2117921449() {
 
 export default function Component11() {
   return (
-    <div className="bg-white relative size-full" data-name="11.토큰증권거래">
-      <Quick />
+    <div className="bg-white relative size-full pb-[72px]" data-name="11.토큰증권거래">
       <Frame2117921449 />
+      <MobileStickyFooter variant="flat">
+        <BottomNavigation activeTab="order" />
+      </MobileStickyFooter>
     </div>
   );
 }

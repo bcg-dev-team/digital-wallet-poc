@@ -2,6 +2,8 @@ import svgPaths from "./svg-nasujy059u";
 import img1 from "../assets/caaea4444e2cbaa2885cbabeaddc699ebe95dcb1.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { img, img2, img3, imgRectangle157576 } from "./svg-ukaqc";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import BottomNavigation from "../components/layout/BottomNavigation";
 
 function Group827165() {
   return (
@@ -1480,56 +1482,22 @@ function Inner({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
   );
 }
 
-function Quickmenu({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
-  return (
-    <div className="bg-white h-[52px] relative shrink-0 w-[360px]" data-name="quickmenu">
-      <Inner onNavigateMenu={onNavigateMenu} />
-    </div>
-  );
-}
-
-function Frame1707480888({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
-  return (
-    <div className="absolute content-stretch flex flex-col items-start left-0 top-0">
-      <Quickmenu onNavigateMenu={onNavigateMenu} />
-    </div>
-  );
-}
-
-function Quick({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
-  return (
-    <div className="bg-[#f6f6f9] h-[52px] relative shrink-0 w-full" data-name="+ QUICK">
-      <Frame1707480888 onNavigateMenu={onNavigateMenu} />
-    </div>
-  );
-}
-
-function Quick1({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
-  return (
-    <div className="bg-[#f6f6f9] box-border content-stretch flex flex-col items-start pt-[20px] px-0 relative shrink-0 w-[360px]" data-name="+Quick_주식">
-      <Frame2117921334 />
-      <Quick onNavigateMenu={onNavigateMenu} />
-    </div>
-  );
-}
-
-function ContentsFooter({ onNavigateToWallet, onNavigateMenu }: { onNavigateToWallet?: () => void; onNavigateMenu?: () => void }) {
+function ContentsFooter({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1259px] items-start relative shrink-0 w-full" data-name="contents+footer">
       <AllContents onNavigateToWallet={onNavigateToWallet} />
-      <Quick1 onNavigateMenu={onNavigateMenu} />
     </div>
   );
 }
 
 export default function MyHome({ onNavigateToWallet, onNavigateMenu }: { onNavigateToWallet?: () => void; onNavigateMenu?: () => void }) {
   return (
-    <div className="bg-white content-stretch flex flex-col items-start relative w-full min-h-full" data-name="MY홈_국내">
+    <div className="bg-white content-stretch flex flex-col items-start relative w-full min-h-full pb-[72px]" data-name="MY홈_국내">
       <Header />
-      <ContentsFooter onNavigateToWallet={onNavigateToWallet} onNavigateMenu={onNavigateMenu} />
-      <div className="sticky bottom-0 w-full z-50">
-        <Quickmenu onNavigateMenu={onNavigateMenu} />
-      </div>
+      <ContentsFooter onNavigateToWallet={onNavigateToWallet} />
+      <MobileStickyFooter variant="flat">
+        <BottomNavigation activeTab="home" onOpenMenu={onNavigateMenu} onNavigateOrder={onNavigateMenu} />
+      </MobileStickyFooter>
     </div>
   );
 }

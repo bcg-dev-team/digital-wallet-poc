@@ -2,6 +2,8 @@ import svgPaths from "./svg-t0e5ct7xxk";
 import { img, imgRectangle157576 } from "./svg-9558m";
 import svgPathsNav from "./svg-nvt1qhzfrf";
 import { img as imgNav, imgRectangle157576 as imgRectangle157576Nav } from "./svg-dlk75";
+import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import BottomNavigation from "../components/layout/BottomNavigation";
 
 function Frame1() {
   return (
@@ -559,32 +561,18 @@ function Inner() {
   );
 }
 
-function Quickmenu() {
-  return (
-    <div className="bg-white h-[52px] relative shrink-0 w-[360px]" data-name="quickmenu">
-      <Inner />
-    </div>
-  );
-}
-
-function BottomNav() {
-  return (
-    <div className="absolute bottom-0 left-0 content-stretch flex flex-col items-start w-full">
-      <Quickmenu />
-    </div>
-  );
-}
-
 interface TransactionHistoryProps {
   onNavigateBack?: () => void;
 }
 
 export default function TransactionHistory({ onNavigateBack }: TransactionHistoryProps) {
   return (
-    <div className="bg-white relative size-full min-h-full" data-name="13.디지털자산거래내역">
+    <div className="bg-white relative size-full min-h-full pb-[72px]" data-name="13.디지털자산거래내역">
       <Frame5 onNavigateBack={onNavigateBack} />
       <Frame43 />
-      <BottomNav />
+      <MobileStickyFooter variant="flat">
+        <BottomNavigation activeTab="balance" />
+      </MobileStickyFooter>
     </div>
   );
 }

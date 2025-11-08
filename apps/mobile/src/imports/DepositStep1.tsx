@@ -1,6 +1,7 @@
-import svgPaths from "./svg-79j1gdg19g";
+import svgPaths from "./svg-3j7okfeojy";
 import { Button, Input, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import imgMetamaskFox from "../assets/metamask-fox.png";
 
 function Group820325() {
   return (
