@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import WalletOnboardingScreen from "../imports/WalletOnboardingScreen";
 
-export default function WalletOnboarding() {
+export default function WalletWelcome() {
   const navigate = useNavigate();
 
   return (

@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import WalletSetupCompleteScreen from "../imports/WalletSetupComplete";
 
-export default function WalletSetupComplete() {
+export default function WalletCreationComplete() {
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedAsset } = (location.state as { selectedAsset?: string }) ?? {};
@@ -12,7 +12,7 @@ export default function WalletSetupComplete() {
   return (
     <WalletSetupCompleteScreen
       onNavigateBack={handleBack}
-      onNavigateToDeposit={() => navigate("/deposit")}
+      onNavigateToDeposit={() => navigate("/deposit/connect-wallet")}
     />
   );
 }

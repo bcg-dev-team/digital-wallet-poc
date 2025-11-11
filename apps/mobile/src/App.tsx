@@ -1,21 +1,24 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import MobileViewport from "./components/layout/MobileViewport";
-import Home from "./components/Home";
-import DigitalWallet from "./components/DigitalWallet";
-import UsdcDeposit from "./components/UsdcDeposit";
-import UsdcDepositStep2 from "./components/UsdcDepositStep2";
-import UsdcDepositProgress from "./components/UsdcDepositProgress";
-import UsdcExchange from "./components/UsdcExchange";
-import UsdcExchangeProgress from "./components/UsdcExchangeProgress";
+import MyHomeScreen from "./components/MyHomeScreen";
+import WalletDashboard from "./components/WalletDashboard";
+import WalletWelcome from "./components/WalletWelcome";
+import WalletAssetSelection from "./components/WalletAssetSelection";
+import WalletNetworkSelection from "./components/WalletNetworkSelection";
+import WalletCreationComplete from "./components/WalletCreationComplete";
+import DepositConnectWallet from "./components/DepositConnectWallet";
+import DepositWalletConnected from "./components/DepositWalletConnected";
+import DepositAmountEntry from "./components/DepositAmountEntry";
+import DepositProcessing from "./components/DepositProcessing";
+import DepositCompletion from "./components/DepositCompletion";
 import UsdcWithdrawal from "./components/UsdcWithdrawal";
 import TransactionHistory from "./components/TransactionHistory";
-import WalletOnboarding from "./components/WalletOnboarding";
-import WalletNetworkSelection from "./components/WalletNetworkSelection";
-import WalletSetupComplete from "./components/WalletSetupComplete";
-import TokenSecurities from "./components/TokenSecurities";
-import TokenSecuritiesDetail from "./components/TokenSecuritiesDetail";
-import TokenTrading from "./components/TokenTrading";
+import TokenSecuritiesOverview from "./components/TokenSecuritiesOverview";
+import TokenSecuritiesLilac from "./components/TokenSecuritiesLilac";
+import TokenTradingOrder from "./components/TokenTradingOrder";
+import ScreenIndex, { ScreenSummaryPanel } from "./components/ScreenIndex";
+import GlobalMenuScreen from "./components/GlobalMenuScreen";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -27,30 +30,45 @@ function ScrollToTop() {
   return null;
 }
 
+function WorkspaceLayout() {
+  return (
+    <div className="flex min-h-screen bg-[#eef1f6]">
+      <ScreenSummaryPanel />
+      <main className="flex flex-1 items-center justify-center">
+        <MobileViewport>
+          <Outlet />
+        </MobileViewport>
+      </main>
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <MobileViewport>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/wallet" element={<DigitalWallet />} />
-          <Route path="/wallet/onboarding" element={<WalletOnboarding />} />
+      <Routes>
+        <Route element={<WorkspaceLayout />}>
+          <Route path="/" element={<MyHomeScreen />} />
+          <Route path="/wallet" element={<WalletDashboard />} />
+          <Route path="/wallet/start" element={<WalletWelcome />} />
+          <Route path="/wallet/asset" element={<WalletAssetSelection />} />
           <Route path="/wallet/network" element={<WalletNetworkSelection />} />
-          <Route path="/wallet/setup-complete" element={<WalletSetupComplete />} />
-          <Route path="/deposit" element={<UsdcDeposit />} />
-          <Route path="/deposit/step2" element={<UsdcDepositStep2 />} />
-          <Route path="/deposit/progress" element={<UsdcDepositProgress />} />
-          <Route path="/exchange" element={<UsdcExchange />} />
-          <Route path="/exchange/progress" element={<UsdcExchangeProgress />} />
+          <Route path="/wallet/creation-complete" element={<WalletCreationComplete />} />
+          <Route path="/deposit/connect-wallet" element={<DepositConnectWallet />} />
+          <Route path="/deposit/wallet-connected" element={<DepositWalletConnected />} />
+          <Route path="/deposit/amount" element={<DepositAmountEntry />} />
+          <Route path="/deposit/processing" element={<DepositProcessing />} />
+          <Route path="/deposit/completion" element={<DepositCompletion />} />
           <Route path="/withdrawal" element={<UsdcWithdrawal />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
-          <Route path="/token-securities" element={<TokenSecurities />} />
-          <Route path="/token-securities/detail" element={<TokenSecuritiesDetail />} />
-          <Route path="/token-trading" element={<TokenTrading />} />
+          <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
+          <Route path="/token-securities/lilac" element={<TokenSecuritiesLilac />} />
+          <Route path="/token-securities/lilac/trade" element={<TokenTradingOrder />} />
+          <Route path="/menu" element={<GlobalMenuScreen />} />
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </MobileViewport>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 }

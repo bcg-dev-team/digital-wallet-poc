@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Component04Usdc from "../imports/WalletMainUsdc";
 import WalletMenu from "../imports/WalletMenu";
 
-export default function DigitalWallet() {
+export default function WalletDashboard() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -81,8 +81,8 @@ export default function DigitalWallet() {
   return (
     <div ref={containerRef} className="relative min-h-full">
       <Component04Usdc
-        onNavigateToDeposit={() => navigate("/deposit")}
-        onNavigateToExchange={() => navigate("/exchange")}
+        onNavigateToDeposit={() => navigate("/deposit/connect-wallet")}
+        onNavigateToExchange={() => navigate("/deposit/amount")}
         onNavigateToHome={() => navigate("/")}
         onNavigateToWithdrawal={() => navigate("/withdrawal")}
         onNavigateToHistory={() => navigate("/transaction-history")}

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import TokenTradingScreen from "../imports/TokenTrading";
 import BuyOrderBottomSheet from "./BuyOrderBottomSheet";
 
-export default function TokenTrading() {
+export default function TokenTradingOrder() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isBuyOrderOpen, setBuyOrderOpen] = useState(false);

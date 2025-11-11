@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import TokenSecuritiesScreen from "../imports/TokenSecurities";
 
-export default function TokenSecurities() {
+export default function TokenSecuritiesOverview() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ export default function TokenSecurities() {
 
   return (
     <div ref={containerRef} className="relative min-h-full">
-      <TokenSecuritiesScreen onSelectFirst={() => navigate("/token-securities/detail")} />
+      <TokenSecuritiesScreen onSelectFirst={() => navigate("/token-securities/lilac")} />
     </div>
   );
 }

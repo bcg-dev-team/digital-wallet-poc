@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import TokenSecuritiesDetailScreen from "../imports/TokenSecuritiesDetail";
 
-export default function TokenSecuritiesDetail() {
+export default function TokenSecuritiesLilac() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export default function TokenSecuritiesDetail() {
   return (
     <TokenSecuritiesDetailScreen
       onNavigateBack={() => navigate("/token-securities")}
-      onTrade={() => navigate("/token-trading")}
+      onTrade={() => navigate("/token-securities/lilac/trade")}
     />
   );
 }
