@@ -1,7 +1,6 @@
 import svgPaths from "./svg-p8d53q79zu";
 import { imgRectangle157576, img, img1 } from "./svg-lwrrr";
-import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-import BottomNavigation from "../components/layout/BottomNavigation";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
 function Group829739() {
   return (
@@ -1664,9 +1663,7 @@ export default function Component11() {
   return (
     <div className="bg-white relative size-full pb-[72px]" data-name="11.토큰증권거래">
       <Frame2117921449 />
-      <MobileStickyFooter variant="flat">
-        <BottomNavigation activeTab="order" />
-      </MobileStickyFooter>
+      <MobileAppFooter activeTab="order" />
     </div>
   );
 }

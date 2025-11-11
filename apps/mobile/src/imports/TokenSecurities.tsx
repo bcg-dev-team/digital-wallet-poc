@@ -5,8 +5,7 @@ import img3 from "../assets/c07375a0ac069eb65d39e36b0f1fdae69675787b.png";
 import img4 from "../assets/37ac58a7f911dc76efb484419f1aff741808dcec.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { Img5, img, img6, imgRectangle157576 } from "./svg-n1neo";
-import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-import BottomNavigation from "../components/layout/BottomNavigation";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
 function Group820325() {
   return (
@@ -862,9 +861,7 @@ export default function Component10({ onSelectFirst }: TokenSecuritiesScreenProp
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="10.음악저작권토큰증권">
       <Header />
       <ContentsFooter onSelectFirst={onSelectFirst} />
-      <MobileStickyFooter variant="flat">
-        <BottomNavigation activeTab="order" />
-      </MobileStickyFooter>
+      <MobileAppFooter activeTab="order" />
     </div>
   );
 }

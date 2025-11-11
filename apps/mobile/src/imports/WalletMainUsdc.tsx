@@ -5,8 +5,7 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
-import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-import BottomNavigation from "../components/layout/BottomNavigation";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
 function Group820325() {
   return (
@@ -1237,9 +1236,7 @@ export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExcha
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="04.홈-디지털월렛 메인-USDC탭">
       <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
-      <MobileStickyFooter variant="flat">
-        <BottomNavigation activeTab="balance" />
-      </MobileStickyFooter>
+      <MobileAppFooter activeTab="balance" />
     </div>
   );
 }

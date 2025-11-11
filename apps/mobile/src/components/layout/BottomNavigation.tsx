@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import svgPathsNav from "../../imports/svg-nvt1qhzfrf";
 
-interface BottomNavigationProps {
+export interface BottomNavigationProps {
   activeTab?: "home" | "favorites" | "price" | "order" | "balance";
   onNavigateHome?: () => void;
   onNavigateFavorites?: () => void;

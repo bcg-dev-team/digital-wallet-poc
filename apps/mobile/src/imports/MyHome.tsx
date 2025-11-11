@@ -1,35 +1,13 @@
 import svgPaths from "./svg-nasujy059u";
 import img1 from "../assets/caaea4444e2cbaa2885cbabeaddc699ebe95dcb1.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
-import { img, img2, img3, imgRectangle157576 } from "./svg-ukaqc";
-import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-import BottomNavigation from "../components/layout/BottomNavigation";
+import { img, img3, imgRectangle157576 } from "./svg-ukaqc";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
-function Group827165() {
-  return (
-    <div className="absolute inset-[34.21%_4.61%_31.76%_6.94%]">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 319 13">
-        <g id="Group 827165">
-          <g id="Battery">
-            <rect height="9.79843" id="Border" opacity="0.35" rx="2.08" stroke="var(--stroke-0, #111111)" strokeWidth="0.96" width="20.16" x="295.519" y="0.48" />
-            <path d={svgPaths.p2b3e8428} fill="var(--fill-0, #111111)" id="Cap" opacity="0.4" />
-            <rect fill="var(--fill-0, #111111)" height="6.96134" id="Capacity" rx="1.28" width="17.28" x="296.961" y="1.89749" />
-          </g>
-          <path clipRule="evenodd" d={svgPaths.p3d73900} fill="var(--fill-0, #111111)" fillRule="evenodd" id="Wifi" />
-          <path clipRule="evenodd" d={svgPaths.p1c4ba200} fill="var(--fill-0, #111111)" fillRule="evenodd" id="Cellular Connection" />
-          <g id="Time">
-            <path d={svgPaths.p3df1eb80} fill="var(--fill-0, #111111)" />
-            <path clipRule="evenodd" d={svgPaths.p343f3d80} fill="var(--fill-0, #111111)" fillRule="evenodd" />
-            <path clipRule="evenodd" d={svgPaths.pe3d7a00} fill="var(--fill-0, #111111)" fillRule="evenodd" />
-            <path d={svgPaths.p7782200} fill="var(--fill-0, #111111)" />
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Frame2117916724() {
+// =====================
+// Header Section
+// =====================
+function PrimaryTabMenu() {
   return (
     <div className="absolute content-stretch flex gap-[12px] items-center left-[20px] top-[13px]">
       <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0" data-name="header_tab_menu">
@@ -56,7 +34,7 @@ function Frame2117916724() {
   );
 }
 
-function Icon() {
+function NotificationIcon() {
   return (
     <div className="absolute inset-[6.25%_12.5%_18.75%_18.75%]" data-name="icon">
       <div className="absolute bottom-[-4.69%] left-[-1.04%] right-0 top-0">
@@ -74,7 +52,7 @@ function Icon() {
   );
 }
 
-function Icon1() {
+function SearchIcon() {
   return (
     <div className="absolute h-[19.732px] left-[calc(50%-0.017px)] top-[calc(50%-1.134px)] translate-x-[-50%] translate-y-[-50%] w-[19.965px]" data-name="icon">
       <div className="absolute bottom-[-5.71%] left-0 right-[-5.64%] top-0">
@@ -89,16 +67,16 @@ function Icon1() {
   );
 }
 
-function Frame2117918799() {
+function HeaderActions() {
   return (
     <div className="absolute content-stretch flex gap-[4px] items-center right-[16px] top-1/2 translate-y-[-50%]">
       <div className="relative shrink-0 size-[32px]" data-name="ic_00com_32_line">
         <div className="absolute inset-0" data-name="guide" />
-        <Icon />
+        <NotificationIcon />
       </div>
       <div className="relative shrink-0 size-[32px]" data-name="ic_00com_32_line">
         <div className="absolute inset-0" data-name="guide" />
-        <Icon1 />
+        <SearchIcon />
       </div>
     </div>
   );
@@ -109,12 +87,16 @@ function Header() {
     <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full" data-name="header">
       
       <div className="bg-white h-[52px] relative shrink-0 w-full" data-name="Home_header">
-        <Frame2117916724 />
-        <Frame2117918799 />
+        <PrimaryTabMenu />
+        <HeaderActions />
       </div>
     </div>
   );
 }
+
+// =====================
+// Asset Overview Section
+// =====================
 
 function Help() {
   return (
@@ -134,7 +116,7 @@ function Help() {
   );
 }
 
-function Frame2117921338() {
+function AssetSummaryLabel() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#111111] text-[14px] text-center text-nowrap" style={{ fontWeight: 700 }}>
@@ -163,7 +145,7 @@ function Refresh() {
   );
 }
 
-function Frame2117921337() {
+function AssetSummaryAmount() {
   return (
     <div className="content-stretch flex gap-[8px] items-center relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#111111] text-[26px] text-center text-nowrap tracking-[-0.13px]" style={{ fontWeight: 700 }}>
@@ -178,16 +160,16 @@ function Frame2117921337() {
   );
 }
 
-function Frame2117921335() {
+function AssetSummaryCard() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-[182px]">
-      <Frame2117921338 />
-      <Frame2117921337 />
+      <AssetSummaryLabel />
+      <AssetSummaryAmount />
     </div>
   );
 }
 
-function BtnToggle1N9() {
+function PrivacyToggleTrack() {
   return (
     <div className="absolute bottom-[-8.33%] contents left-[-37.5%] right-0 top-[-8.33%]" data-name="btn_toggle1_n.9">
       <div className="absolute bottom-[-8.33%] left-[-37.5%] right-0 top-[-8.33%]" data-name="btn_bg_toggle1_n.9">
@@ -222,10 +204,10 @@ function BtnToggle1N9() {
   );
 }
 
-function InputToggle24Px() {
+function PrivacyToggleControl() {
   return (
     <div className="h-[24px] relative shrink-0 w-[40px]" data-name="Input/Toggle-24px">
-      <BtnToggle1N9 />
+      <PrivacyToggleTrack />
       <div className="absolute flex flex-col justify-center leading-[0] left-[22.5px] not-italic text-[#999ea4] text-[11px] text-center text-nowrap top-[12px] translate-x-[-50%] translate-y-[-50%]" style={{ fontWeight: 500 }}>
         <p className="leading-[16px] whitespace-pre">간편</p>
       </div>
@@ -233,16 +215,16 @@ function InputToggle24Px() {
   );
 }
 
-function TabL1SldContainer() {
+function AssetSummaryHeader() {
   return (
     <div className="bg-white box-border content-stretch flex items-center justify-between pb-0 pt-[12px] px-[20px] relative shrink-0 w-[360px]" data-name="tab_l1_sld_container">
-      <Frame2117921335 />
-      <InputToggle24Px />
+      <AssetSummaryCard />
+      <PrivacyToggleControl />
     </div>
   );
 }
 
-function Frame2117921336() {
+function AssetPerformanceIndicator() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
       <div className="relative shrink-0 size-[10px]" data-name="ico_tr_price_up">
@@ -262,10 +244,10 @@ function Frame2117921336() {
   );
 }
 
-function Frame2117921340() {
+function AssetPerformanceSummary() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-[182px]">
-      <Frame2117921336 />
+      <AssetPerformanceIndicator />
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#999ea4] text-[13px] text-center text-nowrap" style={{ fontWeight: 500 }}>
         <p className="leading-[20px] whitespace-pre">총 투자금 7,866원</p>
       </div>
@@ -291,7 +273,7 @@ function KeyboardArrowRight() {
   );
 }
 
-function Frame2117921339() {
+function AssetReportLink() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-black text-center text-nowrap" style={{ fontWeight: 700 }}>
@@ -302,11 +284,11 @@ function Frame2117921339() {
   );
 }
 
-function TabL1SldContainer1() {
+function AssetPerformanceRow() {
   return (
     <div className="bg-white box-border content-stretch flex items-center justify-between pb-[20px] pt-[8px] px-[20px] relative shrink-0 w-[360px]" data-name="tab_l1_sld_container">
-      <Frame2117921340 />
-      <Frame2117921339 />
+      <AssetPerformanceSummary />
+      <AssetReportLink />
     </div>
   );
 }
@@ -363,7 +345,7 @@ function Flag() {
   );
 }
 
-function Frame2117919085() {
+function KrwBalanceCard() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full">
       <div className="bg-white h-[12px] overflow-clip relative shrink-0 w-[16px]" data-name="KR - Korea (South)">
@@ -381,7 +363,7 @@ function NpIndexCardFlat9() {
     <div className="basis-0 bg-[#f4f6f9] grow min-h-px min-w-px relative rounded-[12px] shrink-0" data-name="np_index_card_flat.9">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[10px] items-start pb-[12px] pt-[16px] px-[16px] relative w-full">
-          <Frame2117919085 />
+          <KrwBalanceCard />
         </div>
       </div>
     </div>
@@ -403,7 +385,7 @@ function Flag1() {
   );
 }
 
-function Frame2117919086() {
+function UsdBalanceCard() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full">
       <div className="bg-white h-[12px] overflow-clip relative shrink-0 w-[16px]" data-name="US - United States">
@@ -421,7 +403,7 @@ function NpIndexCardFlat10() {
     <div className="basis-0 bg-[#f4f6f9] grow min-h-px min-w-px relative rounded-[12px] shrink-0" data-name="np_index_card_flat.9">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[10px] items-start pb-[12px] pt-[16px] px-[16px] relative w-full">
-          <Frame2117919086 />
+          <UsdBalanceCard />
         </div>
       </div>
     </div>
@@ -458,15 +440,23 @@ function Container() {
   );
 }
 
-function Component01Container() {
+/**
+ * MY홈 상단의 자산 요약 정보를 표시합니다.
+ * @returns 총 자산과 보유 지표를 포함한 섹션
+ */
+function AssetOverviewSection() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="01_container">
-      <TabL1SldContainer />
-      <TabL1SldContainer1 />
+      <AssetSummaryHeader />
+      <AssetPerformanceRow />
       <Container />
     </div>
   );
 }
+
+// =====================
+// Wallet Promotion & Ranking Section
+// =====================
 
 function Text() {
   return (
@@ -500,7 +490,7 @@ function Group816085() {
   );
 }
 
-function Frame2117918802() {
+function StockTabLabelActive() {
   return (
     <div className="box-border content-stretch flex gap-[10px] items-center px-[4px] py-0 relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#111111] text-[16px] text-center text-nowrap tracking-[-0.5px]" style={{ fontWeight: 700 }}>
@@ -514,7 +504,7 @@ function NpTabLineC111O9() {
   return <div className="bg-[#111111] h-[2px] rounded-[10px] shrink-0 w-full" data-name="np_tab_line_c111_o.9" />;
 }
 
-function Frame2117918803() {
+function InvestmentTabLabel() {
   return (
     <div className="box-border content-stretch flex gap-[10px] items-center px-[4px] py-0 relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#888e98] text-[16px] text-center text-nowrap tracking-[-0.5px]" style={{ fontWeight: 700 }}>
@@ -528,7 +518,7 @@ function NpTabLineC111N9() {
   return <div className="h-[2px] rounded-[10px] shrink-0 w-full" data-name="np_tab_line_c111_n.9" />;
 }
 
-function Frame2117918804() {
+function AccountTabLabel() {
   return (
     <div className="box-border content-stretch flex gap-[10px] items-center px-[4px] py-0 relative shrink-0">
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#888e98] text-[16px] text-center text-nowrap tracking-[-0.5px]" style={{ fontWeight: 700 }}>
@@ -562,7 +552,7 @@ function NpComTabGrdN9() {
   );
 }
 
-function TabL1SldContainer2() {
+function StockListHeader() {
   return (
     <div className="bg-white box-border content-stretch flex gap-[6px] items-center pb-[20px] pt-0 px-[20px] relative shrink-0 w-[360px]" data-name="tab_l1_sld_container">
       <div className="content-stretch flex gap-[4px] items-center relative shrink-0" data-name="Tab_com_grd">
@@ -881,16 +871,16 @@ function List() {
   );
 }
 
-function Frame2117921332() {
+function StockListSection() {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0">
-      <TabL1SldContainer2 />
+      <StockListHeader />
       <List />
     </div>
   );
 }
 
-function Frame2117918841() {
+function StockCategoryTabs() {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
       <div className="box-border content-stretch flex gap-[12px] items-center overflow-clip pl-[20px] pr-0 py-0 relative shrink-0 w-[360px]" data-name="Tab_line">
@@ -900,32 +890,37 @@ function Frame2117918841() {
           </div>
         </div>
         <div className="box-border content-stretch flex flex-col gap-[10px] items-center justify-center pb-0 pt-[12px] px-0 relative shrink-0" data-name="linetab_unit">
-          <Frame2117918802 />
+          <StockTabLabelActive />
           <NpTabLineC111O9 />
         </div>
         <div className="box-border content-stretch flex flex-col gap-[10px] items-center justify-center pb-0 pt-[12px] px-0 relative shrink-0" data-name="linetab_unit">
-          <Frame2117918803 />
+          <InvestmentTabLabel />
           <NpTabLineC111N9 />
         </div>
         <div className="box-border content-stretch flex flex-col gap-[10px] items-center justify-center pb-0 pt-[12px] px-0 relative shrink-0" data-name="linetab_unit">
-          <Frame2117918804 />
+          <AccountTabLabel />
           <NpTabLineC111N10 />
         </div>
       </div>
-      <Frame2117921332 />
+      <StockListSection />
     </div>
   );
 }
 
-function Frame2117921143() {
+function StockRankingSection() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
-      <Frame2117918841 />
+      <StockCategoryTabs />
     </div>
   );
 }
 
-function Component18({ onSelectFirst }: { onSelectFirst?: () => void }) {
+/**
+ * SOL 디지털 월렛 프로모션과 실시간 순위 영역을 표시합니다.
+ * @param onSelectFirst - 배너 선택 시 실행될 콜백
+ * @returns 월렛 프로모션 및 순위 섹션
+ */
+function WalletPromotionSection({ onSelectFirst }: { onSelectFirst?: () => void }) {
   const handleClick = () => {
     if (onSelectFirst) {
       onSelectFirst();
@@ -960,7 +955,7 @@ function Component18({ onSelectFirst }: { onSelectFirst?: () => void }) {
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />
       </div>
-      <Frame2117921143 />
+      <StockRankingSection />
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />
       </div>
@@ -973,7 +968,11 @@ function Component18({ onSelectFirst }: { onSelectFirst?: () => void }) {
   );
 }
 
-function Frame2117918996() {
+// =====================
+// Quick Menu Section
+// =====================
+
+function QuickMenuHeader() {
   return (
     <div className="content-stretch flex items-start justify-between relative shrink-0 w-[320px]">
       <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] leading-[26px] not-italic relative shrink-0 text-[#111111] text-[18px] text-nowrap tracking-[-0.5px] whitespace-pre font-bold">메뉴 바로가기</p>
@@ -981,10 +980,10 @@ function Frame2117918996() {
   );
 }
 
-function Frame2117919114() {
+function QuickMenuIllustration() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[320px]">
-      <Frame2117918996 />
+      <QuickMenuHeader />
       <div className="h-[150px] relative shrink-0 w-[320px]" data-name="스크린샷, 2025-10-27 오후 4.21.57 1">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img alt="" className="absolute h-[520.19%] left-[-6.56%] max-w-none top-[-182.09%] w-[112.5%]" src={img20251027421571} />
@@ -998,23 +997,27 @@ function Frame2117919114() {
   );
 }
 
-function Frame2117918999() {
+function QuickMenuContent() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
-      <Frame2117919114 />
+      <QuickMenuIllustration />
     </div>
   );
 }
 
-function Component8() {
+function QuickMenuSection() {
   return (
     <div className="bg-white box-border content-stretch flex flex-col gap-[20px] items-center px-0 py-[32px] relative shrink-0 w-[360px]" data-name="8">
-      <Frame2117918999 />
+      <QuickMenuContent />
     </div>
   );
 }
 
-function Frame2117919025() {
+/**
+ * 주요 메뉴 바로가기 영역을 렌더링합니다.
+ * @returns 메뉴 바로가기 섹션
+ */
+function SectionDivider() {
   return (
     <div className="content-stretch flex flex-col items-center justify-center relative shrink-0">
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
@@ -1024,18 +1027,27 @@ function Frame2117919025() {
   );
 }
 
-function AllContents({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
+/**
+ * MY홈 본문에 위치한 주요 콘텐츠 블록들을 묶어서 처리합니다.
+ * @param onNavigateToWallet - 월렛 프로모션 선택 시 실행되는 콜백
+ * @returns 자산 요약, 프로모션, 퀵 메뉴 묶음
+ */
+function HomeSections({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="all_contents">
-      <Component01Container />
-      <Component18 onSelectFirst={onNavigateToWallet} />
-      <Component8 />
-      <Frame2117919025 />
+      <AssetOverviewSection />
+      <WalletPromotionSection onSelectFirst={onNavigateToWallet} />
+      <QuickMenuSection />
+      <SectionDivider />
     </div>
   );
 }
 
-function Frame2117920422() {
+// =====================
+// Footer & Settings Section
+// =====================
+
+function HideAmountLabel() {
   return (
     <div className="content-stretch flex items-center relative shrink-0">
       <div className="flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#77738c] text-[14px] text-nowrap text-right tracking-[-0.07px]">
@@ -1045,7 +1057,7 @@ function Frame2117920422() {
   );
 }
 
-function Frame2117919428() {
+function HideAmountBullet() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="relative shrink-0 size-[6px]" data-name="Oval">
@@ -1053,40 +1065,40 @@ function Frame2117919428() {
           <circle cx="3" cy="3" fill="var(--fill-0, #CCCFD3)" id="Oval" r="3" />
         </svg>
       </div>
-      <Frame2117920422 />
+      <HideAmountLabel />
     </div>
   );
 }
 
-function Frame2117919399() {
+function HideAmountContent() {
   return (
     <div className="content-stretch flex flex-col items-end justify-center relative shrink-0">
-      <Frame2117919428 />
+      <HideAmountBullet />
     </div>
   );
 }
 
-function Frame2117919397() {
+function HideAmountRow() {
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0 w-full">
-      <Frame2117919399 />
+      <HideAmountContent />
     </div>
   );
 }
 
-function Frame2117919906() {
+function HideAmountPill() {
   return (
     <div className="bg-white box-border content-stretch flex flex-col gap-[4px] h-[30px] items-start justify-center px-[16px] py-[6px] relative rounded-[30px] shrink-0">
       <div aria-hidden="true" className="absolute border border-[#eeeeee] border-solid inset-0 pointer-events-none rounded-[30px]" />
-      <Frame2117919397 />
+      <HideAmountRow />
     </div>
   );
 }
 
-function Frame2117921333() {
+function HiddenAmountSetting() {
   return (
     <div className="content-stretch flex flex-col gap-[10px] items-center relative shrink-0 w-full">
-      <Frame2117919906 />
+      <HideAmountPill />
     </div>
   );
 }
@@ -1163,7 +1175,7 @@ function CsIntroModule() {
   );
 }
 
-function Frame2117920823() {
+function SurveyCallout() {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-center relative shrink-0 w-full">
       <CsIntroModule />
@@ -1174,7 +1186,7 @@ function Frame2117920823() {
   );
 }
 
-function Frame1707488966() {
+function FooterPolicyLinks() {
   return (
     <div className="relative shrink-0 w-full">
       <div className="flex flex-row items-center size-full">
@@ -1190,7 +1202,7 @@ function Frame1707488966() {
   );
 }
 
-function Frame2117920945() {
+function InvestmentDisclaimer() {
   return (
     <div className="basis-0 content-stretch flex gap-[8px] grow items-center min-h-px min-w-px relative shrink-0">
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[#777e8c] text-[13px] text-nowrap whitespace-pre">투자 유의사항</p>
@@ -1198,34 +1210,38 @@ function Frame2117920945() {
   );
 }
 
-function Frame2117920822() {
+function FooterDisclaimer() {
   return (
     <div className="relative shrink-0 w-full">
       <div className="flex flex-row items-center size-full">
         <div className="box-border content-stretch flex gap-[4px] items-center px-[20px] py-0 relative w-full">
-          <Frame2117920945 />
+          <InvestmentDisclaimer />
         </div>
       </div>
     </div>
   );
 }
 
-function Frame2117921106() {
+function FooterLinks() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
-      <Frame1707488966 />
-      <Frame2117920822 />
+      <FooterPolicyLinks />
+      <FooterDisclaimer />
     </div>
   );
 }
 
-function Frame2117921334() {
+/**
+ * 금액 숨김 설정과 고객 지원 관련 푸터 정보를 제공합니다.
+ * @returns 푸터 섹션
+ */
+function FooterSection() {
   return (
     <div className="content-stretch flex flex-col gap-[32px] items-start relative shrink-0 w-full">
-      <Frame2117921333 />
+      <HiddenAmountSetting />
       <div className="bg-[#f6f6f9] box-border content-stretch flex flex-col gap-[24px] items-start pb-[20px] pt-0 px-0 relative shrink-0 w-full" data-name="Footer Menu">
-        <Frame2117920823 />
-        <Frame2117921106 />
+        <SurveyCallout />
+        <FooterLinks />
       </div>
     </div>
   );
@@ -1246,7 +1262,7 @@ function Group829739() {
   );
 }
 
-function Component1() {
+function HomeTabButton() {
   return (
     <div className="relative shrink-0 size-[52px]" data-name="1">
       <Group829739 />
@@ -1269,7 +1285,7 @@ function Group830148() {
   );
 }
 
-function Component2() {
+function WatchlistTabButton() {
   return (
     <div className="relative shrink-0 size-[52px]" data-name="2">
       <Group830148 />
@@ -1292,7 +1308,7 @@ function Group829740() {
   );
 }
 
-function Component3() {
+function LivePriceTabButton() {
   return (
     <div className="relative shrink-0 size-[52px]" data-name="3">
       <Group829740 />
@@ -1315,7 +1331,7 @@ function Group829741() {
   );
 }
 
-function Component4() {
+function OrderTabButton() {
   return (
     <div className="relative shrink-0 size-[52px]" data-name="4">
       <Group829741 />
@@ -1338,7 +1354,7 @@ function Group829742() {
   );
 }
 
-function Component5() {
+function PortfolioTabButton() {
   return (
     <div className="relative shrink-0 size-[52px]" data-name="5">
       <Group829742 />
@@ -1359,7 +1375,7 @@ function Group822201() {
   );
 }
 
-function Component7() {
+function SettingsShortcutButton() {
   return (
     <div className="bg-white box-border content-stretch flex gap-[10px] items-start px-[8px] py-[14px] relative shrink-0" data-name="7">
       <div className="relative shrink-0 size-[24px]" data-name="ic_00com_qm_24_sld_setting">
@@ -1372,12 +1388,12 @@ function Component7() {
 function Menu({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
   return (
     <div className="absolute content-stretch flex items-start left-[8px] top-0" data-name="menu">
-      <Component1 />
-      <Component2 />
-      <Component3 />
-      <Component4 />
-      <Component5 />
-      <Component7 />
+      <HomeTabButton />
+      <WatchlistTabButton />
+      <LivePriceTabButton />
+      <OrderTabButton />
+      <PortfolioTabButton />
+      <SettingsShortcutButton />
       <Img00ComQmGrd50Menu onNavigateMenu={onNavigateMenu} />
     </div>
   );
@@ -1482,22 +1498,32 @@ function Inner({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
   );
 }
 
-function ContentsFooter({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
+/**
+ * MY홈 본문에 포함된 주요 섹션들을 순서대로 렌더링합니다.
+ * @param onNavigateToWallet - 월렛 진입 요청 시 호출되는 콜백
+ * @returns MY홈 본문 컨테이너
+ */
+function BodyContent({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1259px] items-start relative shrink-0 w-full" data-name="contents+footer">
-      <AllContents onNavigateToWallet={onNavigateToWallet} />
+      <HomeSections onNavigateToWallet={onNavigateToWallet} />
+      <FooterSection />
     </div>
   );
 }
 
+/**
+ * MY홈 화면 전체를 구성하는 메인 컴포넌트입니다.
+ * @param onNavigateToWallet - SOL 월렛 화면으로 이동할 때 호출되는 콜백
+ * @param onNavigateMenu - 하단 내비게이션 메뉴 이동 콜백
+ * @returns MY홈 화면
+ */
 export default function MyHome({ onNavigateToWallet, onNavigateMenu }: { onNavigateToWallet?: () => void; onNavigateMenu?: () => void }) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative w-full min-h-full pb-[72px]" data-name="MY홈_국내">
       <Header />
-      <ContentsFooter onNavigateToWallet={onNavigateToWallet} />
-      <MobileStickyFooter variant="flat">
-        <BottomNavigation activeTab="home" onOpenMenu={onNavigateMenu} onNavigateOrder={onNavigateMenu} />
-      </MobileStickyFooter>
+      <BodyContent onNavigateToWallet={onNavigateToWallet} />
+      <MobileAppFooter activeTab="home" onOpenMenu={onNavigateMenu} onNavigateOrder={onNavigateMenu} />
     </div>
   );
 }

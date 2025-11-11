@@ -2,8 +2,7 @@ import svgPaths from "./svg-t0e5ct7xxk";
 import { img, imgRectangle157576 } from "./svg-9558m";
 import svgPathsNav from "./svg-nvt1qhzfrf";
 import { img as imgNav, imgRectangle157576 as imgRectangle157576Nav } from "./svg-dlk75";
-import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-import BottomNavigation from "../components/layout/BottomNavigation";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
 function Frame1() {
   return (
@@ -570,9 +569,7 @@ export default function TransactionHistory({ onNavigateBack }: TransactionHistor
     <div className="bg-white relative size-full min-h-full pb-[72px]" data-name="13.디지털자산거래내역">
       <Frame5 onNavigateBack={onNavigateBack} />
       <Frame43 />
-      <MobileStickyFooter variant="flat">
-        <BottomNavigation activeTab="balance" />
-      </MobileStickyFooter>
+      <MobileAppFooter activeTab="balance" />
     </div>
   );
 }
