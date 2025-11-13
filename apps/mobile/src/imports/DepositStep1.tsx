@@ -96,6 +96,8 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
 
   const handleConnect = () => {
     setIsConnected(true);
+
+    // TODO: Connect to MetaMask
   };
 
   return (
