@@ -5,48 +5,17 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
+import {
+  AVAILABLE_USDC_AMOUNT,
+  AVAILABLE_USDC_KRW,
+  formatCurrency,
+  formatNumber,
+} from "../constants/wallet";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
-
-function Group820325() {
-  return (
-    <div className="[grid-area:1_/_1] grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-[234px] mt-[11px] place-items-start relative" data-name="Group820325">
-      <div className="[grid-area:1_/_1] ml-0 mt-0 size-[28px]" data-name="Rectangle154476" />
-    </div>
-  );
-}
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 function Header({ onNavigateToHome }: { onNavigateToHome?: () => void }) {
-  return (
-    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ HEADER">
-      <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div 
-        className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px] cursor-pointer"
-        onClick={onNavigateToHome}
-        data-name="ic_00com_28_line_arrow_l_111"
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.04%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 21">
-              <path d={svgPaths.p2c0ecd80} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="[grid-area:1_/_1] flex flex-col font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium h-[27.835px] justify-center ml-[40px] mt-[30.155px] not-italic relative text-[#111111] text-[16px] translate-y-[-50%] w-[112px]">
-        <p className="leading-[24px]">SOL 디지털 월렛</p>
-      </div>
-      <Group820325 />
-    </div>
-  );
+  return <MobilePageHeader title="SOL 디지털 월렛" onBack={onNavigateToHome} />;
 }
 
 function Help() {
@@ -377,7 +346,9 @@ function Frame2117921376() {
           <path d={svgPaths.p3060fd40} fill="var(--fill-0, #777E8C)" id="text" />
         </svg>
       </div>
-      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">0 원</p>
+      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">
+        약 {formatCurrency(AVAILABLE_USDC_KRW)}
+      </p>
     </div>
   );
 }
@@ -386,7 +357,9 @@ function Frame2117921375() {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[0] not-italic relative shrink-0 text-[#111111] text-[0px] w-[105px]">
-        <span className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] text-[16px] tracking-[-0.08px]">0</span>
+        <span className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] text-[16px] tracking-[-0.08px]">
+          {formatNumber(AVAILABLE_USDC_AMOUNT)}
+        </span>
         <span className="leading-[20px] text-[14px]">{` USDC`}</span>
       </p>
       <Frame2117921376 />

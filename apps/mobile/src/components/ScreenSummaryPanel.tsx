@@ -29,21 +29,26 @@ const SECTIONS: Section[] = [
     ],
   },
   {
-    title: "지갑 대시보드 & 기타",
+    title: "USDC 입금 플로우",
+    items: [
+      { label: "1단계: MetaMask 연결", path: "/deposit/connect-wallet" },
+      { label: "2단계: 금액 입력", path: "/deposit/amount" },
+      { label: "3단계: 입금 진행 중", path: "/deposit/processing" },
+      { label: "4단계: 입금 완료", path: "/deposit/completion" },
+    ],
+  },
+  {
+    title: "USDC 출금 플로우",
     items: [
       { label: "지갑 대시보드", path: "/wallet", description: "자산 요약" },
-      { label: "거래 내역", path: "/transaction-history" },
       { label: "USDC 출금", path: "/withdrawal" },
     ],
   },
   {
-    title: "USDC 입금 플로우",
+    title: "USDC 환전",
     items: [
-      { label: "1단계: MetaMask 연결", path: "/deposit/connect-wallet" },
-      { label: "2단계: 연결 완료", path: "/deposit/wallet-connected" },
-      { label: "3단계: 금액 입력", path: "/deposit/amount" },
-      { label: "4단계: 입금 진행 중", path: "/deposit/processing" },
-      { label: "5단계: 입금 완료", path: "/deposit/completion" },
+      { label: "USDC 환전", path: "/usdc-exchange" },
+      { label: "디지털자산거래내역", path: "/transaction-history" },
     ],
   },
   {
@@ -93,22 +98,6 @@ export function ScreenSummaryPanel() {
         ))}
       </nav>
     </aside>
-  );
-}
-
-export default function ScreenIndex() {
-  return (
-    <div className="flex min-h-screen bg-[#eef1f6]">
-      <ScreenSummaryPanel />
-      <main className="flex flex-1 items-center justify-center p-8">
-        <div className="max-w-s rounded-2xl bg-white px-6 py-8 text-center shadow-lg">
-          <h2 className="text-lg font-semibold text-[#2a3fec]">테스트 가이드</h2>
-          <p className="mt-3 text-sm text-[#777e8c]">
-            좌측 패널에서 원하는 화면 선택 시 우측 모바일 영역에 해당 화면이 표시됩니다.
-          </p>
-        </div>
-      </main>
-    </div>
   );
 }
 

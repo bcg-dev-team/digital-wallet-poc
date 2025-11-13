@@ -1,6 +1,7 @@
 import svgPaths from "./svg-t342ueqplb";
 import { img, img1 } from "./svg-ojjt5";
 import { Button } from "@digital-wallet/ui";
+import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
@@ -49,16 +50,16 @@ function Frame2117921381() {
   );
 }
 
-function Btn({ onNavigateHome }: { onNavigateHome?: () => void }) {
+function Btn({ onNavigateNext }: { onNavigateNext?: () => void }) {
   return (
     <MobileStickyFooter className="z-10">
       <Button
         variant="primary"
         size="lg"
         className="w-full"
-        onClick={onNavigateHome}
+        onClick={onNavigateNext}
       >
-        홈 화면으로 가기
+        다음
       </Button>
     </MobileStickyFooter>
   );
@@ -84,7 +85,9 @@ function Icon() {
 function Frame2117921400() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-center not-italic relative shrink-0 text-center w-full">
-      <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] leading-[28px] relative shrink-0 text-[#111111] text-[20px] tracking-[-0.1px] w-full">입금을 처리하고 있어요</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] font-bold leading-[28px] relative shrink-0 text-[#111111] text-[20px] tracking-[-0.1px] w-full">
+        입금을 처리하고 있어요
+      </p>
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] relative shrink-0 text-[#999ea4] text-[14px] w-full">블록체인에서 트랜잭션을 확인하고 있어요</p>
     </div>
   );
@@ -104,7 +107,9 @@ function Frame2117921401() {
 function Frame2117921396() {
   return (
     <div className="[grid-area:1_/_1] box-border content-stretch flex flex-col items-start ml-[30px] mt-0 not-italic relative w-[143px]">
-      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">MetaMask 승인 완료</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">
+        MetaMask 승인 완료
+      </p>
       <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] leading-[18px] relative shrink-0 text-[#999ea4] text-[12px] w-full">2025.10.23 14:23:51</p>
     </div>
   );
@@ -233,7 +238,9 @@ function Frame2117918851() {
 function Frame2117921398() {
   return (
     <div className="absolute content-stretch flex flex-col h-[42px] items-start left-[54px] not-italic top-[170px] w-[143px]">
-      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] relative shrink-0 text-[#aaaeb3] text-[14px] w-full">입금 확인 및 반영</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">
+        입금 확인 및 반영
+      </p>
       <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] grow leading-[18px] min-h-px min-w-px relative shrink-0 text-[#999ea4] text-[12px] w-full">대기중</p>
     </div>
   );
@@ -242,7 +249,9 @@ function Frame2117921398() {
 function Frame2117921397() {
   return (
     <div className="absolute content-stretch flex flex-col items-start left-[54px] not-italic top-[102px] w-[143px]">
-      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">블록체인 컨펌 대기중</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">
+        블록체인 컨펌 대기중
+      </p>
       <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] leading-[18px] relative shrink-0 text-[#2a3fec] text-[12px] w-full">예상 시간: 2-5분</p>
     </div>
   );
@@ -288,7 +297,9 @@ function Frame2117921404() {
   return (
     <div className="content-stretch flex font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] gap-[4px] items-start leading-[16px] not-italic relative shrink-0 text-[11px] text-nowrap whitespace-pre">
       <p className="relative shrink-0 text-[#77738c]">금액</p>
-      <p className="relative shrink-0 text-[#333950]">1,000 USDC</p>
+      <p className="relative shrink-0 text-[#333950]">
+        {formatNumber(AVAILABLE_USDC_AMOUNT)} USDC
+      </p>
     </div>
   );
 }
@@ -314,7 +325,9 @@ function Frame2117921406() {
 function Frame2117921384() {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0">
-      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[18px] not-italic relative shrink-0 text-[#333950] text-[12px] text-nowrap whitespace-pre">트랜잭션 정보</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[18px] not-italic relative shrink-0 text-[#333950] text-[12px] text-nowrap whitespace-pre">
+        트랜잭션 정보
+      </p>
       <Frame2117921406 />
     </div>
   );
@@ -333,7 +346,9 @@ function Frame2117921407() {
   return (
     <div className="bg-white box-border content-stretch flex gap-[10px] items-center justify-center px-[12px] py-[6px] relative rounded-[4px] shrink-0">
       <div aria-hidden="true" className="absolute border border-[#2a3fec] border-solid inset-0 pointer-events-none rounded-[4px]" />
-      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#2a3fec] text-[11px] text-nowrap whitespace-pre">탐색기에서 보기</p>
+      <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[16px] not-italic relative shrink-0 text-[#2a3fec] text-[11px] text-nowrap whitespace-pre">
+        탐색기에서 보기
+      </p>
     </div>
   );
 }
@@ -370,14 +385,14 @@ function Contents() {
 }
 
 interface DepositProgressProps {
-  onNavigateHome?: () => void;
+  onNavigateNext?: () => void;
 }
 
-export default function DepositProgress({ onNavigateHome }: DepositProgressProps) {
+export default function DepositProgress({ onNavigateNext }: DepositProgressProps) {
   return (
     <div className="bg-white relative flex size-full min-h-full flex-col" data-name="06.입금진행중">
       <Frame2117921381 />
-      <Btn onNavigateHome={onNavigateHome} />
+      <Btn onNavigateNext={onNavigateNext} />
       <Contents />
     </div>
   );

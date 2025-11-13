@@ -1,8 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import Component09 from "../imports/ExchangeProgress";
+import DepositCompleteScreen from "../imports/DepositComplete";
 
 export default function DepositCompletion() {
   const navigate = useNavigate();
 
-  return <Component09 onNavigateHome={() => navigate("/wallet")} />;
+  return (
+    <DepositCompleteScreen
+      onNavigateBack={() => navigate("/deposit/processing")}
+      onNavigateToWallet={() => navigate("/wallet")}
+      onNavigateToExchange={() => navigate("/usdc-exchange")}
+      onOpenExplorer={() => window.open("https://www.oklink.com/en", "_blank", "noopener")}
+    />
+  );
 }

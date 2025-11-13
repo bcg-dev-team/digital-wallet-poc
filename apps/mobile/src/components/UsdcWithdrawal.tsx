@@ -7,7 +7,7 @@ export default function UsdcWithdrawal() {
   return (
     <UsdcWithdrawalComponent
       onNavigateBack={() => navigate("/wallet")}
-      onNavigateToHistory={() => navigate("/transaction-history")}
+      onSubmit={() => navigate("/transaction-history")}
     />
   );
 }

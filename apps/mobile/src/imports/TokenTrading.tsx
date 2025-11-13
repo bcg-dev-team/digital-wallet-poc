@@ -1,6 +1,10 @@
-import svgPaths from "./svg-p8d53q79zu";
-import { imgRectangle157576, img, img1 } from "./svg-lwrrr";
+import svgPaths from "./svg-w6v5b8rkjs";
+import svgPaths1 from "./svg-t0e5ct7xxk";
+import svgPaths2 from "./svg-p8d53q79zu";
+import svgPaths3 from "./svg-9558m";
+import { Button, ActionCard } from "@digital-wallet/ui";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 function Group829739() {
   return (
@@ -302,12 +306,15 @@ function Frame2117921448() {
   );
 }
 
-function Header() {
+function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
-    <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="+HEADER">
-      <div className="absolute bg-white inset-0" data-name="Rectangle153562" />
-      <Frame2117921448 />
-    </div>
+    <MobilePageHeader
+      title={<Frame2117921446 />}
+      onBack={onNavigateBack}
+      className="border-[#f1f2f6]"
+      titleClassName="flex-1 ml-0"
+      rightSlot={<Frame2117921444 />}
+    />
   );
 }
 
@@ -436,10 +443,10 @@ function Frame2117921443() {
   );
 }
 
-function Top() {
+function Top({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ TOP">
-      <Header />
+      <Header onNavigateBack={onNavigateBack} />
       <Frame2117921443 />
     </div>
   );
@@ -1641,7 +1648,7 @@ function Contents() {
   );
 }
 
-function Frame2117921450() {
+function Frame2117921450({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start leading-[0] relative shrink-0">
       <Tab1 />
@@ -1650,19 +1657,23 @@ function Frame2117921450() {
   );
 }
 
-function Frame2117921449() {
+function Frame2117921449({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="absolute content-stretch flex flex-col gap-[4px] items-start left-0 top-0 w-[360px]">
-      <Top />
-      <Frame2117921450 />
+      <Top onNavigateBack={onNavigateBack} />
+      <Frame2117921450 onNavigateBack={onNavigateBack} />
     </div>
   );
 }
 
-export default function Component11() {
+interface TokenTradingProps {
+  onNavigateBack?: () => void;
+}
+
+export default function Component11({ onNavigateBack }: TokenTradingProps = {}) {
   return (
     <div className="bg-white relative size-full pb-[72px]" data-name="11.토큰증권거래">
-      <Frame2117921449 />
+      <Frame2117921449 onNavigateBack={onNavigateBack} />
       <MobileAppFooter activeTab="order" />
     </div>
   );

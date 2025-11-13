@@ -1,8 +1,12 @@
+import { useMemo, useState } from "react";
 import svgPaths from "./svg-t0e5ct7xxk";
 import { img, imgRectangle157576 } from "./svg-9558m";
 import svgPathsNav from "./svg-nvt1qhzfrf";
 import { img as imgNav, imgRectangle157576 as imgRectangle157576Nav } from "./svg-dlk75";
+import { Button } from "@digital-wallet/ui";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
+import MobilePageHeader from "../components/ui/MobilePageHeader";
+import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
 
 function Frame1() {
   return (
@@ -167,7 +171,9 @@ function Frame8() {
   return (
     <div className="[grid-area:1_/_1] box-border content-stretch flex font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] items-start justify-between leading-[20px] ml-0 mt-0 not-italic relative text-nowrap w-[320px] whitespace-pre">
       <p className="relative shrink-0 text-[#777e8c] text-[13px]">출금 금액</p>
-      <p className="relative shrink-0 text-[#333950] text-[14px] text-right">1,000 USDC</p>
+      <p className="relative shrink-0 text-[#333950] text-[14px] text-right">
+        {formatNumber(AVAILABLE_USDC_AMOUNT)} USDC
+      </p>
     </div>
   );
 }
@@ -273,37 +279,7 @@ function Group() {
 }
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return (
-    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ HEADER">
-      <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div 
-        className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px] cursor-pointer" 
-        data-name="ic_00com_28_line_arrow_l_111"
-        onClick={onNavigateBack}
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.04%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 21">
-              <path d={svgPaths.p2c0ecd80} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="[grid-area:1_/_1] flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] h-[28px] justify-center ml-[40px] mt-[30px] not-italic relative text-[#111111] text-[16px] translate-y-[-50%] w-[200px]">
-        <p className="leading-[24px]">디지털 자산 거래 내역</p>
-      </div>
-      <Group />
-    </div>
-  );
+  return <MobilePageHeader title="디지털자산거래내역" onBack={onNavigateBack} />;
 }
 
 function Frame4({ onNavigateBack }: { onNavigateBack?: () => void }) {

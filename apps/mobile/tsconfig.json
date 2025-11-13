@@ -29,7 +29,7 @@
       "@digital-wallet/ui": ["../../packages/ui/src"]
     }
   },
-  "include": ["src/**/*", "src/**/*.tsx", "src/**/*.ts"],
+  "include": ["src/**/*", "src/**/*.tsx", "src/**/*.ts", "../../packages/ui/src/**/*"],
   "exclude": ["node_modules", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

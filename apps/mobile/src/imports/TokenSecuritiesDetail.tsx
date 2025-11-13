@@ -1,7 +1,9 @@
-import svgPaths from "./svg-2lruu3ueks";
-import imgImage3 from "../assets/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png";
-import { Button } from "@digital-wallet/ui";
+import svgPaths from "./svg-w6v5b8rkjs";
+import imgImage6 from "figma:asset/3f6c20a55af9ae2bb9795ba5bd2a42bbadd463a4.png";
+import imgImage5 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png";
+import { Button, ActionCard } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 function Group820325() {
   return (
@@ -12,37 +14,7 @@ function Group820325() {
 }
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return (
-    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ HEADER">
-      <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div
-        className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px] cursor-pointer"
-        data-name="ic_00com_28_line_arrow_l_111"
-        onClick={onNavigateBack}
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.04%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 21">
-              <path d={svgPaths.p2c0ecd80} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="[grid-area:1_/_1] flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] h-[27.835px] justify-center ml-[40px] mt-[30.155px] not-italic relative text-[#111111] translate-y-[-50%] w-[112px]">
-        <p className="leading-[24px] font-medium text-[16px]">음악 저작권 토큰</p>
-      </div>
-      <Group820325 />
-    </div>
-  );
+  return <MobilePageHeader title="라일락 (LILAC)" onBack={onNavigateBack} />;
 }
 
 function Frame2117921460() {
@@ -50,7 +22,7 @@ function Frame2117921460() {
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full">
       <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] leading-[28px] not-italic relative shrink-0 text-black text-nowrap tracking-[-0.5px] whitespace-pre font-bold text-[20px]">라일락(LILAC) - IU</p>
       <div className="aspect-[250/250] relative rounded-[8px] shrink-0 w-full" data-name="image 3">
-        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[8px] size-full" src={imgImage3} />
+        <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[8px] size-full" src={imgImage5} />
       </div>
       <div className="absolute bg-gradient-to-t from-[rgba(0,0,0,0.8)] h-[99px] left-0 rounded-bl-[8px] rounded-br-[8px] to-[164.65%] to-[rgba(102,102,102,0)] top-[257px] w-[320px]" />
       <ul className="[white-space-collapse:collapse] absolute block font-['Arial:Regular','Noto_Sans_KR:Regular',sans-serif] leading-[0] left-[10px] not-italic text-nowrap text-white top-[310px]">

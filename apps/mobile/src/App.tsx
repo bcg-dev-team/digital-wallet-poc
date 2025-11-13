@@ -8,7 +8,6 @@ import WalletAssetSelection from "./components/WalletAssetSelection";
 import WalletNetworkSelection from "./components/WalletNetworkSelection";
 import WalletCreationComplete from "./components/WalletCreationComplete";
 import DepositConnectWallet from "./components/DepositConnectWallet";
-import DepositWalletConnected from "./components/DepositWalletConnected";
 import DepositAmountEntry from "./components/DepositAmountEntry";
 import DepositProcessing from "./components/DepositProcessing";
 import DepositCompletion from "./components/DepositCompletion";
@@ -17,7 +16,8 @@ import TransactionHistory from "./components/TransactionHistory";
 import TokenSecuritiesOverview from "./components/TokenSecuritiesOverview";
 import TokenSecuritiesLilac from "./components/TokenSecuritiesLilac";
 import TokenTradingOrder from "./components/TokenTradingOrder";
-import ScreenIndex, { ScreenSummaryPanel } from "./components/ScreenIndex";
+import UsdcExchangeFlow from "./components/UsdcExchangeFlow";
+import { ScreenSummaryPanel } from "./components/ScreenSummaryPanel";
 import GlobalMenuScreen from "./components/GlobalMenuScreen";
 
 function ScrollToTop() {
@@ -56,10 +56,10 @@ export default function App() {
           <Route path="/wallet/network" element={<WalletNetworkSelection />} />
           <Route path="/wallet/creation-complete" element={<WalletCreationComplete />} />
           <Route path="/deposit/connect-wallet" element={<DepositConnectWallet />} />
-          <Route path="/deposit/wallet-connected" element={<DepositWalletConnected />} />
           <Route path="/deposit/amount" element={<DepositAmountEntry />} />
           <Route path="/deposit/processing" element={<DepositProcessing />} />
           <Route path="/deposit/completion" element={<DepositCompletion />} />
+          <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
           <Route path="/withdrawal" element={<UsdcWithdrawal />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
           <Route path="/token-securities" element={<TokenSecuritiesOverview />} />

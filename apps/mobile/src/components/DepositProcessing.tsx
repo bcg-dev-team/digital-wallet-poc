@@ -4,5 +4,5 @@ import Component06 from "../imports/DepositProgress";
 export default function DepositProcessing() {
   const navigate = useNavigate();
 
-  return <Component06 onNavigateHome={() => navigate("/wallet")} />;
+  return <Component06 onNavigateNext={() => navigate("/deposit/completion")} />;
 }

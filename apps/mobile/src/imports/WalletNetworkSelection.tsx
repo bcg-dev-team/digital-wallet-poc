@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Wifi } from "lucide-react";
 import svgPaths from "./svg-3h50f2el8r";
 import imgImage4 from "../assets/d354673552a465504a29e5fb8faea6af002ba04b.png";
 import imgImage6 from "../assets/3f6c20a55af9ae2bb9795ba5bd2a42bbadd463a4.png";
@@ -8,77 +9,12 @@ import imgImage9 from "../assets/45618983434d3a2e3270c96cc3abfaca576dd58e.png";
 import imgImage10 from "../assets/5f6f8cc65de6c881beb30ea6f5938414f9292961.png";
 import { Button } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 type Network = 'ethereum' | 'polygon' | 'bsc' | 'avalanche' | 'optimism' | 'solana';
 
-function Group820325() {
-  return (
-    <div className="absolute contents left-[234px] top-[11px]" data-name="Group820325">
-      <div className="absolute left-[234px] size-[28px] top-[11px]" data-name="Rectangle154476" />
-    </div>
-  );
-}
-
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return (
-    <div className="absolute contents left-0 top-0" data-name="+ HEADER">
-      <div className="absolute h-[52px] left-0 top-0 w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div
-        className="absolute inset-[1.55%_88.89%_94.84%_3.33%] cursor-pointer"
-        data-name="ic_00com_28_line_arrow_l_111"
-        onClick={onNavigateBack}
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.04%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 21">
-              <path d={svgPaths.p2c0ecd80} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="absolute flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] inset-[1.8%_57.78%_95.1%_11.11%] justify-center leading-[0] not-italic text-[#111111] text-[16px]">
-        <p className="leading-[24px] font-bold">SOL 디지털 월렛</p>
-      </div>
-      <Group820325 />
-    </div>
-  );
-}
-
-function Group823301() {
-  return (
-    <div className="absolute inset-[8.333%]">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 40 40">
-        <g id="Group 823301">
-          <circle cx="20" cy="20" fill="var(--fill-0, #2A3FEC)" id="Ellipse 944" r="20" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function MaskGroup() {
-  return (
-    <div className="absolute contents inset-[8.333%]" data-name="Mask group">
-      <Group823301 />
-    </div>
-  );
-}
-
-function Group823189() {
-  return (
-    <div className="absolute contents inset-[8.333%]">
-      <MaskGroup />
-    </div>
-  );
+  return <MobilePageHeader title="SOL 디지털 월렛" onBack={onNavigateBack} />;
 }
 
 function Frame2117921362() {
@@ -92,17 +28,13 @@ function Frame2117921362() {
 
 function Frame2117921363() {
   return (
-    <div className="content-stretch flex flex-col gap-[20px] items-center relative shrink-0">
-      <div className="relative shrink-0 size-[48px]" data-name="img_00com_apng_completed">
-        <Group823189 />
-        <div className="absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center" />
+    <div className="content-stretch flex flex-col items-center gap-[20px] relative shrink-0">
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e8ebff]">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2a3fec]">
+          <Wifi className="h-5 w-5 text-white" strokeWidth={2} />
+        </div>
       </div>
       <Frame2117921362 />
-      <div className="absolute h-[15.553px] left-[111px] top-[17px] w-[22px]" data-name="Vector">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 22 16">
-          <path d={svgPaths.p20a3d080} fill="var(--fill-0, white)" id="Vector" />
-        </svg>
-      </div>
     </div>
   );
 }
