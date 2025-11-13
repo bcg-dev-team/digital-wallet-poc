@@ -94,10 +94,36 @@ const AvailableBalanceCard = () => (
 export default function DepositStep1({ onNavigateBack, onNavigateNext }: DepositStep1Props) {
   const [isConnected, setIsConnected] = useState(false);
 
+  const isMobile = () => {
+    const ua = navigator.userAgent;
+    return /Android|iPhone|iPad|iPod/i.test(ua);
+  };
+  const redirectToMetaMask = () => {
+    const dappUrl = encodeURIComponent('digital-wallet-poc-mobile.vercel.app');
+    const metamaskDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+    window.location.href = metamaskDeepLink;
+  };
   const handleConnect = () => {
-    setIsConnected(true);
+    //setIsConnected(true);
 
-    // TODO: Connect to MetaMask
+    if (isMobile()) {
+      redirectToMetaMask();
+    } else {
+      // 데스크탑 환경에서는 일반적인 메타마스크 연결 로직 사용
+      if (window.ethereum) {
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(accounts => {
+            console.log('연결된 지갑 주소:', accounts[0]);
+            alert(`지갑이 연결되었습니다: ${accounts[0]}`);
+          })
+          .catch(error => {
+            console.error('지갑 연결 실패:', error);
+          });
+
+      } else {
+        alert('MetaMask가 설치되어 있지 않습니다.');
+      }
+    }
   };
 
   return (
