@@ -99,9 +99,15 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
     return /Android|iPhone|iPad|iPod/i.test(ua);
   };
   const redirectToMetaMask = () => {
+    // https://metamask.app.link/dapp/digital-wallet-poc-mobile.vercel.app/
+    // https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6
     const dappUrl = encodeURIComponent('digital-wallet-poc-mobile.vercel.app');
     const metamaskDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
-    window.location.href = metamaskDeepLink;
+
+    const paymentUrl = 'https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6';
+
+    //window.location.href = metamaskDeepLink;
+    window.location.href = paymentUrl;
   };
   const handleConnect = () => {
     //setIsConnected(true);
