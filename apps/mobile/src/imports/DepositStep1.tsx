@@ -102,12 +102,12 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
     // https://metamask.app.link/dapp/digital-wallet-poc-mobile.vercel.app/
     // https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6
     const dappUrl = encodeURIComponent('digital-wallet-poc-mobile.vercel.app');
-    const metamaskDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+    const metamaskConnectLink = `https://metamask.app.link/dapp/${dappUrl}/deposit/connect-wallet`;
 
     const paymentUrl = 'https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6';
 
     //window.location.href = metamaskDeepLink;
-    window.location.href = paymentUrl;
+    window.location.href = metamaskConnectLink;
   };
   const handleConnect = () => {
     //setIsConnected(true);
@@ -121,6 +121,7 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
           .then(accounts => {
             console.log('연결된 지갑 주소:', accounts[0]);
             alert(`지갑이 연결되었습니다: ${accounts[0]}`);
+            setIsConnected(true);
           })
           .catch(error => {
             console.error('지갑 연결 실패:', error);
