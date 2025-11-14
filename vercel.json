@@ -1,3 +1,10 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }],
+  "routes": [
+    {
+      "src": "/deposit/connect-wallet",
+      "headers": { "Location": "https://digital-wallet-poc-mobile.vercel.app/deposit/connect-wallet" },
+      "status": 302
+    }
+  ] 
 }
