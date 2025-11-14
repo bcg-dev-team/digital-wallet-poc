@@ -6,8 +6,11 @@ import MobilePageHeader from "../components/ui/MobilePageHeader";
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,
+  USDC_CONTRACT_ADDRESS,
   formatCurrency,
   formatNumber,
+  getERC20Balance,
+  switchNetwork
 } from "../constants/wallet";
 
 interface DepositStep1Props {
@@ -16,7 +19,7 @@ interface DepositStep1Props {
 }
 
 const MASKED_ADDRESS = "0x9f8e...7b6a";
-const NETWORK_NAME = "Polygon Mumbai Testnet";
+const NETWORK_NAME = "Polygon Amoy Testnet";
 
 const GradientBar = () => (
   <div className="h-1 w-full rounded-full bg-[#eeeeee]">
@@ -69,14 +72,14 @@ const ApproxIcon = () => (
   </svg>
 );
 
-const AvailableBalanceCard = () => (
+const AvailableBalanceCard = (usdcBalance: number) => (
   <div className="bg-white box-border flex w-full flex-col gap-[6px] items-start rounded-xl border border-[#ebedf5] px-5 pb-5 pt-3.5 shadow-[0px_4px_18px_rgba(17,17,17,0.04)]">
     <div className="flex flex-col items-start">
       <span className="font-['Spoqa Han Sans Neo',sans-serif] text-[14px] text-[#999ea4]">사용 가능한 USDC</span>
     </div>
     <div className="mt-2 flex items-center gap-2">
       <span className="font-['Spoqa Han Sans Neo',sans-serif] text-[26px] font-bold leading-[32px] tracking-[-0.13px] text-[#111111]">
-        {formatNumber(AVAILABLE_USDC_AMOUNT)} USDC
+        {formatNumber(usdcBalance)} USDC
       </span>
       <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#f4f6f9]">
         <div className="-rotate-180 scale-y-[-1]">
@@ -93,23 +96,21 @@ const AvailableBalanceCard = () => (
 
 export default function DepositStep1({ onNavigateBack, onNavigateNext }: DepositStep1Props) {
   const [isConnected, setIsConnected] = useState(false);
+  const [address, setAddress] = useState<string>("");
+  const [usdcBalance, setUsedBalance] = useState<number>(0);
 
   const isMobile = () => {
     const ua = navigator.userAgent;
     return /Android|iPhone|iPad|iPod/i.test(ua);
   };
   const redirectToMetaMask = () => {
-    // https://metamask.app.link/dapp/digital-wallet-poc-mobile.vercel.app/
-    // https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6
     const dappUrl = encodeURIComponent('digital-wallet-poc-mobile.vercel.app');
     const metamaskConnectLink = `https://metamask.app.link/dapp/${dappUrl}/deposit/connect-wallet`;
-
-    const paymentUrl = 'https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6';
-
+    // const paymentUrl = 'https://metamask.app.link/send/0x8B0180f2101c8260d49339abfEe87927412494B4@80002/transfer?address=0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb&uint256=1e6';
     //window.location.href = metamaskDeepLink;
     window.location.href = metamaskConnectLink;
   };
-  const handleConnect = () => {
+  const handleConnect = async () => {
     //setIsConnected(true);
 
     if (isMobile()) {
@@ -117,15 +118,20 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
     } else {
       // 데스크탑 환경에서는 일반적인 메타마스크 연결 로직 사용
       if (window.ethereum) {
-        window.ethereum.request({ method: 'eth_requestAccounts' })
-          .then(accounts => {
-            console.log('연결된 지갑 주소:', accounts[0]);
-            alert(`지갑이 연결되었습니다: ${accounts[0]}`);
-            setIsConnected(true);
-          })
-          .catch(error => {
-            console.error('지갑 연결 실패:', error);
-          });
+
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setAddress(accounts[0]);
+
+        await switchNetwork(0x13882); // Amoy Testnet
+
+        setIsConnected(true);
+        const balance = await getERC20Balance(USDC_CONTRACT_ADDRESS, accounts[0]);
+        setUsedBalance(Number(balance) / 1e18); // Assuming USDC has 18 decimals
+        alert(usdcBalance);
+        alert(accounts[0])
+        // setUsedBalance(Number(balance) / 1e6); // Assuming USDC has 6 decimals
+
+
 
       } else {
         alert('MetaMask가 설치되어 있지 않습니다.');
@@ -174,14 +180,14 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
                 <div>
                   <p className="text-[12px] font-medium text-[#333950]">지갑 연결됨</p>
                   <p className="mt-1 text-[11px] leading-[16px] text-[#77738c]">
-                    주소: {MASKED_ADDRESS}
+                    주소: {address}
                     <br />
                     네트워크: {NETWORK_NAME}
                   </p>
                 </div>
               </div>
             </div>
-            <AvailableBalanceCard />
+            <AvailableBalanceCard usdcBalance={usdcBalance} />
           </section>
         )}
       </main>
