@@ -1,15 +1,13 @@
 import { useMemo, useState } from "react";
+import clsx from "clsx";
+import { Clock, Info, RefreshCw } from "lucide-react";
 import { Button, Input, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
-import {
-  AVAILABLE_USDC_AMOUNT,
-  AVAILABLE_USDC_KRW,
-  formatCurrency,
-  formatNumber,
-} from "../constants/wallet";
+import { AVAILABLE_USDC_AMOUNT, AVAILABLE_USDC_KRW, formatCurrency, formatNumber } from "../constants/wallet";
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
+const BRIDGE_FEE_RATE = 0.001;
 
 type AmountMode = "manual" | "max";
 
@@ -32,6 +30,17 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
 
   const usdcNumeric = useMemo(() => parseNumber(usdcAmount), [usdcAmount]);
   const expectedDt = useMemo(() => usdcNumeric * dtPerUsdc, [usdcNumeric]);
+  const bridgeFeeDt = useMemo(() => (expectedDt ? expectedDt * BRIDGE_FEE_RATE : 0), [expectedDt]);
+  const finalDt = useMemo(() => Math.max(expectedDt - bridgeFeeDt, 0), [expectedDt, bridgeFeeDt]);
+
+  const lastUpdatedTime = useMemo(
+    () =>
+      new Intl.DateTimeFormat("ko-KR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date()),
+    []
+  );
 
   const handleAmountChange = (value: string) => {
     const numeric = parseNumber(value);
@@ -49,77 +58,169 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
     setUsdcAmount(formatNumber(AVAILABLE_USDC_AMOUNT));
   };
 
-  const isNextDisabled = usdcNumeric <= 0;
+  const isSubmitDisabled = usdcNumeric <= 0;
 
   const handleSubmit = () => {
-    if (isNextDisabled) return;
+    if (isSubmitDisabled) {
+      return;
+    }
     onSubmit?.({ usdcAmount: usdcNumeric, expectedDt });
   };
+
+  const summaryRows = [
+    {
+      label: "환전 금액",
+      value: usdcNumeric > 0 ? `${formatNumber(usdcNumeric)} USDC` : "0 USDC",
+    },
+    {
+      label: "적용 환율",
+      value: `${formatDecimal(dtPerUsdc)}원/USD`,
+    },
+    {
+      label: "예상 수령",
+      value: expectedDt > 0 ? `${formatNumber(Math.round(expectedDt))} DT` : "0 DT",
+    },
+    {
+      label: "브릿지 수수료",
+      value: `${expectedDt > 0 ? formatNumber(Math.round(bridgeFeeDt)) : "0"} DT(${(BRIDGE_FEE_RATE * 100).toFixed(1)}%)`,
+    },
+  ];
+
+  const finalReceiveLabel =
+    finalDt > 0
+      ? `${formatNumber(Math.round(finalDt))} DT (=${formatCurrency(Math.round(finalDt))})`
+      : "0 DT (=0원)";
 
   return (
     <div className="flex min-h-full w-full flex-col bg-white">
       <MobilePageHeader title="USDC 환전" onBack={onNavigateBack} />
 
-      <main className="flex-1 overflow-y-auto px-5 pb-28 pt-8">
-        <section className="space-y-2 text-left">
-          <h2 className="text-[20px] font-semibold text-[#111111]">환전 금액을 입력하세요</h2>
-          <p className="text-[14px] text-[#777e8c]">
-            최대 {formatNumber(AVAILABLE_USDC_AMOUNT)} USDC까지 DT로 환전할 수 있어요.
-          </p>
+      <main className="flex-1 overflow-y-auto text-left">
+        <section className="space-y-6 px-5 pb-10 pt-8">
+          <div className="space-y-1">
+            <p className="text-[20px] font-bold leading-[28px] text-[#111111]">환전할 금액을</p>
+            <p className="text-[20px] font-bold leading-[28px] text-[#111111]">입력해주세요</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="text-[14px] font-bold text-[#111111]">환율 정보</span>
+              <Info className="size-[16px] text-[#2a3fec]" strokeWidth={2} aria-hidden="true" />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-[26px] font-bold leading-[32px] text-[#111111]">
+                  {formatDecimal(dtPerUsdc)}원
+                </span>
+                <button
+                  type="button"
+                  className="rounded-full p-1 text-[#999ea4] transition-colors hover:text-[#2a3fec]"
+                  aria-label="환율 새로 고침"
+                >
+                  <RefreshCw className="size-[18px]" strokeWidth={2} />
+                </button>
+              </div>
+              <span className="text-[11px] text-[#999ea4]">마지막 업데이트: {lastUpdatedTime}</span>
+            </div>
+            <p className="text-[11px] text-[#999ea4]">(한국은행 매매기준율)</p>
+          </div>
+
+          <div className="flex items-center gap-2 rounded-[4px] bg-[#f1f2ff] px-[10px] py-[6px] text-[11px] text-[#2a3fec]">
+            <Info className="size-[14px]" strokeWidth={2} aria-hidden="true" />
+            <span>DT는 원화(KRW)에 페깅됩니다 (1DT = 1KRW)</span>
+          </div>
+
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-[14px] font-bold text-[#111111]">환전 금액(USDC)</span>
+                <div className="flex items-center gap-2 rounded-[6px] bg-[#e7eaef] p-1">
+                  <SmallButton
+                    variant={amountMode === "manual" ? "primary" : "default"}
+                    className={clsx(
+                      "px-3",
+                      amountMode === "manual" && "shadow-[0px_0px_4px_rgba(17,17,17,0.18)]"
+                    )}
+                    onClick={handleSelectManual}
+                  >
+                    직접입력
+                  </SmallButton>
+                  <SmallButton
+                    variant={amountMode === "max" ? "primary" : "default"}
+                    className={clsx(
+                      "px-3",
+                      amountMode === "max" && "shadow-[0px_0px_4px_rgba(17,17,17,0.18)]"
+                    )}
+                    onClick={handleSelectMax}
+                  >
+                    최대한도
+                  </SmallButton>
+                </div>
+              </div>
+              <Input
+                value={usdcAmount}
+                placeholder="환전할 USDC 수량을 입력하세요"
+                onChange={(event) => handleAmountChange(event.target.value)}
+                inputMode="numeric"
+                suffix={<span className="pr-4 text-[14px] text-[#111111]">USDC</span>}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <span className="text-[14px] font-medium text-[#999ea4]">예상 수령액</span>
+              <Input
+                value={expectedDt > 0 ? formatDecimal(expectedDt) : "0"}
+                readOnly
+                inputMode="numeric"
+                className="text-[#333950]"
+                suffix={<span className="pr-4 text-[14px] text-[#111111]">DT</span>}
+              />
+            </div>
+          </div>
         </section>
 
-        <section className="mt-8 space-y-6">
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[14px] font-semibold text-[#111111]">환전 USDC 수량</span>
-              <div className="flex items-center gap-2 rounded-[6px] bg-[#e7eaef] p-1">
-                <SmallButton
-                  variant={amountMode === "manual" ? "primary" : "default"}
-                  className="px-3"
-                  onClick={handleSelectManual}
-                >
-                  직접입력
-                </SmallButton>
-                <SmallButton
-                  variant={amountMode === "max" ? "primary" : "default"}
-                  className="px-3"
-                  onClick={handleSelectMax}
-                >
-                  최대한도
-                </SmallButton>
+        <div className="h-[10px] w-full bg-[#f6f6f9]" />
+
+        <section className="space-y-6 px-5 py-10">
+          <h3 className="text-[14px] font-bold text-[#111111]">환전 요약</h3>
+          <div className="rounded-[12px] border border-[#ebedf5] bg-white px-5 py-4">
+            {summaryRows.map((row, index) => (
+              <div key={row.label}>
+                {index > 0 && <div className="my-3 h-px w-full bg-[#eeeeee]" />}
+                <div className="flex items-start justify-between text-[13px] text-[#777e8c]">
+                  <span className="font-medium">{row.label}</span>
+                  <span className="text-[14px] font-medium text-[#333950]">{row.value}</span>
+                </div>
               </div>
+            ))}
+            <div className="my-3 h-px w-full bg-[#eeeeee]" />
+            <div className="flex items-start justify-between text-[13px] text-[#2a3fec]">
+              <span className="font-medium">최종 수령액</span>
+              <span className="text-[14px] font-bold text-[#2a3fec]">{finalReceiveLabel}</span>
             </div>
-            <Input
-              value={usdcAmount}
-              placeholder="환전할 USDC 수량을 입력하세요"
-              onChange={(event) => handleAmountChange(event.target.value)}
-              inputMode="numeric"
-              suffix={<span className="pr-4 text-[14px] text-[#111111]">USDC</span>}
-            />
-          </div>
-
-          <div className="rounded-[16px] border border-[#ebedf5] bg-[#f8f9fd] px-5 py-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[13px] text-[#777e8c]">예상 수령액</span>
-              <span className="text-[16px] font-semibold text-[#111111]">
-                {expectedDt > 0 ? formatDecimal(expectedDt) : "0"} DT
-              </span>
+            <div className="mt-3 flex items-center gap-2 text-[11px] text-[#777e8c]">
+              <Clock className="size-[14px]" strokeWidth={2} aria-hidden="true" />
+              <span>※ 예상 소요시간: 3-5분</span>
             </div>
-            <p className="mt-2 text-[12px] text-[#999ea4]">
-              1 USDC ≈ {formatDecimal(dtPerUsdc)} DT 기준으로 계산됩니다.
-            </p>
-          </div>
-
-          <div className="rounded-[12px] bg-[#f4f6f9] px-4 py-3 text-[13px] text-[#555d6d]">
-            <p>환전 완료 후 DT는 지갑 보유 자산에 추가됩니다.</p>
           </div>
         </section>
       </main>
 
       <MobileStickyFooter>
-        <Button variant="primary" size="lg" className="w-full" disabled={isNextDisabled} onClick={handleSubmit}>
-          다음
-        </Button>
+        <div className="flex w-full items-center gap-3">
+          <Button variant="secondary" size="lg" className="flex-1" onClick={() => onNavigateBack?.()}>
+            취소
+          </Button>
+          <Button
+            variant="primary"
+            size="lg"
+            className="flex-1"
+            disabled={isSubmitDisabled}
+            onClick={handleSubmit}
+          >
+            환전하기
+          </Button>
+        </div>
       </MobileStickyFooter>
     </div>
   );

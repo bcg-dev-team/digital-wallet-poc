@@ -25,6 +25,22 @@ export default defineConfig({
         __dirname,
         "./src/assets/034a0093adcbb8be6bca570d81a33610166d62db.png"
       ),
+      "figma:asset/d354673552a465504a29e5fb8faea6af002ba04b.png": path.resolve(
+        __dirname,
+        "./src/assets/d354673552a465504a29e5fb8faea6af002ba04b.png"
+      ),
+      "figma:asset/e6769d863f16bbccc165602f58f3391daffd454e.png": path.resolve(
+        __dirname,
+        "./src/assets/e6769d863f16bbccc165602f58f3391daffd454e.png"
+      ),
+      "figma:asset/c70a76a62088b5d21df9ee6ece31859439bd6a1d.png": path.resolve(
+        __dirname,
+        "./src/assets/c70a76a62088b5d21df9ee6ece31859439bd6a1d.png"
+      ),
+      "figma:asset/c464d9e903817c3ef7f389ae66705c9445719c95.png": path.resolve(
+        __dirname,
+        "./src/assets/c464d9e903817c3ef7f389ae66705c9445719c95.png"
+      ),
     },
   },
   build: {

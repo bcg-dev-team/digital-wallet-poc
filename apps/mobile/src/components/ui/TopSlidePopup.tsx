@@ -43,7 +43,7 @@ export function TopSlidePopup({ message, open, duration = 2400, onOpenChange }: 
       )}
       aria-live="assertive"
     >
-      <div className="pointer-events-auto rounded-[10px] bg-white px-6 py-9 text-center text-[14px] font-medium leading-[20px] text-[#131313] shadow-[0px_24px_36px_rgba(17,17,17,0.08)]">
+      <div className="pointer-events-auto rounded-[10px] bg-white px-6 py-9 text-center text-[14px] font-medium leading-[20px] text-[#131313] shadow-[0px_2px_6px_rgba(0,0,0,0.10)]">
         {message.split("\n").map((line, index) => (
           <span key={index} className={index > 0 ? "mt-1 block" : "block"}>
             {line}

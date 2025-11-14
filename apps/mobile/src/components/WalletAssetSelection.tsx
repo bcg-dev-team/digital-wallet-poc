@@ -1,54 +1,53 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
+import clsx from "clsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button, Card } from "@digital-wallet/ui";
+import { Button } from "@digital-wallet/ui";
 import MobileStickyFooter from "./layout/MobileStickyFooter";
 import MobilePageHeader from "./ui/MobilePageHeader";
+import svgPaths from "../imports/svg-3h50f2el8r";
+import ethImage from "figma:asset/d354673552a465504a29e5fb8faea6af002ba04b.png";
+import btcImage from "figma:asset/e6769d863f16bbccc165602f58f3391daffd454e.png";
+import usdtImage from "figma:asset/c70a76a62088b5d21df9ee6ece31859439bd6a1d.png";
+import usdcImage from "figma:asset/c464d9e903817c3ef7f389ae66705c9445719c95.png";
 
 type Asset = "eth" | "btc" | "usdt" | "usdc";
 
 interface AssetOption {
   id: Asset;
+  nameEn: string;
   nameKo: string;
   symbol: string;
-  description: string;
-  accent: string;
-  background: string;
-  recommended?: boolean;
+  image: string;
 }
 
 const ASSET_OPTIONS: AssetOption[] = [
   {
     id: "eth",
+    nameEn: "Ethereum",
     nameKo: "이더리움",
     symbol: "ETH",
-    description: "Ethereum 메인넷",
-    accent: "#627EEA",
-    background: "bg-[#eef0ff]",
+    image: ethImage,
   },
   {
     id: "btc",
+    nameEn: "Bitcoin",
     nameKo: "비트코인",
     symbol: "BTC",
-    description: "Bitcoin 네트워크",
-    accent: "#F7931A",
-    background: "bg-[#fff4e5]",
+    image: btcImage,
   },
   {
     id: "usdt",
+    nameEn: "USDT",
     nameKo: "테더",
     symbol: "USDT",
-    description: "Tether USD",
-    accent: "#26A17B",
-    background: "bg-[#e7f6f1]",
+    image: usdtImage,
   },
   {
     id: "usdc",
+    nameEn: "USDC",
     nameKo: "USD Coin",
     symbol: "USDC",
-    description: "USD Coin",
-    accent: "#2775CA",
-    background: "bg-[#e9f1ff]",
-    recommended: true,
+    image: usdcImage,
   },
 ];
 
@@ -78,50 +77,48 @@ export default function WalletAssetSelection() {
     navigate("/wallet/network", { state: { selectedAsset } });
   };
 
-  const title = useMemo(() => {
-    if (!selectedAsset) return "자산을 선택하세요";
-    const asset = ASSET_OPTIONS.find((option) => option.id === selectedAsset);
-    return asset ? `${asset.nameKo} (${asset.symbol}) 선택됨` : "자산을 선택하세요";
-  }, [selectedAsset]);
-
   return (
     <div className="flex min-h-full w-full flex-col bg-white">
-      <MobilePageHeader title={title} onBack={handleBack} />
+      <MobilePageHeader title="SOL 디지털 월렛" onBack={handleBack} />
 
-      <main className="flex-1 overflow-y-auto px-5 pb-28 pt-10">
-        <section className="text-center space-y-2">
-          <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[20px] leading-[28px] text-[#111111]">
-            자산 선택
-          </p>
-          <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] text-[14px] text-[#999ea4]">
-            입금할 디지털 자산을 선택해주세요
-          </p>
-        </section>
+      <main className="relative flex-1 overflow-y-auto">
+        <div className="px-5 pb-[140px] pt-8">
+          <section className="flex flex-col items-center gap-5 text-center">
+            <WifiBadge />
+            <div className="space-y-1">
+              <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] font-bold text-[20px] leading-[28px] text-[#111111]">
+                자산 선택
+              </p>
+              <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[14px] text-[#999ea4]">
+                사용할 자산을 선택해주세요
+              </p>
+            </div>
+          </section>
 
-        <section className="mt-8 space-y-3">
-          {ASSET_OPTIONS.map((option) => (
-            <AssetCard
-              key={option.id}
-              option={option}
-              selected={selectedAsset === option.id}
-              onSelect={() => setSelectedAsset(option.id)}
-            />
-          ))}
-        </section>
+          <section className="mt-8 space-y-3 text-left">
+            <div className="flex items-center gap-2">
+              <span className="inline-block h-2 w-2 rounded-full bg-[#e02d23]" />
+              <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[14px] text-[#111111]">전체 자산</p>
+            </div>
+            <div className="space-y-2">
+              {ASSET_OPTIONS.map((option) => (
+                <AssetRow
+                  key={option.id}
+                  option={option}
+                  selected={selectedAsset === option.id}
+                  onSelect={() => setSelectedAsset(option.id)}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
 
-      {selectedAsset && (
-        <MobileStickyFooter>
-          <div className="flex w-full flex-col gap-2">
-            <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[13px] text-[#777e8c]">
-              {title}
-            </p>
-            <Button variant="primary" size="lg" className="w-full" onClick={handleNext}>
-              다음
-            </Button>
-          </div>
-        </MobileStickyFooter>
-      )}
+      <MobileStickyFooter>
+        <Button variant="primary" size="lg" className="w-full" disabled={!selectedAsset} onClick={handleNext}>
+          다음
+        </Button>
+      </MobileStickyFooter>
     </div>
   );
 }
@@ -132,48 +129,59 @@ interface AssetCardProps {
   onSelect: () => void;
 }
 
-function AssetCard({ option, selected, onSelect }: AssetCardProps) {
+function AssetRow({ option, selected, onSelect }: AssetCardProps) {
   return (
-    <Card
-      className={`flex items-center justify-between gap-3 border transition-all duration-200 ${selected ? "border-[#2a3fec] shadow-[0px_6px_16px_rgba(42,63,236,0.15)]" : "border-[#ebedf5]"}`}
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
       onClick={onSelect}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          onSelect();
-        }
-      }}
+      className={clsx(
+        "w-full rounded-[6px] px-4 py-[14px] transition-colors duration-200",
+        "text-left",
+        selected ? "bg-[#2a3fec] shadow-[0px_6px_16px_rgba(42,63,236,0.18)]" : "bg-[#f4f6f9]"
+      )}
     >
       <div className="flex items-center gap-3">
-        <div
-          className={`flex h-12 w-12 items-center justify-center rounded-full ${option.background}`}
-          style={{ color: option.accent }}
-        >
-          <span className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[16px]">{option.symbol}</span>
+        <div className="relative size-[30px] overflow-hidden rounded-full bg-white">
+          <img
+            src={option.image}
+            alt={`${option.nameEn} 아이콘`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            draggable={false}
+          />
         </div>
-        <div>
-          <p className={`font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[16px] ${selected ? "text-[#2a3fec]" : "text-[#111111]"}`}>
-            {option.nameKo} ({option.symbol})
-          </p>
-          <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] text-[13px] text-[#777e8c]">
-            {option.description}
-          </p>
-          {option.recommended && (
-            <span className="mt-2 inline-flex items-center gap-1 rounded-[4px] bg-[#ededff] px-2 py-1 text-[11px] font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[#2a3fec]">
-              추천
-            </span>
-          )}
+        <div className="flex flex-col">
+          <span
+            className={clsx(
+              "font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[14px] leading-[20px]",
+              selected ? "text-white" : "text-[#333950]"
+            )}
+          >
+            {option.nameEn}
+          </span>
+          <span
+            className={clsx(
+              "font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] text-[11px] leading-[16px]",
+              selected ? "text-white/80" : "text-[#999ea4]"
+            )}
+          >
+            {option.nameKo}
+          </span>
         </div>
       </div>
-      {selected && (
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <rect width="20" height="20" rx="10" fill="#2a3fec" />
-          <path d="M15 7L9 13L6 10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </button>
+  );
+}
+
+function WifiBadge() {
+  return (
+    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e8ebff]">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2a3fec]">
+        <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+          <path d={svgPaths.p20a3d080} fill="#FFFFFF" />
         </svg>
-      )}
-    </Card>
+      </div>
+    </div>
   );
 }
 

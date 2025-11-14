@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Wifi } from "lucide-react";
 import svgPaths from "./svg-3h50f2el8r";
 import imgImage4 from "../assets/d354673552a465504a29e5fb8faea6af002ba04b.png";
 import imgImage6 from "../assets/3f6c20a55af9ae2bb9795ba5bd2a42bbadd463a4.png";
@@ -31,7 +30,9 @@ function Frame2117921363() {
     <div className="content-stretch flex flex-col items-center gap-[20px] relative shrink-0">
       <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#e8ebff]">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2a3fec]">
-          <Wifi className="h-5 w-5 text-white" strokeWidth={2} />
+          <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+            <path d={svgPaths.p20a3d080} fill="#FFFFFF" />
+          </svg>
         </div>
       </div>
       <Frame2117921362 />
