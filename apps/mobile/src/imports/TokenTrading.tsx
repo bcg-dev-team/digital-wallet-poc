@@ -1,10 +1,5 @@
-import svgPaths from "./svg-w6v5b8rkjs";
-import svgPaths1 from "./svg-t0e5ct7xxk";
-import svgPaths2 from "./svg-p8d53q79zu";
-import svgPaths3 from "./svg-9558m";
-import { Button, ActionCard } from "@digital-wallet/ui";
-import MobileAppFooter from "../components/layout/MobileAppFooter";
-import MobilePageHeader from "../components/ui/MobilePageHeader";
+import svgPaths from "./svg-p8d53q79zu";
+import { imgRectangle157576, img, img1 } from "./svg-lwrrr";
 
 function Group829739() {
   return (
@@ -181,6 +176,23 @@ function Inner() {
   );
 }
 
+function Quickmenu() {
+  return (
+    <div className="absolute bottom-0 h-[52px] left-0 w-[360px]" data-name="quickmenu">
+      <div className="absolute bg-white h-[52px] left-0 top-0 w-[360px]" />
+      <Inner />
+    </div>
+  );
+}
+
+function Quick() {
+  return (
+    <div className="absolute bottom-0 contents left-0" data-name="+ QUICK">
+      <Quickmenu />
+    </div>
+  );
+}
+
 function Icon() {
   return (
     <div className="absolute inset-[12.5%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-2px] mask-size-[16px_16px]" data-name="icon" style={{ maskImage: `url('${img}')` }}>
@@ -306,15 +318,12 @@ function Frame2117921448() {
   );
 }
 
-function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
+function Header() {
   return (
-    <MobilePageHeader
-      title={<Frame2117921446 />}
-      onBack={onNavigateBack}
-      className="border-[#f1f2f6]"
-      titleClassName="flex-1 ml-0"
-      rightSlot={<Frame2117921444 />}
-    />
+    <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="+HEADER">
+      <div className="absolute bg-white inset-0" data-name="Rectangle153562" />
+      <Frame2117921448 />
+    </div>
   );
 }
 
@@ -443,10 +452,10 @@ function Frame2117921443() {
   );
 }
 
-function Top({ onNavigateBack }: { onNavigateBack?: () => void }) {
+function Top() {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ TOP">
-      <Header onNavigateBack={onNavigateBack} />
+      <Header />
       <Frame2117921443 />
     </div>
   );
@@ -1128,7 +1137,7 @@ function Group824710() {
 function Frame820127() {
   return (
     <div className="absolute bg-[#2d78fa] inset-0 rounded-[9px]" data-name="Frame820120">
-      <div className="absolute bottom-[6px] flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] justify-center leading-[0] left-[2px] not-italic text-[8px] text-nowrap text-white translate-y-[50%]">
+      <div className="absolute bottom-[6px] flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] justify-center leading-[0] left-[2.5px] not-italic text-[8px] text-nowrap text-white translate-y-[60%]">
         <p className="leading-[8px] whitespace-pre">저</p>
       </div>
     </div>
@@ -1138,7 +1147,7 @@ function Frame820127() {
 function Frame820128() {
   return (
     <div className="absolute bg-[#111111] inset-0 rounded-[9px]" data-name="Frame820120">
-      <div className="absolute bottom-[6px] flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] justify-center leading-[0] left-[2px] not-italic text-[8px] text-nowrap text-white translate-y-[50%]">
+      <div className="absolute bottom-[6px] flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] justify-center leading-[0] left-[2.5px] not-italic text-[8px] text-nowrap text-white translate-y-[60%]">
         <p className="leading-[8px] whitespace-pre">시</p>
       </div>
     </div>
@@ -1317,21 +1326,21 @@ function Ic02Tr24LinePlusN1() {
 
 function Button2() {
   return (
-    <div className="[grid-area:1_/_1] grid grid-cols-[auto_1fr_auto] grid-rows-[max-content] gap-3 items-center leading-[0] ml-[160px] mt-[88px] relative w-[188px] h-[40px]" data-name="button">
-      <div className="absolute inset-0 h-[40px] w-[188px]" data-name="np_00com_btn_anchor_line_o.9">
+    <div className="[grid-area:1_/_1] grid grid-cols-[auto_1fr_auto] grid-rows-[max-content] gap-3 items-center justify-center leading-[0] ml-[160px] mt-[88px] relative w-[188px] h-[40px]" data-name="button">
+      <div className="absolute inset-0 h-[40px] w-[188px] " data-name="np_00com_btn_anchor_line_o.9">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 188 40">
           <path d={svgPaths.pdbdfc00} fill="var(--fill-0, white)" id="np_00com_btn_anchor_line_o.9" stroke="var(--stroke-0, #111111)" />
         </svg>
       </div>
-      <div className="relative z-10 ml-3 translate-y-[2px]">
+      <div className="relative z-10 ml-3 translate-y-[8px]">
         <Ic02Tr24LinePlusN />
       </div>
-      <div className="relative z-10 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] not-italic text-[#111111] text-[14px] text-nowrap text-center translate-y-[2px]">
+      <div className="relative z-10 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] not-italic text-[#111111] text-[14px] text-nowrap text-center translate-y-[8px]">
         <p className="leading-[20px] whitespace-pre font-bold">
           15,000<span className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] not-italic text-[#111111] font-bold">DT</span>
         </p>
       </div>
-      <div className="relative z-10 mr-3 translate-y-[2px]">
+      <div className="relative z-10 mr-3 translate-y-[8px]">
         <Ic02Tr24LinePlusN1 />
       </div>
     </div>
@@ -1396,13 +1405,13 @@ function Ic02Tr24LinePlusN2() {
 
 function Button4() {
   return (
-    <div className="[grid-area:1_/_1] grid grid-cols-[auto_1fr_auto] grid-rows-[max-content] gap-3 items-center leading-[0] ml-[160px] mt-[136px] relative w-[188px] h-[40px]" data-name="button">
+    <div className="[grid-area:1_/_1] grid grid-cols-[auto_1fr_auto] grid-rows-[max-content] gap-3 items-center justify-center leading-[0] ml-[160px] mt-[136px] relative w-[188px] h-[40px]" data-name="button">
       <div className="absolute inset-0 h-[40px] w-[188px]" data-name="np_00com_btn_anchor_line_n.9">
         <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 188 40">
           <path d={svgPaths.pdbdfc00} fill="var(--fill-0, white)" id="np_00com_btn_anchor_line_n.9" stroke="var(--stroke-0, #EEEEEE)" />
         </svg>
       </div>
-      <div className="relative z-10 ml-3 size-[24px] translate-y-[2px]" data-name="ic_02tr_24_line_minus_o">
+      <div className="relative z-10 ml-3 size-[24px] translate-y-[8px]" data-name="ic_02tr_24_line_minus_o">
         <div className="absolute flex inset-0 items-center justify-center">
           <div className="flex-none rotate-[180deg] scale-y-[-100%] size-[24px]">
             <div className="relative size-full" data-name="Rectangle154657">
@@ -1423,10 +1432,10 @@ function Button4() {
         </div>
         <Group823039 />
       </div>
-      <div className="relative z-10 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] not-italic text-[#111111] text-[14px] text-center text-nowrap translate-y-[2px]">
+      <div className="relative z-10 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] not-italic text-[#111111] text-[14px] text-center text-nowrap translate-y-[8px]">
         <p className="leading-[20px] whitespace-pre font-bold">10ST</p>
       </div>
-      <div className="relative z-10 mr-3 translate-y-[2px]">
+      <div className="relative z-10 mr-3 translate-y-[8px]">
         <Ic02Tr24LinePlusN2 />
       </div>
     </div>
@@ -1648,7 +1657,7 @@ function Contents() {
   );
 }
 
-function Frame2117921450({ onNavigateBack }: { onNavigateBack?: () => void }) {
+function Frame2117921450() {
   return (
     <div className="content-stretch flex flex-col items-start leading-[0] relative shrink-0">
       <Tab1 />
@@ -1657,24 +1666,20 @@ function Frame2117921450({ onNavigateBack }: { onNavigateBack?: () => void }) {
   );
 }
 
-function Frame2117921449({ onNavigateBack }: { onNavigateBack?: () => void }) {
+function Frame2117921449() {
   return (
     <div className="absolute content-stretch flex flex-col gap-[4px] items-start left-0 top-0 w-[360px]">
-      <Top onNavigateBack={onNavigateBack} />
-      <Frame2117921450 onNavigateBack={onNavigateBack} />
+      <Top />
+      <Frame2117921450 />
     </div>
   );
 }
 
-interface TokenTradingProps {
-  onNavigateBack?: () => void;
-}
-
-export default function Component11({ onNavigateBack }: TokenTradingProps = {}) {
+export default function Component11() {
   return (
-    <div className="bg-white relative size-full pb-[72px]" data-name="11.토큰증권거래">
-      <Frame2117921449 onNavigateBack={onNavigateBack} />
-      <MobileAppFooter activeTab="order" />
+    <div className="bg-white relative size-full" data-name="11.토큰증권거래">
+      <Quick />
+      <Frame2117921449 />
     </div>
   );
 }
