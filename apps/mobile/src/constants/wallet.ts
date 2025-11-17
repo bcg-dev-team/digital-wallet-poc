@@ -7,6 +7,7 @@ export const AVAILABLE_USDC_AMOUNT = 1_000;
 export const AVAILABLE_USDC_KRW = 1_350_000;
 
 export const USDC_CONTRACT_ADDRESS = "0xf178317C8353C8Fef671dB4531e11e57b9Ea0a71";
+export const KRW_USD_EXCHANGE_RATE = 1450; // 1 USD = 1350 KRW (예시 환율)
 
 export const formatNumber = (value: number) =>
   new Intl.NumberFormat("ko-KR").format(value);

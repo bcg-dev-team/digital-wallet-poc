@@ -4,6 +4,7 @@ import { Button, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import { TopSlidePopup } from "../components/ui/TopSlidePopup";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
+import { myWallet, MyWallet } from "./myWallet";
 
 interface WalletSetupCompleteProps {
   onNavigateBack?: () => void;
@@ -13,8 +14,8 @@ interface WalletSetupCompleteProps {
 export default function WalletSetupComplete({ onNavigateBack, onNavigateToDeposit }: WalletSetupCompleteProps) {
   const [isAddressExpanded, setIsAddressExpanded] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const fullAddress = "0x742d35Cc1234567890abcdef123456789OAbCdEf";
-  const shortAddress = "0x742d35C.....90AbCdEf";
+  const fullAddress = myWallet.getAddress();
+  const shortAddress = `${fullAddress.slice(0, 8)}.....${fullAddress.slice(-8)}`;
 
   const showToast = (message: string) => {
     setToastMessage(message);

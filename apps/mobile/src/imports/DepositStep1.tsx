@@ -10,8 +10,12 @@ import {
   formatCurrency,
   formatNumber,
   getERC20Balance,
-  switchNetwork
+  switchNetwork,
+  KRW_USD_EXCHANGE_RATE
 } from "../constants/wallet";
+
+
+import { metaMaskWallet } from "./metaMask";
 
 interface DepositStep1Props {
   onNavigateBack?: () => void;
@@ -72,7 +76,7 @@ const ApproxIcon = () => (
   </svg>
 );
 
-const AvailableBalanceCard = (usdcBalance: number) => (
+const AvailableBalanceCard = ({ usdcBalance, rate }: { usdcBalance: number; rate: number }) => (
   <div className="bg-white box-border flex w-full flex-col gap-[6px] items-start rounded-xl border border-[#ebedf5] px-5 pb-5 pt-3.5 shadow-[0px_4px_18px_rgba(17,17,17,0.04)]">
     <div className="flex flex-col items-start">
       <span className="font-['Spoqa Han Sans Neo',sans-serif] text-[14px] text-[#999ea4]">사용 가능한 USDC</span>
@@ -89,7 +93,8 @@ const AvailableBalanceCard = (usdcBalance: number) => (
     </div>
     <div className="flex items-center gap-1 font-['Spoqa Han Sans Neo',sans-serif] text-[13px] text-[#999ea4]">
       <ApproxIcon />
-      <span>{formatCurrency(AVAILABLE_USDC_KRW)}</span>
+      {/* <span>{formatCurrency(AVAILABLE_USDC_KRW)}</span> */}
+      <span>{formatCurrency(rate * usdcBalance)}</span>
     </div>
   </div>
 );
@@ -98,6 +103,7 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
   const [isConnected, setIsConnected] = useState(false);
   const [address, setAddress] = useState<string>("");
   const [usdcBalance, setUsedBalance] = useState<number>(0);
+  const [krwRate, setKrwRate] = useState<number>(0);
 
   const isMobile = () => {
     const ua = navigator.userAgent;
@@ -111,32 +117,11 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
     window.location.href = metamaskConnectLink;
   };
   const handleConnect = async () => {
-    //setIsConnected(true);
-
-    if (isMobile()) {
-      redirectToMetaMask();
-    } else {
-      // 데스크탑 환경에서는 일반적인 메타마스크 연결 로직 사용
-      if (window.ethereum) {
-
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        setAddress(accounts[0]);
-
-        await switchNetwork(0x13882); // Amoy Testnet
-
-        setIsConnected(true);
-        const balance = await getERC20Balance(USDC_CONTRACT_ADDRESS, accounts[0]);
-        setUsedBalance(Number(balance) / 1e18); // Assuming USDC has 18 decimals
-        alert(usdcBalance);
-        alert(accounts[0])
-        // setUsedBalance(Number(balance) / 1e6); // Assuming USDC has 6 decimals
-
-
-
-      } else {
-        alert('MetaMask가 설치되어 있지 않습니다.');
-      }
-    }
+    setKrwRate(KRW_USD_EXCHANGE_RATE);
+    await metaMaskWallet.initialize(80002);
+    setAddress(metaMaskWallet.account);
+    setUsedBalance(metaMaskWallet.balance);
+    setIsConnected(true);
   };
 
   return (
@@ -187,7 +172,7 @@ export default function DepositStep1({ onNavigateBack, onNavigateNext }: Deposit
                 </div>
               </div>
             </div>
-            <AvailableBalanceCard usdcBalance={usdcBalance} />
+            <AvailableBalanceCard usdcBalance={usdcBalance} rate={krwRate} />
           </section>
         )}
       </main>

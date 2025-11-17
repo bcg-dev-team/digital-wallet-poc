@@ -9,6 +9,9 @@ import {
   formatNumber,
 } from "../constants/wallet";
 
+import { metaMaskWallet } from "./metaMask";
+import { myWallet, MyWallet } from "./myWallet";
+
 interface DepositStep2Props {
   onNavigateBack?: () => void;
   onNavigateNext?: () => void;
