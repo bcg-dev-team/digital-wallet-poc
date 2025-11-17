@@ -1,0 +1,12 @@
+# Vercel에서 무시할 파일/디렉토리
+node_modules
+.git
+.vite
+.cache
+dist
+**/dist
+coverage
+**/coverage
+*.log
+.DS_Store
+
