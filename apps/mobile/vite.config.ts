@@ -60,6 +60,10 @@ export default defineConfig({
     port: 3000,
     host: true, // 모바일 접속을 위한 설정
     open: true,
+    watch: {
+      // UI 패키지 변경사항 감지 (개발 모드)
+      ignored: ["!**/packages/ui/src/**"],
+    },
   },
   preview: {
     port: 3000,
