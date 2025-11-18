@@ -88,6 +88,7 @@ export default function WalletDashboard() {
         onNavigateToHistory={() => navigate("/transaction-history")}
         onNavigateToTokenSecurities={() => navigate("/token-securities")}
         onNavigateToLilacDetail={() => navigate("/token-securities/lilac")}
+        onOpenMenu={() => navigate("/menu")}
       />
 
       {isMenuOpen && (

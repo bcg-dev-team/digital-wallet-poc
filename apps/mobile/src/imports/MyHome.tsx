@@ -971,9 +971,9 @@ function WalletPromotionSection({ onSelectFirst }: { onSelectFirst?: () => void 
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />
       </div>
-      <div className="absolute left-[240px] size-[76px] top-[14px]" data-name="img_08ac_bn_3d_76_move">
+      <div className="absolute left-[240px] size-[76px] top-[14px] z-20 pointer-events-none" data-name="img_08ac_bn_3d_76_move">
         <div className="absolute inset-[-44.74%_-119.74%_-44.74%_-117.11%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[89px_34px] mask-size-[76px_76px]" data-name="신한알파0017atm 1" style={{ maskImage: `url('${img}')` }}>
-          <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover size-full cursor-pointer" src={img1} />
+          <img alt="" className="absolute inset-0 max-w-none object-50%-50% object-cover size-full" src={img1} />
         </div>
       </div>
     </div>

@@ -846,14 +846,15 @@ function ContentsFooter({ onSelectFirst }: { onSelectFirst?: () => void }) {
 interface TokenSecuritiesMainProps {
   onSelectFirst?: () => void;
   onNavigateBack?: () => void;
+  onOpenMenu?: () => void;
 }
 
-export default function TokenSecuritiesMain({ onSelectFirst, onNavigateBack }: TokenSecuritiesMainProps) {
+export default function TokenSecuritiesMain({ onSelectFirst, onNavigateBack, onOpenMenu }: TokenSecuritiesMainProps) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="10.음악저작권토큰증권">
       <Header onNavigateBack={onNavigateBack} />
       <ContentsFooter onSelectFirst={onSelectFirst} />
-      <MobileAppFooter activeTab="balance" />
+      <MobileAppFooter activeTab="balance" onOpenMenu={onOpenMenu} />
     </div>
   );
 }

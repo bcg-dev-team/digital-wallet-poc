@@ -57,7 +57,7 @@ export default function TransactionHistory() {
     <div ref={containerRef} className="relative min-h-full">
       <TransactionHistoryComponent 
         onNavigateBack={() => navigate("/wallet")}
-        onOpenMenu={() => setMenuOpen(true)}
+        onOpenMenu={() => navigate("/menu")}
       />
 
       {isMenuOpen && (

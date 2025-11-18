@@ -8,6 +8,7 @@ export default function TokenSecuritiesOverview() {
     <TokenSecuritiesMain
       onSelectFirst={() => navigate("/token-securities/lilac")}
       onNavigateBack={() => navigate("/wallet")}
+      onOpenMenu={() => navigate("/menu")}
     />
   );
 }

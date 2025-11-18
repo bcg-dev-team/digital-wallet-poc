@@ -1211,13 +1211,14 @@ interface Component04UsdcProps {
   onNavigateToHistory?: () => void;
   onNavigateToTokenSecurities?: () => void;
   onNavigateToLilacDetail?: () => void;
+  onOpenMenu?: () => void;
 }
 
-export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail }: Component04UsdcProps) {
+export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail, onOpenMenu }: Component04UsdcProps) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="04.홈-디지털월렛 메인-USDC탭">
       <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} onNavigateToLilacDetail={onNavigateToLilacDetail} />
-      <MobileAppFooter activeTab="balance" />
+      <MobileAppFooter activeTab="balance" onOpenMenu={onOpenMenu} />
     </div>
   );
 }
