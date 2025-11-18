@@ -13,8 +13,11 @@ import DepositConnectWallet from "./components/DepositConnectWallet";
 import DepositAmountEntry from "./components/DepositAmountEntry";
 import DepositProcessing from "./components/DepositProcessing";
 import DepositCompletion from "./components/DepositCompletion";
+import ExchangeProcessing from "./components/ExchangeProcessing";
 import ExchangeCompletion from "./components/ExchangeCompletion";
 import UsdcWithdrawal from "./components/UsdcWithdrawal";
+import WithdrawalProcessing from "./components/WithdrawalProcessing";
+import WithdrawalCompletion from "./components/WithdrawalCompletion";
 import TransactionHistory from "./components/TransactionHistory";
 import TokenSecuritiesOverview from "./components/TokenSecuritiesOverview";
 import ExplorerView from "./components/ExplorerView";
@@ -110,7 +113,11 @@ export default function App() {
               <Route path="/deposit/completion" element={<DepositCompletion />} />
             </Route>
             <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
+            <Route path="/usdc-exchange/processing" element={<ExchangeProcessing />} />
+            <Route path="/usdc-exchange/completion" element={<ExchangeCompletion />} />
             <Route path="/withdrawal" element={<UsdcWithdrawal />} />
+            <Route path="/withdrawal/processing" element={<WithdrawalProcessing />} />
+            <Route path="/withdrawal/completion" element={<WithdrawalCompletion />} />
             <Route path="/transaction-history" element={<TransactionHistory />} />
             <Route path="/explorer/tx/:txid" element={<ExplorerView />} />
             <Route path="/token-securities" element={<TokenSecuritiesOverview />} />

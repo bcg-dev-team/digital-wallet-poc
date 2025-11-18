@@ -42,12 +42,15 @@ const SECTIONS: Section[] = [
     items: [
       { label: "지갑 대시보드", path: "/wallet", description: "자산 요약" },
       { label: "USDC 출금", path: "/withdrawal" },
+      { label: "출금 진행 중", path: "/withdrawal/processing" },
+      { label: "출금 완료", path: "/withdrawal/completion" },
     ],
   },
   {
     title: "USDC 환전",
     items: [
       { label: "USDC 환전", path: "/usdc-exchange" },
+      { label: "환전 진행 중", path: "/usdc-exchange/processing" },
       { label: "환전 완료", path: "/usdc-exchange/completion" },
       { label: "디지털자산거래내역", path: "/transaction-history" },
     ],

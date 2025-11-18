@@ -943,14 +943,26 @@ function WalletPromotionSection({ onSelectFirst }: { onSelectFirst?: () => void 
       className="bg-white content-stretch flex flex-col gap-[20px] items-center overflow-clip relative shrink-0 w-[360px]"
       data-name="실시간순위_거래대금"
     >
-      <div className="h-[104px] relative shrink-0 w-[320px] cursor-pointer" data-name="img_08ac_bn_320x104_multi_01">
-        <div className="absolute inset-0 cursor-pointer" data-name="np_00com_bn_4434ff_sld.9">
+      <div 
+        className="h-[104px] relative shrink-0 w-[320px] cursor-pointer z-10" 
+        data-name="img_08ac_bn_320x104_multi_01"
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        role="button"
+        aria-label="SOL 디지털 월렛 시작하기"
+      >
+        <div className="absolute inset-0 cursor-pointer pointer-events-none" data-name="np_00com_bn_4434ff_sld.9">
           <svg className="block size-full cursor-pointer" fill="none" preserveAspectRatio="none" viewBox="0 0 320 104">
             <path clipRule="evenodd" d={svgPaths.p117e000} fill="var(--fill-0, #4434FF)" fillRule="evenodd" id="np_00com_bn_4434ff_sld.9" />
           </svg>
         </div>
-        <Text />
-        <Group816085 />
+        <div className="pointer-events-none">
+          <Text />
+        </div>
+        <div className="pointer-events-none">
+          <Group816085 />
+        </div>
       </div>
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />

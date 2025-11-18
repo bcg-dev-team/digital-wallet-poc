@@ -10,7 +10,7 @@ const DEFAULT_TXID = "0xab123...def567";
 const DEFAULT_AMOUNT = formatNumber(AVAILABLE_USDC_AMOUNT);
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return <MobilePageHeader title="USDC 환전" onBack={onNavigateBack} />;
+  return <MobilePageHeader title="USDC 출금" onBack={onNavigateBack} />;
 }
 
 function Frame2117921381({ onNavigateBack }: { onNavigateBack?: () => void }) {
@@ -57,7 +57,7 @@ function Frame2117921400() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-center not-italic relative shrink-0 text-center w-full">
       <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] font-bold leading-[28px] relative shrink-0 text-[#111111] text-[20px] tracking-[-0.1px] w-full">
-        환전을 처리하고 있어요
+        출금을 처리하고 있어요
       </p>
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] leading-[20px] relative shrink-0 text-[#999ea4] text-[14px] w-full">블록체인에서 트랜잭션을 확인하고 있어요</p>
     </div>
@@ -210,7 +210,7 @@ function Frame2117921398() {
   return (
     <div className="absolute content-stretch flex flex-col h-[42px] items-start left-[54px] not-italic top-[170px] w-[143px]">
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[#333950] text-[14px] w-full">
-        환전 확인 및 반영
+        출금 확인 및 반영
       </p>
       <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] grow leading-[18px] min-h-px min-w-px relative shrink-0 text-[#999ea4] text-[12px] w-full">대기중</p>
     </div>
@@ -369,14 +369,14 @@ function Contents() {
   );
 }
 
-interface ExchangeProgressProps {
+interface WithdrawalProgressProps {
   onNavigateNext?: () => void;
   onNavigateBack?: () => void;
 }
 
-export default function ExchangeProgress({ onNavigateNext, onNavigateBack }: ExchangeProgressProps) {
+export default function WithdrawalProgress({ onNavigateNext, onNavigateBack }: WithdrawalProgressProps) {
   return (
-    <div className="bg-white relative flex size-full min-h-full flex-col" data-name="06.환전진행중">
+    <div className="bg-white relative flex size-full min-h-full flex-col" data-name="06.출금진행중">
       <Frame2117921381 onNavigateBack={onNavigateBack} />
       <Btn onNavigateNext={onNavigateNext} />
       <Contents />

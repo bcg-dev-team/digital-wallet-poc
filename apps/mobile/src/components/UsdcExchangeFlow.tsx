@@ -7,7 +7,7 @@ export default function UsdcExchangeFlow() {
   return (
     <UsdcExchangeScreen
       onNavigateBack={() => navigate("/wallet")}
-      onSubmit={() => navigate("/transaction-history")}
+      onSubmit={() => navigate("/usdc-exchange/processing")}
     />
   );
 }
