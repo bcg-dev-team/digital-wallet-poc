@@ -88,11 +88,11 @@ function HeaderActions() {
 
 function Header() {
   return (
-    <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full z-10" data-name="header">
+    <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full z-10 bg-white" data-name="header">
       <MobilePageHeader
         title={<PrimaryTabMenu />}
         rightSlot={<HeaderActions />}
-        className="border-b border-[#f1f2f6] bg-white"
+        className="bg-white"
       />
     </div>
   );

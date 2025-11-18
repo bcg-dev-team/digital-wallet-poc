@@ -13,6 +13,7 @@ import DepositConnectWallet from "./components/DepositConnectWallet";
 import DepositAmountEntry from "./components/DepositAmountEntry";
 import DepositProcessing from "./components/DepositProcessing";
 import DepositCompletion from "./components/DepositCompletion";
+import ExchangeCompletion from "./components/ExchangeCompletion";
 import UsdcWithdrawal from "./components/UsdcWithdrawal";
 import TransactionHistory from "./components/TransactionHistory";
 import TokenSecuritiesOverview from "./components/TokenSecuritiesOverview";
@@ -32,7 +33,7 @@ function ScrollToTop() {
   useEffect(() => {
     // window 스크롤 초기화
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    
+
     // MobileViewport 내부 스크롤 초기화
     if (viewportContext?.contentRef?.current) {
       viewportContext.contentRef.current.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -94,6 +95,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<WorkspaceLayout />}>
+
           <Route element={<MyWalletLayout />}>
             <Route path="/" element={<MyHomeScreen />} />
             <Route path="/wallet" element={<WalletDashboard />} />
@@ -118,6 +120,7 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
