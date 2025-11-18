@@ -48,6 +48,7 @@ const SECTIONS: Section[] = [
     title: "USDC 환전",
     items: [
       { label: "USDC 환전", path: "/usdc-exchange" },
+      { label: "환전 완료", path: "/usdc-exchange/completion" },
       { label: "디지털자산거래내역", path: "/transaction-history" },
     ],
   },

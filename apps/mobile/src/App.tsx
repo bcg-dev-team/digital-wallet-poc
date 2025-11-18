@@ -13,6 +13,7 @@ import DepositConnectWallet from "./components/DepositConnectWallet";
 import DepositAmountEntry from "./components/DepositAmountEntry";
 import DepositProcessing from "./components/DepositProcessing";
 import DepositCompletion from "./components/DepositCompletion";
+import ExchangeCompletion from "./components/ExchangeCompletion";
 import UsdcWithdrawal from "./components/UsdcWithdrawal";
 import TransactionHistory from "./components/TransactionHistory";
 import TokenSecuritiesOverview from "./components/TokenSecuritiesOverview";
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="/deposit/processing" element={<DepositProcessing />} />
           <Route path="/deposit/completion" element={<DepositCompletion />} />
           <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
+          <Route path="/usdc-exchange/completion" element={<ExchangeCompletion />} />
           <Route path="/withdrawal" element={<UsdcWithdrawal />} />
           <Route path="/transaction-history" element={<TransactionHistory />} />
           <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
