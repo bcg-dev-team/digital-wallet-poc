@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import svgPaths from "./svg-w6v5b8rkjs";
 import { imgGroup2117918731 } from "./svg-wtfad";
 
@@ -170,9 +171,12 @@ function Frame1707480695() {
   );
 }
 
-function Frame2117921340() {
+function Frame2117921340({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="content-stretch flex gap-[12px] items-center leading-[0] not-italic relative shrink-0 text-nowrap w-[212px]">
+    <div 
+      className="content-stretch flex gap-[12px] items-center leading-[0] not-italic relative shrink-0 text-nowrap w-[212px] cursor-pointer" 
+      onClick={onClick}
+    >
       <div className="flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] justify-center relative shrink-0 text-[#333950] text-[16px]">
         <p className="leading-[24px] text-nowrap whitespace-pre">토큰 증권 거래</p>
       </div>
@@ -196,25 +200,25 @@ function Frame2117921341() {
   );
 }
 
-function Frame1707480696() {
+function Frame1707480696({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-[220px]">
       <div className="flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[#888e98] text-[13px] text-nowrap">
         <p className="leading-[20px] whitespace-pre">STO</p>
       </div>
       <Frame1707480695 />
-      <Frame2117921340 />
+      <Frame2117921340 onClick={onTokenSecuritiesClick} />
       <Frame2117921341 />
     </div>
   );
 }
 
-function Component3NdDepth() {
+function Component3NdDepth({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="relative shrink-0 w-full" data-name="3nd depth">
       <div className="flex flex-row items-center size-full">
         <div className="box-border content-stretch flex gap-[10px] items-center px-[20px] py-0 relative w-full">
-          <Frame1707480696 />
+          <Frame1707480696 onTokenSecuritiesClick={onTokenSecuritiesClick} />
         </div>
       </div>
     </div>
@@ -257,10 +261,10 @@ function Component3NdDepth1() {
   );
 }
 
-function Frame1707480930() {
+function Frame1707480930({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[36px] items-end justify-center relative shrink-0 w-full">
-      <Component3NdDepth />
+      <Component3NdDepth onTokenSecuritiesClick={onTokenSecuritiesClick} />
       <Component3NdDepth1 />
     </div>
   );
@@ -368,19 +372,19 @@ function Frame1707480932() {
   );
 }
 
-function Frame2117920436() {
+function Frame2117920436({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[36px] items-start relative shrink-0 w-full">
-      <Frame1707480930 />
+      <Frame1707480930 onTokenSecuritiesClick={onTokenSecuritiesClick} />
       <Frame1707480932 />
     </div>
   );
 }
 
-function MenuList() {
+function MenuList({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="absolute content-stretch flex flex-col items-center justify-center left-0 top-[64px] w-[240px]" data-name="menu list">
-      <Frame2117920436 />
+      <Frame2117920436 onTokenSecuritiesClick={onTokenSecuritiesClick} />
     </div>
   );
 }
@@ -410,28 +414,28 @@ function FixAreaTitle() {
   );
 }
 
-function Component3Depth() {
+function Component3Depth({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="absolute h-full left-[120px] top-0 w-[240px] bg-white overflow-y-auto" data-name="3depth">
       <FixAreaTitle />
-      <MenuList />
+      <MenuList onTokenSecuritiesClick={onTokenSecuritiesClick} />
     </div>
   );
 }
 
-function AllMenu() {
+function AllMenu({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="absolute h-full left-0 top-0 w-full" data-name="+ All menu">
       <Component2Depth />
-      <Component3Depth />
+      <Component3Depth onTokenSecuritiesClick={onTokenSecuritiesClick} />
     </div>
   );
 }
 
-function Contents() {
+function Contents({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="absolute left-0 top-[92px] bottom-[140px] w-[360px]" data-name="++ Contents">
-      <AllMenu />
+      <AllMenu onTokenSecuritiesClick={onTokenSecuritiesClick} />
     </div>
   );
 }
@@ -639,11 +643,11 @@ function Footer() {
   );
 }
 
-function Component0001ny() {
+function Component0001ny({ onTokenSecuritiesClick }: { onTokenSecuritiesClick?: () => void }) {
   return (
     <div className="absolute bg-white h-full left-0 top-0 w-[360px]" data-name="00공통_01전체메뉴_로그인N_배너Y">
       <Footer />
-      <Contents />
+      <Contents onTokenSecuritiesClick={onTokenSecuritiesClick} />
     </div>
   );
 }
@@ -1066,6 +1070,12 @@ function Bottom() {
 }
 
 export default function Component0001y() {
+  const navigate = useNavigate();
+
+  const handleTokenSecuritiesClick = () => {
+    navigate("/token-securities");
+  };
+
   return (
     <div className="bg-white relative w-full h-full flex flex-col" data-name="00공통_01전체메뉴_로그인Y">
       {/* 상단 헤더 + 탭 */}
@@ -1076,7 +1086,7 @@ export default function Component0001y() {
       
       {/* 메인 콘텐츠 영역 */}
       <div className="relative w-full flex-1 overflow-hidden">
-        <AllMenu />
+        <AllMenu onTokenSecuritiesClick={handleTokenSecuritiesClick} />
       </div>
       
       {/* 하단 메뉴 */}
