@@ -1,47 +1,10 @@
 import { Button } from "@digital-wallet/ui";
 import svgPaths from "./svg-clh66pir2u";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
-
-function Group820325() {
-  return (
-    <div className="absolute contents left-[234px] top-[11px]" data-name="Group820325">
-      <div className="absolute left-[234px] size-[28px] top-[11px]" data-name="Rectangle154476" />
-    </div>
-  );
-}
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return (
-    <div className="absolute contents left-0 top-0" data-name="+ HEADER">
-      <div className="absolute h-[52px] left-0 top-0 w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div
-        className="absolute inset-[1.55%_88.89%_94.84%_3.33%] cursor-pointer"
-        data-name="ic_00com_28_line_arrow_l_111"
-        onClick={onNavigateBack}
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.69%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 18">
-              <path d={svgPaths.p218c4600} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="absolute flex flex-col font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] inset-[1.8%_57.78%_95.1%_11.11%] justify-center leading-[0] not-italic text-[#111111] text-[16px] text-nowrap">
-        <p className="leading-[24px] whitespace-pre font-bold">SOL 디지털 월렛</p>
-      </div>
-      <Group820325 />
-    </div>
-  );
+  return <MobilePageHeader title="SOL 디지털 월렛" onBack={onNavigateBack} />;
 }
 
 function Frame2117921342() {

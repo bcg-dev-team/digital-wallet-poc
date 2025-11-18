@@ -54,7 +54,7 @@ function Frame2117921486() {
               </div>
             </div>
           </div>
-          <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[14px]">인기 네트워크</p>
+          <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] font-bold grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[14px]">인기 네트워크</p>
         </div>
       </div>
     </div>
@@ -65,10 +65,10 @@ function Frame2117921495({ selected }: { selected: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] grow items-start leading-[0] min-h-px min-w-px not-italic relative shrink-0">
       <div className={`flex flex-col justify-center relative shrink-0 text-[14px] w-full ${selected ? 'text-white' : 'text-[#333950]'}`}>
-        <p className="leading-[20px]">Ethereum</p>
+        <p className="leading-[20px] font-medium">Ethereum</p>
       </div>
       <div className={`flex flex-col justify-center relative shrink-0 text-[11px] w-full ${selected ? 'text-[#c9cffa]' : 'text-[#999ea4]'}`}>
-        <p className="leading-[16px]">이더리움 메인넷</p>
+        <p className="leading-[16px] font-medium">이더리움 메인넷</p>
       </div>
     </div>
   );
@@ -124,10 +124,10 @@ function Frame2117921497({ selected }: { selected: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] grow items-start leading-[0] min-h-px min-w-px not-italic relative shrink-0">
       <div className={`flex flex-col justify-center relative shrink-0 text-[14px] text-nowrap ${selected ? 'text-white' : 'text-[#333950]'}`}>
-        <p className="leading-[20px] whitespace-pre">Polygon</p>
+        <p className="leading-[20px] whitespace-pre font-medium">Polygon</p>
       </div>
       <div className={`flex flex-col justify-center min-w-full relative shrink-0 text-[11px] w-[min-content] ${selected ? 'text-[#c9cffa]' : 'text-[#999ea4]'}`}>
-        <p className="leading-[16px]">폴리곤 메인넷</p>
+        <p className="leading-[16px] font-medium">폴리곤 메인넷</p>
       </div>
     </div>
   );
@@ -152,7 +152,7 @@ function Frame2117921476({ selected }: { selected: boolean }) {
   return (
     <div className={`box-border content-stretch flex gap-[10px] items-center justify-center px-[10px] py-[2px] relative rounded-[4px] shrink-0 ${selected ? 'bg-white' : 'bg-[#ededff]'}`}>
       <div className={`flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-nowrap ${selected ? 'text-[#2a3fec]' : 'text-[#5623e9]'}`}>
-        <p className="leading-[16px] whitespace-pre">추천</p>
+        <p className="leading-[16px] whitespace-pre font-medium">추천</p>
       </div>
     </div>
   );
@@ -211,10 +211,10 @@ function Frame2117921499({ selected }: { selected: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] grow items-start leading-[0] min-h-px min-w-px not-italic relative shrink-0">
       <div className={`flex flex-col justify-center relative shrink-0 text-[14px] w-full ${selected ? 'text-white' : 'text-[#333950]'}`}>
-        <p className="leading-[20px]">Binance Smart Chain</p>
+        <p className="leading-[20px] font-medium">Binance Smart Chain</p>
       </div>
       <div className={`flex flex-col justify-center relative shrink-0 text-[11px] w-full ${selected ? 'text-[#c9cffa]' : 'text-[#999ea4]'}`}>
-        <p className="leading-[16px]">BSC 메인넷</p>
+        <p className="leading-[16px] font-medium">BSC 메인넷</p>
       </div>
     </div>
   );
@@ -299,7 +299,7 @@ function Frame2117921511() {
               </div>
             </div>
           </div>
-          <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[14px]">기타 네트워크</p>
+          <p className="basis-0 font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] font-bold grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[14px]">기타 네트워크</p>
         </div>
       </div>
     </div>
@@ -310,10 +310,10 @@ function Frame2117921501({ selected }: { selected: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] grow items-start leading-[0] min-h-px min-w-px not-italic relative shrink-0">
       <div className={`flex flex-col justify-center relative shrink-0 text-[14px] w-full ${selected ? 'text-white' : 'text-[#333950]'}`}>
-        <p className="leading-[20px]">Avalanche</p>
+        <p className="leading-[20px] font-medium">Avalanche</p>
       </div>
       <div className={`flex flex-col justify-center relative shrink-0 text-[11px] w-full ${selected ? 'text-[#c9cffa]' : 'text-[#999ea4]'}`}>
-        <p className="leading-[16px]">아발란체 C-Chain</p>
+        <p className="leading-[16px] font-medium">아발란체 C-Chain</p>
       </div>
     </div>
   );
@@ -369,10 +369,10 @@ function Frame2117921503({ selected }: { selected: boolean }) {
   return (
     <div className="basis-0 content-stretch flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] grow items-start leading-[0] min-h-px min-w-px not-italic relative shrink-0">
       <div className={`flex flex-col justify-center relative shrink-0 text-[14px] w-full ${selected ? 'text-white' : 'text-[#333950]'}`}>
-        <p className="leading-[20px]">Optimism</p>
+        <p className="leading-[20px] font-medium">Optimism</p>
       </div>
       <div className={`flex flex-col justify-center relative shrink-0 text-[11px] w-full ${selected ? 'text-[#c9cffa]' : 'text-[#999ea4]'}`}>
-        <p className="leading-[16px]">옵티미즘 메인넷</p>
+        <p className="leading-[16px] font-medium">옵티미즘 메인넷</p>
       </div>
     </div>
   );

@@ -98,7 +98,7 @@ export default function WalletAssetSelection() {
           <section className="mt-8 space-y-3 text-left">
             <div className="flex items-center gap-2">
               <span className="inline-block h-2 w-2 rounded-full bg-[#e02d23]" />
-              <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[14px] text-[#111111]">전체 자산</p>
+              <p className="font-['Spoqa_Han_Sans_Neo:Bold',sans-serif] text-[14px] font-bold text-[#111111]">전체 자산</p>
             </div>
             <div className="space-y-2">
               {ASSET_OPTIONS.map((option) => (
@@ -153,7 +153,7 @@ function AssetRow({ option, selected, onSelect }: AssetCardProps) {
         <div className="flex flex-col">
           <span
             className={clsx(
-              "font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[14px] leading-[20px]",
+              "font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[14px] leading-[20px] font-medium",
               selected ? "text-white" : "text-[#333950]"
             )}
           >
@@ -161,7 +161,7 @@ function AssetRow({ option, selected, onSelect }: AssetCardProps) {
           </span>
           <span
             className={clsx(
-              "font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] text-[11px] leading-[16px]",
+              "font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] text-[11px] leading-[16px] font-medium",
               selected ? "text-white/80" : "text-[#999ea4]"
             )}
           >

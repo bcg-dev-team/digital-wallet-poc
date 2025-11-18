@@ -71,7 +71,7 @@ export default function WalletSetupComplete({ onNavigateBack, onNavigateToDeposi
         }}
       />
       {/* Header */}
-      <MobilePageHeader title="SOL 디지털 월렛" onBack={onNavigateBack} className="border-[#f1f2f6]" titleClassName="ml-0" />
+      <MobilePageHeader title="SOL 디지털 월렛" onBack={onNavigateBack} className="border-[#f1f2f6]" />
 
       {/* Content */}
       <div className="px-4 pt-10 pb-6">

@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import TokenSecuritiesScreen from "../imports/TokenSecurities";
+import TokenSecuritiesMain from "../imports/TokenSecuritiesMain";
 
 export default function TokenSecuritiesOverview() {
   const navigate = useNavigate();
 
   return (
-    <TokenSecuritiesScreen
+    <TokenSecuritiesMain
       onSelectFirst={() => navigate("/token-securities/lilac")}
       onNavigateBack={() => navigate("/wallet")}
     />
