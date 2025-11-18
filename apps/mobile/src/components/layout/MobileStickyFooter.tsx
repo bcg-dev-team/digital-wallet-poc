@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { ReactNode, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
@@ -54,15 +55,22 @@ export default function MobileStickyFooter({
     <div
       ref={contentRef}
       className={clsx(
-        "pointer-events-auto w-full max-w-[360px]",
+        "pointer-events-auto relative w-full max-w-[360px]",
         variant === "flat"
-          ? "bg-white px-0 pb-0 pt-0"
-          : "bg-gradient-to-t from-white via-white to-transparent px-[20px] pb-[20px] pt-[24px]",
+          ? "px-0 pb-0 pt-0"
+          : "px-[20px] pb-[20px] pt-[24px]",
         className
       )}
       data-name={dataName}
     >
-      {children}
+      {/* Quickmenu 스타일: 단순 흰색 배경 */}
+      {variant === "flat" && (
+        <div className="absolute inset-0 bg-white" />
+      )}
+      {variant === "default" && (
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white to-transparent" />
+      )}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 
