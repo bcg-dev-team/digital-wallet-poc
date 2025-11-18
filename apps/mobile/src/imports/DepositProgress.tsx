@@ -1,7 +1,9 @@
 import svgPaths from "./svg-t342ueqplb";
 import { img, img1 } from "./svg-ojjt5";
 import { Button } from "@digital-wallet/ui";
+import { useNavigate } from "react-router-dom";
 import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
+import { useDeposit } from "../contexts/DepositContext";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 
 function Group820325() {
@@ -305,10 +307,11 @@ function Frame2117921404() {
 }
 
 function Frame2117921405() {
+  const { txid } = useDeposit();
   return (
     <div className="content-stretch flex font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] gap-[4px] items-start leading-[16px] not-italic relative shrink-0 text-[11px] text-nowrap whitespace-pre">
       <p className="relative shrink-0 text-[#77738c]">TxHash</p>
-      <p className="relative shrink-0 text-[#333950]">0xab123...def456</p>
+      <p className="relative shrink-0 text-[#333950]">{txid ? `${txid.slice(0, 7)}...${txid.slice(-6)}` : 'N/A'}</p>
     </div>
   );
 }
@@ -322,7 +325,7 @@ function Frame2117921406() {
   );
 }
 
-function Frame2117921384() {
+function Frame2117921384({ txid }: { txid?: string }) {
   return (
     <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0">
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[18px] not-italic relative shrink-0 text-[#333950] text-[12px] text-nowrap whitespace-pre">
@@ -337,19 +340,37 @@ function Frame2117921408() {
   return (
     <div className="content-stretch flex gap-[4px] items-start relative shrink-0">
       <CheckSmall />
-      <Frame2117921384 />
+      <div className="content-stretch flex flex-col gap-[4px] items-start justify-center relative shrink-0">
+        <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[18px] not-italic relative shrink-0 text-[#333950] text-[12px] text-nowrap whitespace-pre">트랜잭션 정보</p>
+        <Frame2117921404 />
+        <Frame2117921405 />
+      </div>
     </div>
   );
 }
 
 function Frame2117921407() {
+  const { txid } = useDeposit();
+  const navigate = useNavigate();
+
+  const handleOpenExplorer = () => {
+    if (txid) {
+      navigate(`/explorer/tx/${txid}`);
+    }
+  };
+
   return (
-    <div className="bg-white box-border content-stretch flex gap-[10px] items-center justify-center px-[12px] py-[6px] relative rounded-[4px] shrink-0">
+    <button
+      type="button"
+      onClick={handleOpenExplorer}
+      disabled={!txid}
+      className="bg-white box-border content-stretch flex gap-[10px] items-center justify-center px-[12px] py-[6px] relative rounded-[4px] shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
       <div aria-hidden="true" className="absolute border border-[#2a3fec] border-solid inset-0 pointer-events-none rounded-[4px]" />
       <p className="font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] font-medium leading-[16px] not-italic relative shrink-0 text-[#2a3fec] text-[11px] text-nowrap whitespace-pre">
         탐색기에서 보기
       </p>
-    </div>
+    </button>
   );
 }
 

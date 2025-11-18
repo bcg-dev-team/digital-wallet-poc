@@ -1,16 +1,20 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Button, Input, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,
+  USDC_CONTRACT_ADDRESS,
   formatCurrency,
   formatNumber,
+  KRW_USD_EXCHANGE_RATE,
 } from "../constants/wallet";
 
 import { metaMaskWallet } from "./metaMask";
 import { myWallet, MyWallet } from "./myWallet";
+import { useDeposit } from "../contexts/DepositContext";
+
 
 interface DepositStep2Props {
   onNavigateBack?: () => void;
@@ -25,12 +29,21 @@ const parseNumber = (value: string) => {
 };
 
 export default function DepositStep2({ onNavigateBack, onNavigateNext }: DepositStep2Props) {
+  const { setTxid } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [amount, setAmount] = useState<string>("");
   const [address, setAddress] = useState<string>("");
+  const [helperText, setHelperText] = useState<string>("");
 
-  const formattedMaxAmount = useMemo(() => formatNumber(AVAILABLE_USDC_AMOUNT), []);
-  const helperText = `최대 한도 ${formattedMaxAmount} USDC`;
+  useEffect(() => {
+    const init = async () => {
+      await metaMaskWallet.initialize(80002);
+      setHelperText(`최대 한도 ${formatNumber(metaMaskWallet.balance)} USDC`);
+      setAddress(await myWallet.getAddress());
+    };
+    init();
+
+  }, []);
 
   const handleAmountChange = (value: string) => {
     const numeric = parseNumber(value);
@@ -45,8 +58,31 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
 
   const handleSelectMax = () => {
     setAmountMode("max");
-    setAmount(formattedMaxAmount);
+    // setAmount(formattedMaxAmount);
+    setAmount(formatNumber(metaMaskWallet.balance));
   };
+
+  const sendUSDC = async () => {
+    const numericAmount = parseNumber(amount);
+    if (numericAmount <= 0) {
+      alert("입금할 금액을 입력해주세요.");
+      return;
+    }
+    if (numericAmount > metaMaskWallet.balance) {
+      alert("잔고가 부족합니다.");
+      return;
+    }
+
+    try {
+      const txid = await metaMaskWallet.sendErc20Token(USDC_CONTRACT_ADDRESS, address, amount);
+      setTxid(txid);
+      console.log("Transaction ID:", txid);
+      onNavigateNext?.();
+    } catch (error) {
+      console.error("Failed to send USDC:", error);
+      alert("토큰 전송에 실패했습니다.");
+    }
+  }
 
   const numericAmount = parseNumber(amount);
   const isNextDisabled = numericAmount <= 0;
@@ -123,7 +159,7 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
           size="lg"
           className="w-full"
           disabled={isNextDisabled}
-          onClick={onNavigateNext}
+          onClick={sendUSDC}
         >
           다음
         </Button>
@@ -131,4 +167,3 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
     </div>
   );
 }
-
