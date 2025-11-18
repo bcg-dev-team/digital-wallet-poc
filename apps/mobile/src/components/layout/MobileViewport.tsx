@@ -31,8 +31,9 @@ export default function MobileViewport({
     () => ({
       footerContainerRef,
       viewportRef,
+      contentRef: resolvedContentRef,
     }),
-    []
+    [resolvedContentRef]
   );
 
   return (

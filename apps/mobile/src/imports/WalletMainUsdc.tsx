@@ -641,9 +641,13 @@ function ListContents() {
   );
 }
 
-function TrListModule() {
+function TrListModule({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full" data-name="tr_list_module">
+    <div 
+      className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full cursor-pointer" 
+      data-name="tr_list_module"
+      onClick={onClick}
+    >
       <ListContents />
     </div>
   );
@@ -711,37 +715,37 @@ function TrListModule1() {
   );
 }
 
-function List2() {
+function List2({ onNavigateToLilacDetail }: { onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="box-border content-stretch flex flex-col items-start px-[20px] py-0 relative shrink-0 w-[360px]" data-name="list">
-      <TrListModule />
+      <TrListModule onClick={onNavigateToLilacDetail} />
       <TrListModule1 />
     </div>
   );
 }
 
-function Frame2117918841() {
+function Frame2117918841({ onNavigateToLilacDetail }: { onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full">
-      <List2 />
+      <List2 onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
 }
 
-function Frame2117921373() {
+function Frame2117921373({ onNavigateToLilacDetail }: { onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
       <TabL1SldContainer2 />
-      <Frame2117918841 />
+      <Frame2117918841 onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
 }
 
-function Frame2117921144() {
+function Frame2117921144({ onNavigateToLilacDetail }: { onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0 w-full">
       <Frame2117918983 />
-      <Frame2117921373 />
+      <Frame2117921373 onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
 }
@@ -790,10 +794,10 @@ function Frame2117921380() {
   );
 }
 
-function Component11() {
+function Component11({ onNavigateToLilacDetail }: { onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="bg-white box-border content-stretch flex flex-col gap-[20px] items-center overflow-clip pb-0 pt-[32px] px-0 relative shrink-0 w-[360px]" data-name="실시간순위_거래대금">
-      <Frame2117921144 />
+      <Frame2117921144 onNavigateToLilacDetail={onNavigateToLilacDetail} />
       <div className="flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] justify-center leading-[0] min-w-full not-italic relative shrink-0 text-[#555c6e] text-[14px] text-center w-[min-content]">
         <p className="leading-[20px]">전체 보기</p>
       </div>
@@ -805,12 +809,12 @@ function Component11() {
   );
 }
 
-function AllContents({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void }) {
+function AllContents({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void; onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="all_contents">
       <Component01Container onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
       <Component onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
-      <Component11 />
+      <Component11 onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
 }
@@ -1187,11 +1191,11 @@ function Inner() {
   );
 }
 
-function ContentsFooter({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToHome?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void }) {
+function ContentsFooter({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToHome?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void; onNavigateToTokenSecurities?: () => void; onNavigateToLilacDetail?: () => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1149px] items-start relative shrink-0 w-full" data-name="contents+footer">
       <Header onNavigateToHome={onNavigateToHome} />
-      <AllContents onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
+      <AllContents onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
 }
@@ -1203,12 +1207,13 @@ interface Component04UsdcProps {
   onNavigateToWithdrawal?: () => void;
   onNavigateToHistory?: () => void;
   onNavigateToTokenSecurities?: () => void;
+  onNavigateToLilacDetail?: () => void;
 }
 
-export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities }: Component04UsdcProps) {
+export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail }: Component04UsdcProps) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="04.홈-디지털월렛 메인-USDC탭">
-      <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} />
+      <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} onNavigateToLilacDetail={onNavigateToLilacDetail} />
       <MobileAppFooter activeTab="balance" />
     </div>
   );

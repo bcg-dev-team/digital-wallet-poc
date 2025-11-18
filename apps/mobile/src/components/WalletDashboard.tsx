@@ -87,6 +87,7 @@ export default function WalletDashboard() {
         onNavigateToWithdrawal={() => navigate("/withdrawal")}
         onNavigateToHistory={() => navigate("/transaction-history")}
         onNavigateToTokenSecurities={() => navigate("/token-securities")}
+        onNavigateToLilacDetail={() => navigate("/token-securities/lilac")}
       />
 
       {isMenuOpen && (

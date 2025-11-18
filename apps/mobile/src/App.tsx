@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import MobileViewport from "./components/layout/MobileViewport";
+import { useMobileViewportContext } from "./components/layout/MobileViewportContext";
 import { QuickAccessToggle } from "./components/devtools/MobileViewportToggle";
 import MyHomeScreen from "./components/MyHomeScreen";
 import WalletDashboard from "./components/WalletDashboard";
@@ -23,10 +24,17 @@ import GlobalMenuScreen from "./components/GlobalMenuScreen";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
+  const viewportContext = useMobileViewportContext();
 
   useEffect(() => {
+    // window 스크롤 초기화
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [pathname]);
+    
+    // MobileViewport 내부 스크롤 초기화
+    if (viewportContext?.contentRef?.current) {
+      viewportContext.contentRef.current.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [pathname, viewportContext]);
 
   return null;
 }
@@ -53,6 +61,7 @@ function WorkspaceLayout() {
       {isQuickAccessVisible && <ScreenSummaryPanel />}
       <main className="flex flex-1 items-center justify-center">
         <MobileViewport>
+          <ScrollToTop />
           <Outlet />
         </MobileViewport>
       </main>
@@ -64,7 +73,6 @@ function WorkspaceLayout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
       <Routes>
         <Route element={<WorkspaceLayout />}>
           <Route path="/" element={<MyHomeScreen />} />
