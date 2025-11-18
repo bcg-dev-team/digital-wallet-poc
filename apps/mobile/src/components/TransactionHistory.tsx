@@ -9,35 +9,7 @@ export default function TransactionHistory() {
   const menuRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (!target) return;
-
-      if (target.closest('[data-name="img_00com_qm_grd_50_menu"]')) {
-        setMenuOpen(true);
-      }
-    };
-
-    const clickableTargets = [
-      container.querySelector('[data-name="ic_00com_28_line_arrow_l_111"]'),
-      container.querySelector('[data-name="img_00com_qm_grd_50_menu"]')
-    ];
-
-    clickableTargets.forEach((element) => {
-      if (element instanceof HTMLElement) {
-        element.style.cursor = "pointer";
-      }
-    });
-
-    container.addEventListener("click", handleClick);
-    return () => {
-      container.removeEventListener("click", handleClick);
-    };
-  }, [navigate]);
+  // 메뉴 버튼 클릭은 onOpenMenu prop으로 처리됨
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -83,7 +55,10 @@ export default function TransactionHistory() {
 
   return (
     <div ref={containerRef} className="relative min-h-full">
-      <TransactionHistoryComponent onNavigateBack={() => navigate("/wallet")} />
+      <TransactionHistoryComponent 
+        onNavigateBack={() => navigate("/wallet")}
+        onOpenMenu={() => setMenuOpen(true)}
+      />
 
       {isMenuOpen && (
         <div
