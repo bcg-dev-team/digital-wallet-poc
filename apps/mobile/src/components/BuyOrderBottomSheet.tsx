@@ -4,51 +4,12 @@ import svgPaths from "../imports/svg-z0o8wup3hh";
 import { img } from "../imports/svg-4g4dx";
 import { createPortal } from "react-dom";
 import { useMobileViewportContext } from "./layout/MobileViewportContext";
+import MobileBottomActionButton from "./ui/MobileBottomActionButton";
 
 interface BuyOrderBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm?: () => void;
-}
-
-function ConfirmButton({ onConfirm }: { onConfirm: () => void }) {
-  return (
-    <div className="absolute contents left-0 top-[394px]" data-name="button">
-      <div className="absolute h-[92px] left-0 top-[394px] w-[360px]" data-name="np_02tr_btn_r8_buy_sld_n.9">
-        <div className="absolute h-[92px] left-0 top-0 w-[360px]" data-name="img_00com_btnbg_360_bg">
-          <div className="absolute bottom-0 left-0 right-0 top-[26.09%]" data-name="Rectangle154436">
-            <div className="absolute inset-0" style={{ "--fill-0": "rgba(255, 255, 255, 1)" } as CSSProperties}>
-              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 68">
-                <path d="M0 0H360V68H0V0Z" fill="var(--fill-0, white)" id="Rectangle 154436" />
-              </svg>
-            </div>
-          </div>
-          <div className="absolute bottom-[73.91%] left-0 right-0 top-0" data-name="Rectangle154438">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 24">
-              <path d="M0 0H360V24H0V0Z" fill="url(#paint0_linear_3_8184)" id="Rectangle 154438" />
-              <defs>
-                <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_3_8184" x1="180" x2="180" y1="2.5" y2="24">
-                  <stop stopColor="white" stopOpacity="0" />
-                  <stop offset="1" stopColor="white" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-        <div className="absolute inset-[21.74%_5.56%]" data-name="np_02tr_btn_r8_buy_sld_n.9">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-pointer rounded-[8px] bg-[#fa2d42]"
-            onClick={onConfirm}
-          >
-            <span className="absolute inset-[26.92%_6.25%] text-center font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] text-[16px] font-medium leading-[24px] text-white">
-              매수주문
-            </span>
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 function Notice() {
@@ -138,8 +99,20 @@ function BottomsheetContent({ onClose, onConfirm }: { onClose: () => void; onCon
         <span className="text-[#fa2d42]">DT매수</span>
         <span>{` 주문확인`}</span>
       </p>
-      <ConfirmButton onConfirm={onConfirm} />
-      <Notice />
+      <div className="absolute left-0 top-[394px] h-[92px] w-[360px]" data-name="button">
+        <MobileBottomActionButton
+          label="매수주문"
+          onClick={onConfirm}
+          notice={
+            <>
+              <p className="absolute bottom-[23.05%] left-[36px] top-[73.25%] w-[304px]">
+                수수료 및 제세금은 체결 내역에서 확인하세요.
+              </p>
+              <p className="absolute left-[calc(50%-160px)] text-nowrap top-[356px] whitespace-pre">※</p>
+            </>
+          }
+        />
+      </div>
       <div
         className="absolute inset-[10.7%_5.56%_84.36%_87.78%] cursor-pointer"
         data-name="ic_00com_24_solid_close"

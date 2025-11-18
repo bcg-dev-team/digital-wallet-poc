@@ -1,5 +1,6 @@
 import svgPaths from "./svg-p8d53q79zu";
 import { imgRectangle157576, img, img1 } from "./svg-lwrrr";
+import BottomNavigationInner from "../components/layout/BottomNavigationInner";
 
 function Group829739() {
   return (
@@ -144,43 +145,16 @@ function Img00ComQmGrd50Menu() {
   );
 }
 
-function Inner() {
-  return (
-    <div className="absolute contents left-0 top-0" data-name="inner">
-      <Frame826325 />
-      <Img00ComQmGrd50Menu />
-      <div className="absolute inset-[1.92%_12.22%_1.92%_81.11%]" data-name="img_00com_qm_24_nextarrow">
-        <div className="absolute flex inset-0 items-center justify-center">
-          <div className="flex-none h-[50px] rotate-[180deg] scale-y-[-100%] w-[24px]">
-            <div className="bg-gradient-to-r from-[#ffffff] from-[60.417%] size-full to-[rgba(255,255,255,0)]" data-name="dim" />
-          </div>
-        </div>
-        <div className="absolute inset-[34%_16.67%]" data-name="ic_00com_16_line_right_999ea4">
-          <div className="absolute inset-0" data-name="gudie" />
-          <div className="absolute bottom-1/4 flex items-center justify-center left-[37.5%] right-[37.5%] top-1/4">
-            <div className="flex-none h-[4px] rotate-[270deg] w-[8px]">
-              <div className="relative size-full" data-name="Path">
-                <div className="absolute inset-[-12.5%_-6.25%]">
-                  <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9 5">
-                    <path d={svgPaths.p1564e690} id="Path" stroke="var(--stroke-0, #999EA4)" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="absolute bg-[#f4f4f4] bottom-[98.08%] left-0 right-0 top-0" data-name="divider" />
-      <div className="absolute bg-[#eeeeee] bottom-0 left-0 right-0 top-[98.08%]" data-name="Rectangle153280" />
-    </div>
-  );
-}
+// Inner 함수는 공통 컴포넌트로 이동됨 (BottomNavigationInner 사용)
 
 function Quickmenu() {
   return (
     <div className="absolute bottom-0 h-[52px] left-0 w-[360px]" data-name="quickmenu">
       <div className="absolute bg-white h-[52px] left-0 top-0 w-[360px]" />
-      <Inner />
+      <BottomNavigationInner
+        activeTab="order"
+        onOpenMenu={() => {}}
+      />
     </div>
   );
 }
