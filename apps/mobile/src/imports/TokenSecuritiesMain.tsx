@@ -5,48 +5,10 @@ import img3 from "../assets/c07375a0ac069eb65d39e36b0f1fdae69675787b.png";
 import img4 from "../assets/37ac58a7f911dc76efb484419f1aff741808dcec.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { Img5, img, img6, imgRectangle157576 } from "./svg-n1neo";
-
-function Group820325() {
-  return (
-    <div className="[grid-area:1_/_1] grid-cols-[max-content] grid-rows-[max-content] inline-grid ml-[234px] mt-[11px] place-items-start relative" data-name="Group820325">
-      <div className="[grid-area:1_/_1] ml-0 mt-0 size-[28px]" data-name="Rectangle154476" />
-    </div>
-  );
-}
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return (
-    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ HEADER">
-      <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="bg">
-        <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 360 52">
-          <path d="M0 0H360V52H0V0Z" fill="var(--fill-0, white)" id="bg" />
-        </svg>
-      </div>
-      <div 
-        className="[grid-area:1_/_1] h-[32.474px] ml-[12px] mt-[13.918px] relative w-[28px] cursor-pointer" 
-        data-name="ic_00com_28_line_arrow_l_111"
-        onClick={onNavigateBack}
-        data-interactive="true"
-      >
-        <div className="absolute inset-0" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
-            <g id="Vector"></g>
-          </svg>
-        </div>
-        <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
-          <div className="absolute inset-[-4.04%_-9.38%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 21">
-              <path d={svgPaths.p2c0ecd80} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="[grid-area:1_/_1] flex flex-col font-['Spoqa_Han_Sans_Neo:Medium',sans-serif] h-[27.835px] justify-center ml-[40px] mt-[30.155px] not-italic relative text-[#111111] text-[16px] translate-y-[-50%] w-[112px]">
-        <p className="leading-[24px]">음악 저작권 토큰</p>
-      </div>
-      <Group820325 />
-    </div>
-  );
+  return <MobilePageHeader title="음악 저작권 토큰" onBack={onNavigateBack} />;
 }
 
 function Frame2117918802() {

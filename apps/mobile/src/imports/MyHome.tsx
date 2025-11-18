@@ -3,6 +3,7 @@ import img1 from "../assets/caaea4444e2cbaa2885cbabeaddc699ebe95dcb1.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { img, img3, imgRectangle157576 } from "./svg-ukaqc";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
+import MobilePageHeader from "../components/ui/MobilePageHeader";
 
 // =====================
 // Header Section
@@ -84,12 +85,12 @@ function HeaderActions() {
 
 function Header() {
   return (
-    <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full" data-name="header">
-      
-      <div className="bg-white h-[52px] relative shrink-0 w-full" data-name="Home_header">
-        <PrimaryTabMenu />
-        <HeaderActions />
-      </div>
+    <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full z-10" data-name="header">
+      <MobilePageHeader
+        title={<PrimaryTabMenu />}
+        rightSlot={<HeaderActions />}
+        className="border-b border-[#f1f2f6] bg-white"
+      />
     </div>
   );
 }

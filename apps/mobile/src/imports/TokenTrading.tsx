@@ -292,11 +292,35 @@ function Frame2117921448() {
   );
 }
 
-function Header() {
+function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="[grid-area:1_/_1] h-[52px] ml-0 mt-0 relative w-[360px]" data-name="+HEADER">
       <div className="absolute bg-white inset-0" data-name="Rectangle153562" />
-      <Frame2117921448 />
+      <div className="absolute content-stretch flex gap-[12px] items-center left-[12px] top-[10px] w-[336px]">
+        <div className="basis-0 content-stretch flex gap-[8px] grow items-center min-h-px min-w-px relative shrink-0">
+          <div 
+            className="relative shrink-0 size-[28px] cursor-pointer" 
+            data-name="ic_00com_28_line_arrow_l_111"
+            onClick={onNavigateBack}
+            data-interactive="true"
+          >
+            <div className="absolute inset-0" data-name="Vector">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 32 32">
+                <g id="Vector"></g>
+              </svg>
+            </div>
+            <div className="absolute inset-[21.43%_35.71%]" data-name="Vector">
+              <div className="absolute inset-[-4.69%_-9.38%]">
+                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 10 18">
+                  <path d={svgPaths.p218c4600} id="Vector" stroke="var(--stroke-0, #111111)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <Frame2117921446 />
+        </div>
+        <Frame2117921444 />
+      </div>
     </div>
   );
 }
@@ -426,10 +450,10 @@ function Frame2117921443() {
   );
 }
 
-function Top() {
+function Top({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="+ TOP">
-      <Header />
+      <Header onNavigateBack={onNavigateBack} />
       <Frame2117921443 />
     </div>
   );
@@ -1640,20 +1664,24 @@ function Frame2117921450() {
   );
 }
 
-function Frame2117921449() {
+function Frame2117921449({ onNavigateBack }: { onNavigateBack?: () => void }) {
   return (
     <div className="absolute content-stretch flex flex-col gap-[4px] items-start left-0 top-0 w-[360px]">
-      <Top />
+      <Top onNavigateBack={onNavigateBack} />
       <Frame2117921450 />
     </div>
   );
 }
 
-export default function Component11() {
+interface Component11Props {
+  onNavigateBack?: () => void;
+}
+
+export default function Component11({ onNavigateBack }: Component11Props) {
   return (
     <div className="bg-white relative size-full" data-name="11.토큰증권거래">
       <Quick />
-      <Frame2117921449 />
+      <Frame2117921449 onNavigateBack={onNavigateBack} />
     </div>
   );
 }

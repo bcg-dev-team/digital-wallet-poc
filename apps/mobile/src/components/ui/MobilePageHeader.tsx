@@ -23,7 +23,7 @@ export default function MobilePageHeader({
   backButtonAriaLabel = "뒤로 가기",
 }: MobilePageHeaderProps) {
   return (
-    <header className={cn("flex items-center border-b border-[#f1f2f6] px-4 py-3", className)}>
+    <header className={cn("flex items-center border-[#f1f2f6] px-4 py-3", className)}>
       {onBack ? (
         <button
           type="button"
