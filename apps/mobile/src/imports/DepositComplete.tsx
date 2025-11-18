@@ -2,11 +2,14 @@ import { useMemo } from "react";
 import { Button } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
+import { useDeposit } from "../contexts/DepositContext";
+
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,
   formatCurrency,
   formatNumber,
+  KRW_USD_EXCHANGE_RATE,
 } from "../constants/wallet";
 import eventBannerImage from "../assets/699cfa03a5e35518b3e7e62482a35f444b42cc86.png";
 
@@ -25,8 +28,11 @@ export default function DepositComplete({
   onNavigateToExchange,
   onOpenExplorer,
 }: DepositCompleteProps) {
-  const formattedAmount = useMemo(() => formatNumber(AVAILABLE_USDC_AMOUNT), []);
-  const formattedKrw = useMemo(() => formatCurrency(AVAILABLE_USDC_KRW), []);
+
+  const { txid, depositAmount } = useDeposit();
+  const shortTxid = `${txid?.slice(0, 8)}.....${txid?.slice(-8)}`;
+  const formattedAmount = useMemo(() => formatNumber(depositAmount), []);
+  const formattedKrw = useMemo(() => formatCurrency(depositAmount * KRW_USD_EXCHANGE_RATE), []);
   const completedAt = useMemo(() => {
     const now = new Date();
     return now.toLocaleString("ko-KR", {
@@ -39,6 +45,11 @@ export default function DepositComplete({
     });
   }, []);
 
+  const handleOpenExplorer = () => {
+    if (txid) {
+      window.open(`https://amoy.polygonscan.com/tx/${txid}`, "_blank", "noopener,noreferrer");
+    }
+  };
   return (
     <div className="bg-white flex min-h-full w-full max-w-[360px] flex-col">
       <MobilePageHeader title="USDC 입금" onBack={onNavigateBack} />
@@ -75,11 +86,12 @@ export default function DepositComplete({
             </div>
             <div className="mt-4 h-px w-full bg-[#eeeeee]" />
             <div className="mt-4 space-y-3">
-              <Row label="트랜잭션 해시" value={TRANSACTION_HASH} />
+              <Row label="트랜잭션 해시" value={shortTxid} />
               <Button
                 variant="outline"
                 size="sm"
                 className="w-full"
+                onClick={handleOpenExplorer}
               >
                 탐색기에서 보기
               </Button>

@@ -3,15 +3,18 @@ import { createContext, useState, ReactNode, useContext } from 'react';
 interface DepositContextType {
   txid: string | null;
   setTxid: (txid: string | null) => void;
+  depositAmount: number;
+  setDepositAmount: (depositAmount: number) => void;
 }
 
 const DepositContext = createContext<DepositContextType | undefined>(undefined);
 
 export const DepositProvider = ({ children }: { children: ReactNode }) => {
   const [txid, setTxid] = useState<string | null>(null);
+  const [depositAmount, setDepositAmount] = useState<number>(0);
 
   return (
-    <DepositContext.Provider value={{ txid, setTxid }}>
+    <DepositContext.Provider value={{ txid, setTxid, depositAmount, setDepositAmount }}>
       {children}
     </DepositContext.Provider>
   );
@@ -24,4 +27,3 @@ export const useDeposit = () => {
   }
   return context;
 };
-

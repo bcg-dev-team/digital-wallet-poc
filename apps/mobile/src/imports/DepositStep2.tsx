@@ -29,7 +29,7 @@ const parseNumber = (value: string) => {
 };
 
 export default function DepositStep2({ onNavigateBack, onNavigateNext }: DepositStep2Props) {
-  const { setTxid } = useDeposit();
+  const { setTxid, setDepositAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [amount, setAmount] = useState<string>("");
   const [address, setAddress] = useState<string>("");
@@ -76,6 +76,7 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
     try {
       const txid = await metaMaskWallet.sendErc20Token(USDC_CONTRACT_ADDRESS, address, amount);
       setTxid(txid);
+      setDepositAmount(numericAmount)
       console.log("Transaction ID:", txid);
       onNavigateNext?.();
     } catch (error) {

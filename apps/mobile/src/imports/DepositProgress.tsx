@@ -296,18 +296,19 @@ function CheckSmall() {
 }
 
 function Frame2117921404() {
+  const { txid, depositAmount } = useDeposit();
   return (
     <div className="content-stretch flex font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] gap-[4px] items-start leading-[16px] not-italic relative shrink-0 text-[11px] text-nowrap whitespace-pre">
       <p className="relative shrink-0 text-[#77738c]">금액</p>
       <p className="relative shrink-0 text-[#333950]">
-        {formatNumber(AVAILABLE_USDC_AMOUNT)} USDC
+        {depositAmount} USDC
       </p>
     </div>
   );
 }
 
 function Frame2117921405() {
-  const { txid } = useDeposit();
+  const { txid, depositAmount } = useDeposit();
   return (
     <div className="content-stretch flex font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] gap-[4px] items-start leading-[16px] not-italic relative shrink-0 text-[11px] text-nowrap whitespace-pre">
       <p className="relative shrink-0 text-[#77738c]">TxHash</p>
@@ -355,7 +356,8 @@ function Frame2117921407() {
 
   const handleOpenExplorer = () => {
     if (txid) {
-      navigate(`/explorer/tx/${txid}`);
+      // navigate(`/explorer/tx/${txid}`);
+      window.open(`https://amoy.polygonscan.com/tx/${txid}`, "_blank", "noopener,noreferrer");
     }
   };
 

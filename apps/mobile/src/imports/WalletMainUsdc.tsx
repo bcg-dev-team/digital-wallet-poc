@@ -260,21 +260,21 @@ function Frame2117921385() {
 function Scroll({ onNavigateToDeposit, onNavigateToWithdrawal, onNavigateToHistory }: { onNavigateToDeposit?: () => void; onNavigateToWithdrawal?: () => void; onNavigateToHistory?: () => void }) {
   return (
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full" data-name="scroll">
-      <ActionCard 
-        icon="💰" 
-        title="입금" 
+      <ActionCard
+        icon="💰"
+        title="입금"
         variant="deposit"
         onClick={onNavigateToDeposit}
       />
-      <ActionCard 
-        icon="💵" 
-        title="출금" 
+      <ActionCard
+        icon="💵"
+        title="출금"
         variant="withdraw"
         onClick={onNavigateToWithdrawal}
       />
-      <ActionCard 
-        icon="📊" 
-        title="거래내역" 
+      <ActionCard
+        icon="📊"
+        title="거래내역"
         variant="history"
         onClick={onNavigateToHistory}
       />
@@ -384,8 +384,8 @@ function List({ onNavigateToDeposit }: { onNavigateToDeposit?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full" data-name="list">
       <Group826114 />
-      <Button 
-        variant="primary" 
+      <Button
+        variant="primary"
         className="w-[320px]"
         onClick={onNavigateToDeposit}
       >
@@ -476,15 +476,15 @@ function Group826115() {
 function ButtonGroup({ onNavigateToExchange }: { onNavigateToExchange?: () => void }) {
   return (
     <div className="flex gap-[8px] w-full" data-name="button">
-      <Button 
-        variant="secondary" 
+      <Button
+        variant="secondary"
         className="flex-1"
         onClick={onNavigateToExchange}
       >
         환전하기
       </Button>
-      <Button 
-        variant="primary" 
+      <Button
+        variant="primary"
         className="flex-1"
       >
         출금하기
@@ -819,13 +819,13 @@ function Component02() {
   return (
     <div className="absolute h-[26.667px] left-[calc(100%-16px)] top-[15.33px] translate-x-[-50%] translate-y-[-50%] w-[24px]" data-name="02">
       <svg className="block max-w-none size-full" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 11.3333H24V22C24 23.4728 22.8061 24.6667 21.3333 24.6667H2.66667C1.19391 24.6667 0 23.4728 0 22V11.3333Z" fill="#1644B3"/>
-        <path d="M10.2284 2.24146C11.2387 1.34336 12.7613 1.34336 13.7716 2.24146L24 11.3333H0L10.2284 2.24146Z" fill="#205CD7"/>
-        <path d="M2 2.66667C2 1.19391 3.19391 0 4.66667 0H19.3333C20.8061 0 22 1.19391 22 2.66667V19.3333C22 20.8061 20.8061 22 19.3333 22H4.66667C3.19391 22 2 20.8061 2 19.3333V2.66667Z" fill="white"/>
-        <path d="M6 5.33333H15.3333" stroke="#5D6378" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M6 9.33333H10" stroke="#5D6378" strokeWidth="2" strokeLinecap="round"/>
-        <path d="M0 12L16.9918 23.6819C18.316 24.5923 17.6717 26.6667 16.0648 26.6667H2.66667C1.19391 26.6667 0 25.4728 0 24V12Z" fill="#80B7FD"/>
-        <path d="M24 12V24C24 25.4728 22.8061 26.6667 21.3333 26.6667H2.66667L24 12Z" fill="#619FFB"/>
+        <path d="M0 11.3333H24V22C24 23.4728 22.8061 24.6667 21.3333 24.6667H2.66667C1.19391 24.6667 0 23.4728 0 22V11.3333Z" fill="#1644B3" />
+        <path d="M10.2284 2.24146C11.2387 1.34336 12.7613 1.34336 13.7716 2.24146L24 11.3333H0L10.2284 2.24146Z" fill="#205CD7" />
+        <path d="M2 2.66667C2 1.19391 3.19391 0 4.66667 0H19.3333C20.8061 0 22 1.19391 22 2.66667V19.3333C22 20.8061 20.8061 22 19.3333 22H4.66667C3.19391 22 2 20.8061 2 19.3333V2.66667Z" fill="white" />
+        <path d="M6 5.33333H15.3333" stroke="#5D6378" strokeWidth="2" strokeLinecap="round" />
+        <path d="M6 9.33333H10" stroke="#5D6378" strokeWidth="2" strokeLinecap="round" />
+        <path d="M0 12L16.9918 23.6819C18.316 24.5923 17.6717 26.6667 16.0648 26.6667H2.66667C1.19391 26.6667 0 25.4728 0 24V12Z" fill="#80B7FD" />
+        <path d="M24 12V24C24 25.4728 22.8061 26.6667 21.3333 26.6667H2.66667L24 12Z" fill="#619FFB" />
       </svg>
     </div>
   );
