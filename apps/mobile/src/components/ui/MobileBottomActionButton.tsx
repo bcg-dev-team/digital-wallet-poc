@@ -43,7 +43,7 @@ export default function MobileBottomActionButton({
   const buttonBgColor = variant === "primary" ? "#fa2d42" : "#333950";
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full h-[92px]">
       {/* 그라데이션 배경 */}
       <div className="absolute inset-0" data-name="button-background">
         <div className="absolute bottom-0 left-0 right-0 top-[26.09%]" data-name="Rectangle154436">

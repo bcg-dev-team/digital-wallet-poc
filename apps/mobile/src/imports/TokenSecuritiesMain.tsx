@@ -6,9 +6,10 @@ import img4 from "../assets/37ac58a7f911dc76efb484419f1aff741808dcec.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { Img5, img, img6, imgRectangle157576 } from "./svg-n1neo";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
+import MobileAppFooter from "../components/layout/MobileAppFooter";
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return <MobilePageHeader title="음악 저작권 토큰" onBack={onNavigateBack} />;
+  return <MobilePageHeader title="토큰 증권 거래" onBack={onNavigateBack} />;
 }
 
 function Frame2117918802() {
@@ -836,9 +837,8 @@ function Quick1() {
 
 function ContentsFooter({ onSelectFirst }: { onSelectFirst?: () => void }) {
   return (
-    <div className="content-stretch flex flex-col h-[883px] items-start relative shrink-0 w-full" data-name="contents+footer">
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="contents+footer">
       <AllContents onSelectFirst={onSelectFirst} />
-      <Quick1 />
     </div>
   );
 }
@@ -850,9 +850,10 @@ interface TokenSecuritiesMainProps {
 
 export default function TokenSecuritiesMain({ onSelectFirst, onNavigateBack }: TokenSecuritiesMainProps) {
   return (
-    <div className="bg-white content-stretch flex flex-col items-start relative size-full" data-name="10.음악저작권토큰증권">
+    <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="10.음악저작권토큰증권">
       <Header onNavigateBack={onNavigateBack} />
       <ContentsFooter onSelectFirst={onSelectFirst} />
+      <MobileAppFooter activeTab="balance" />
     </div>
   );
 }

@@ -52,7 +52,7 @@ export default function TokenTradingOrder() {
           }
         }}
       />
-      <TokenTradingScreen onNavigateBack={() => navigate(-1)} />
+      <TokenTradingScreen onNavigateBack={() => navigate("/wallet")} />
       <BuyOrderBottomSheet
         isOpen={isBuyOrderOpen}
         onClose={() => setBuyOrderOpen(false)}

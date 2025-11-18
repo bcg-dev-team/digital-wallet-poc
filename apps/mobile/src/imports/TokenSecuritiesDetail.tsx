@@ -14,7 +14,7 @@ function Group820325() {
 }
 
 function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
-  return <MobilePageHeader title="라일락 (LILAC)" onBack={onNavigateBack} />;
+  return <MobilePageHeader title="토큰 증권 거래" onBack={onNavigateBack} />;
 }
 
 function Frame2117921460() {

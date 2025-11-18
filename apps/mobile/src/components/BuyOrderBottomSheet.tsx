@@ -12,15 +12,6 @@ interface BuyOrderBottomSheetProps {
   onConfirm?: () => void;
 }
 
-function Notice() {
-  return (
-    <div className="absolute contents font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] leading-[18px] left-[20px] not-italic text-[#999ea4] text-[12px] top-[356px]" data-name="Group824255">
-      <p className="absolute bottom-[23.05%] left-[36px] top-[73.25%] w-[304px]">수수료 및 제세금은 체결 내역에서 확인하세요.</p>
-      <p className="absolute left-[calc(50%-160px)] text-nowrap top-[356px] whitespace-pre">※</p>
-    </div>
-  );
-}
-
 function CloseIcon() {
   return (
     <div className="absolute contents inset-[33.33%_33.33%_33.32%_33.33%]" data-name="Group818705">
@@ -75,6 +66,12 @@ function OrderSummary() {
       <div className="absolute flex flex-col justify-center leading-[0] left-[340px] text-right text-[#777e8c] text-nowrap top-[322px] translate-x-[-100%] translate-y-[-50%]">
         <p className="[text-decoration-skip-ink:none] [text-underline-position:from-font] decoration-solid leading-[20px] underline whitespace-pre font-medium">변경</p>
       </div>
+      <div className="absolute left-[20px] top-[350px] w-[320px]">
+        <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] leading-[18px] not-italic text-[#999ea4] text-[12px]">
+          <span className="whitespace-pre">※ </span>
+          <span>수수료 및 제세금은 체결 내역에서 확인하세요.</span>
+        </p>
+      </div>
       <div className="absolute bottom-[58.02%] flex flex-col justify-center leading-[0] left-[20px] text-[#777e8c] top-[37.86%] w-[56px]">
         <p className="leading-[20px] font-medium">주문유형</p>
       </div>
@@ -99,22 +96,14 @@ function BottomsheetContent({ onClose, onConfirm }: { onClose: () => void; onCon
         <span className="text-[#fa2d42]">DT매수</span>
         <span>{` 주문확인`}</span>
       </p>
-      <div className="absolute left-0 top-[394px] h-[92px] w-[360px]" data-name="button">
+      <div className="absolute bottom-0 left-0 right-0 h-[92px] w-full z-10" data-name="button">
         <MobileBottomActionButton
           label="매수주문"
           onClick={onConfirm}
-          notice={
-            <>
-              <p className="absolute bottom-[23.05%] left-[36px] top-[73.25%] w-[304px]">
-                수수료 및 제세금은 체결 내역에서 확인하세요.
-              </p>
-              <p className="absolute left-[calc(50%-160px)] text-nowrap top-[356px] whitespace-pre">※</p>
-            </>
-          }
         />
       </div>
       <div
-        className="absolute inset-[10.7%_5.56%_84.36%_87.78%] cursor-pointer"
+        className="absolute top-[10.7%] right-[5.56%] w-[12px] h-[12px] cursor-pointer"
         data-name="ic_00com_24_solid_close"
         onClick={onClose}
       >
