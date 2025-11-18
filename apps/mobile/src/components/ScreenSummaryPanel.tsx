@@ -76,6 +76,9 @@ export function ScreenSummaryPanel() {
         <p className="mt-2 text-sm text-[#777e8c]">
           원하는 화면 선택 시 우측 모바일 영역에 해당 화면이 표시됩니다.
         </p>
+        <p className="mt-2 text-xs text-[#999ea4]">
+          단축키: <kbd className="px-1.5 py-0.5 rounded bg-[#f4f6f9] border border-[#e5e8f2] font-mono text-[#2a3fec]">Cmd/Ctrl + Shift + A</kbd>
+        </p>
       </header>
 
       <nav className="flex flex-col gap-4">
