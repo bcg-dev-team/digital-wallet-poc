@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MobileViewport from "./components/layout/MobileViewport";
+import { QuickAccessToggle } from "./components/devtools/MobileViewportToggle";
 import MyHomeScreen from "./components/MyHomeScreen";
 import WalletDashboard from "./components/WalletDashboard";
 import WalletWelcome from "./components/WalletWelcome";
@@ -31,14 +32,31 @@ function ScrollToTop() {
 }
 
 function WorkspaceLayout() {
+  const [isQuickAccessVisible, setIsQuickAccessVisible] = useState(true);
+
+  // localStorage에 설정 저장 (페이지 새로고침 시 유지)
+  useEffect(() => {
+    const saved = localStorage.getItem("quickAccessVisible");
+    if (saved !== null) {
+      setIsQuickAccessVisible(saved === "true");
+    }
+  }, []);
+
+  const toggleQuickAccess = () => {
+    const newValue = !isQuickAccessVisible;
+    setIsQuickAccessVisible(newValue);
+    localStorage.setItem("quickAccessVisible", String(newValue));
+  };
+
   return (
     <div className="flex min-h-screen bg-[#eef1f6]">
-      <ScreenSummaryPanel />
+      {isQuickAccessVisible && <ScreenSummaryPanel />}
       <main className="flex flex-1 items-center justify-center">
         <MobileViewport>
           <Outlet />
         </MobileViewport>
       </main>
+      <QuickAccessToggle isVisible={isQuickAccessVisible} onToggle={toggleQuickAccess} />
     </div>
   );
 }
