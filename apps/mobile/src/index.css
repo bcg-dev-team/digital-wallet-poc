@@ -66,6 +66,30 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* 인터랙션 가능한 요소들에 커서 포인터 적용 */
+  button:not(:disabled),
+  a[href],
+  [role="button"]:not([aria-disabled="true"]),
+  [onclick],
+  [tabindex]:not([tabindex="-1"]):not(:disabled),
+  label[for],
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  select:not(:disabled),
+  /* React에서 onClick prop이 있는 요소들 (data-interactive 속성 사용) */
+  [data-interactive="true"] {
+    cursor: pointer;
+  }
+
+  /* 비활성화된 요소들 */
+  button:disabled,
+  [role="button"][aria-disabled="true"],
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
 }
 
 @font-face {
