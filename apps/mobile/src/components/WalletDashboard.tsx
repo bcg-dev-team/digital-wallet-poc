@@ -82,7 +82,7 @@ export default function WalletDashboard() {
     <div ref={containerRef} className="relative min-h-full">
       <Component04Usdc
         onNavigateToDeposit={() => navigate("/deposit/connect-wallet")}
-        onNavigateToExchange={() => navigate("/deposit/amount")}
+        onNavigateToExchange={() => navigate("/usdc-exchange")}
         onNavigateToHome={() => navigate("/")}
         onNavigateToWithdrawal={() => navigate("/withdrawal")}
         onNavigateToHistory={() => navigate("/transaction-history")}

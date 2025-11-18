@@ -475,7 +475,7 @@ function Group826115() {
   );
 }
 
-function ButtonGroup({ onNavigateToExchange }: { onNavigateToExchange?: () => void }) {
+function ButtonGroup({ onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="flex gap-[8px] w-full" data-name="button">
       <Button
@@ -488,6 +488,7 @@ function ButtonGroup({ onNavigateToExchange }: { onNavigateToExchange?: () => vo
       <Button
         variant="primary"
         className="flex-1"
+        onClick={onNavigateToWithdrawal}
       >
         출금하기
       </Button>
@@ -495,50 +496,50 @@ function ButtonGroup({ onNavigateToExchange }: { onNavigateToExchange?: () => vo
   );
 }
 
-function List1({ onNavigateToExchange }: { onNavigateToExchange?: () => void }) {
+function List1({ onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full" data-name="list">
       <Group826115 />
-      <ButtonGroup onNavigateToExchange={onNavigateToExchange} />
+      <ButtonGroup onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
     </div>
   );
 }
 
-function Frame2117921365({ onNavigateToExchange }: { onNavigateToExchange?: () => void }) {
+function Frame2117921365({ onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="relative shrink-0 w-full">
       <div className="size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start px-[20px] py-0 relative w-full">
           <Frame2117921509 />
-          <List1 onNavigateToExchange={onNavigateToExchange} />
+          <List1 onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
         </div>
       </div>
     </div>
   );
 }
 
-function Frame2117921508({ onNavigateToDeposit, onNavigateToExchange }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void }) {
+function Frame2117921508({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
       <Frame2117921364 onNavigateToDeposit={onNavigateToDeposit} />
-      <Frame2117921365 onNavigateToExchange={onNavigateToExchange} />
+      <Frame2117921365 onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
     </div>
   );
 }
 
-function Frame2117921143({ onNavigateToDeposit, onNavigateToExchange }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void }) {
+function Frame2117921143({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[16px] items-center relative shrink-0 w-full">
       <Frame2117918982 />
-      <Frame2117921508 onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
+      <Frame2117921508 onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
     </div>
   );
 }
 
-function Component({ onNavigateToDeposit, onNavigateToExchange }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void }) {
+function Component({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWithdrawal }: { onNavigateToDeposit?: () => void; onNavigateToExchange?: () => void; onNavigateToWithdrawal?: () => void }) {
   return (
     <div className="bg-white box-border content-stretch flex flex-col gap-[20px] items-center overflow-clip pb-0 pt-[32px] px-0 relative shrink-0 w-[360px]" data-name="실시간순위_거래대금">
-      <Frame2117921143 onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
+      <Frame2117921143 onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
       <div className="h-[10px] relative shrink-0 w-[360px]" data-name="divider">
         <div className="absolute bg-[#f6f6f9] inset-0" data-name="np_00com_dv_360x10_sld.9" />
       </div>
@@ -815,7 +816,7 @@ function AllContents({ onNavigateToDeposit, onNavigateToExchange, onNavigateToWi
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="all_contents">
       <Component01Container onNavigateToDeposit={onNavigateToDeposit} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} />
-      <Component onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} />
+      <Component onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToWithdrawal={onNavigateToWithdrawal} />
       <Component11 onNavigateToLilacDetail={onNavigateToLilacDetail} />
     </div>
   );
