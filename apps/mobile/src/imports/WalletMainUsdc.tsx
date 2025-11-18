@@ -5,6 +5,8 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
+import { myWallet, MyWallet } from "./myWallet";
+import { useMyWallet } from "../contexts/WalletContext";
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,

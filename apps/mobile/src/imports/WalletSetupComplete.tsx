@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { Button, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import { TopSlidePopup } from "../components/ui/TopSlidePopup";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
 import { myWallet, MyWallet } from "./myWallet";
+import { useMyWallet } from "../contexts/WalletContext";
 
 interface WalletSetupCompleteProps {
   onNavigateBack?: () => void;
@@ -15,7 +16,13 @@ export default function WalletSetupComplete({ onNavigateBack, onNavigateToDeposi
   const [isAddressExpanded, setIsAddressExpanded] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const fullAddress = myWallet.getAddress();
+  const { setMyAddress } = useMyWallet();
   const shortAddress = `${fullAddress.slice(0, 8)}.....${fullAddress.slice(-8)}`;
+
+  useEffect(() => {
+    setMyAddress(fullAddress);
+  }, [fullAddress, setMyAddress]);
+
 
   const showToast = (message: string) => {
     setToastMessage(message);

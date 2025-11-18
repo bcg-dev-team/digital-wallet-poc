@@ -23,6 +23,7 @@ import { ScreenSummaryPanel } from "./components/ScreenSummaryPanel";
 import GlobalMenuScreen from "./components/GlobalMenuScreen";
 
 import { DepositProvider } from "./contexts/DepositContext";
+import { MyWalletProvider } from "./contexts/WalletContext";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -71,33 +72,43 @@ function DepositLayout() {
   );
 }
 
+function MyWalletLayout() {
+  return (
+    <MyWalletProvider>
+      <Outlet />
+    </MyWalletProvider>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
         <Route element={<WorkspaceLayout />}>
-          <Route path="/" element={<MyHomeScreen />} />
-          <Route path="/wallet" element={<WalletDashboard />} />
-          <Route path="/wallet/start" element={<WalletWelcome />} />
-          <Route path="/wallet/asset" element={<WalletAssetSelection />} />
-          <Route path="/wallet/network" element={<WalletNetworkSelection />} />
-          <Route path="/wallet/creation-complete" element={<WalletCreationComplete />} />
-          <Route element={<DepositLayout />}>
-            <Route path="/deposit/connect-wallet" element={<DepositConnectWallet />} />
-            <Route path="/deposit/amount" element={<DepositAmountEntry />} />
-            <Route path="/deposit/processing" element={<DepositProcessing />} />
-            <Route path="/deposit/completion" element={<DepositCompletion />} />
+          <Route element={<MyWalletLayout />}>
+            <Route path="/" element={<MyHomeScreen />} />
+            <Route path="/wallet" element={<WalletDashboard />} />
+            <Route path="/wallet/start" element={<WalletWelcome />} />
+            <Route path="/wallet/asset" element={<WalletAssetSelection />} />
+            <Route path="/wallet/network" element={<WalletNetworkSelection />} />
+            <Route path="/wallet/creation-complete" element={<WalletCreationComplete />} />
+            <Route element={<DepositLayout />}>
+              <Route path="/deposit/connect-wallet" element={<DepositConnectWallet />} />
+              <Route path="/deposit/amount" element={<DepositAmountEntry />} />
+              <Route path="/deposit/processing" element={<DepositProcessing />} />
+              <Route path="/deposit/completion" element={<DepositCompletion />} />
+            </Route>
+            <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
+            <Route path="/withdrawal" element={<UsdcWithdrawal />} />
+            <Route path="/transaction-history" element={<TransactionHistory />} />
+            <Route path="/explorer/tx/:txid" element={<ExplorerView />} />
+            <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
+            <Route path="/token-securities/lilac" element={<TokenSecuritiesLilac />} />
+            <Route path="/token-securities/lilac/trade" element={<TokenTradingOrder />} />
+            <Route path="/menu" element={<GlobalMenuScreen />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
-          <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
-          <Route path="/withdrawal" element={<UsdcWithdrawal />} />
-          <Route path="/transaction-history" element={<TransactionHistory />} />
-          <Route path="/explorer/tx/:txid" element={<ExplorerView />} />
-          <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
-          <Route path="/token-securities/lilac" element={<TokenSecuritiesLilac />} />
-          <Route path="/token-securities/lilac/trade" element={<TokenTradingOrder />} />
-          <Route path="/menu" element={<GlobalMenuScreen />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </BrowserRouter>

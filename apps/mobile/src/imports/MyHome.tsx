@@ -3,6 +3,8 @@ import img1 from "../assets/caaea4444e2cbaa2885cbabeaddc699ebe95dcb1.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
 import { img, img3, imgRectangle157576 } from "./svg-ukaqc";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
+import { useMyWallet } from "../contexts/WalletContext";
+import { useNavigate } from "react-router-dom";
 
 // =====================
 // Header Section
@@ -85,7 +87,7 @@ function HeaderActions() {
 function Header() {
   return (
     <div className="content-stretch flex flex-col items-start shrink-0 sticky top-0 w-full" data-name="header">
-      
+
       <div className="bg-white h-[52px] relative shrink-0 w-full" data-name="Home_header">
         <PrimaryTabMenu />
         <HeaderActions />
@@ -1108,15 +1110,15 @@ function Component02() {
     <div className="absolute h-[26.667px] left-[calc(100%-16px)] top-[15.33px] translate-x-[-50%] translate-y-[-50%] w-[24px]" data-name="02">
       <svg className="block max-w-none size-full" preserveAspectRatio="none" width="100%" height="100%" overflow="visible" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g>
-          <path d="M1.19209e-07 11.3333H24V22C24 23.4728 22.8061 24.6667 21.3333 24.6667H2.66667C1.19391 24.6667 1.19209e-07 23.4728 1.19209e-07 22V11.3333Z" fill="#1644B3"/>
-          <path d="M10.2284 2.24146C11.2387 1.34336 12.7613 1.34336 13.7716 2.24146L24 11.3333H1.19209e-07L10.2284 2.24146Z" fill="#205CD7"/>
+          <path d="M1.19209e-07 11.3333H24V22C24 23.4728 22.8061 24.6667 21.3333 24.6667H2.66667C1.19391 24.6667 1.19209e-07 23.4728 1.19209e-07 22V11.3333Z" fill="#1644B3" />
+          <path d="M10.2284 2.24146C11.2387 1.34336 12.7613 1.34336 13.7716 2.24146L24 11.3333H1.19209e-07L10.2284 2.24146Z" fill="#205CD7" />
           <g>
-            <path d="M2 2.66667C2 1.19391 3.19391 5.96046e-08 4.66667 5.96046e-08H19.3333C20.8061 5.96046e-08 22 1.19391 22 2.66667V19.3333C22 20.8061 20.8061 22 19.3333 22H4.66667C3.19391 22 2 20.8061 2 19.3333V2.66667Z" fill="white"/>
-            <path d="M6 5.33333H15.3333" stroke="#5D6378" strokeWidth="2" strokeLinecap="round"/>
-            <path d="M6 9.33333H10" stroke="#5D6378" strokeWidth="2" strokeLinecap="round"/>
+            <path d="M2 2.66667C2 1.19391 3.19391 5.96046e-08 4.66667 5.96046e-08H19.3333C20.8061 5.96046e-08 22 1.19391 22 2.66667V19.3333C22 20.8061 20.8061 22 19.3333 22H4.66667C3.19391 22 2 20.8061 2 19.3333V2.66667Z" fill="white" />
+            <path d="M6 5.33333H15.3333" stroke="#5D6378" strokeWidth="2" strokeLinecap="round" />
+            <path d="M6 9.33333H10" stroke="#5D6378" strokeWidth="2" strokeLinecap="round" />
           </g>
-          <path d="M1.19209e-07 12L16.9918 23.6819C18.316 24.5923 17.6717 26.6667 16.0648 26.6667H2.66667C1.19391 26.6667 1.19209e-07 25.4728 1.19209e-07 24V12Z" fill="#80B7FD"/>
-          <path d="M24 12V24C24 25.4728 22.8061 26.6667 21.3333 26.6667H2.66667L24 12Z" fill="#619FFB"/>
+          <path d="M1.19209e-07 12L16.9918 23.6819C18.316 24.5923 17.6717 26.6667 16.0648 26.6667H2.66667C1.19391 26.6667 1.19209e-07 25.4728 1.19209e-07 24V12Z" fill="#80B7FD" />
+          <path d="M24 12V24C24 25.4728 22.8061 26.6667 21.3333 26.6667H2.66667L24 12Z" fill="#619FFB" />
         </g>
       </svg>
     </div>
