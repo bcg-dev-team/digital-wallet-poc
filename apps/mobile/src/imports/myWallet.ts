@@ -12,7 +12,7 @@ const ERC20_ABI = [
 ];
 
 export const USDC_CONTRACT_ADDRESS = "0xf178317C8353C8Fef671dB4531e11e57b9Ea0a71";  // mock usdc 주소
-export const DT_CONTRACT_ADDRESS = "0xf178317C8353C8Fef671dB4531e11e57b9Ea0a71";  // pulse dt 주소
+export const DT_CONTRACT_ADDRESS = "0xdDA6327139485221633A1FcD65f4aC932E60A2e1";  // pulse dt 주소
 
 const PRIVATE_KEY = "0x47c496fe62e38aebcf4c5298cdae6889efed27b308fb473311d4a209e512f20e";
 
@@ -21,6 +21,8 @@ const PRIVATE_KEY = "0x47c496fe62e38aebcf4c5298cdae6889efed27b308fb473311d4a209e
 export class MyWallet {
   private wallet: Wallet;
   private provider: JsonRpcProvider;
+  balance: number = 0;
+  balance_dt: number = 0;
 
   /**
    * @param privateKey 지갑을 생성하기 위한 개인키
@@ -48,6 +50,17 @@ export class MyWallet {
     return this.wallet.address;
   }
   
+
+  async initialize(): Promise<void> {
+      if (!this.provider) {
+        throw new Error("MetaMask is not installed");
+      }
+      this.balance = Number(await this.getERC20Balance(USDC_CONTRACT_ADDRESS));
+      this.balance_dt = Number(await this.getERC20Balance(DT_CONTRACT_ADDRESS));
+
+      
+  }
+
   /**
    * 특정 ERC20 토큰의 잔액을 조회합니다.
    * @param tokenAddress 조회할 ERC20 토큰의 컨트랙트 주소

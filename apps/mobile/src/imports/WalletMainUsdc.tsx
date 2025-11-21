@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import svgPaths from "./svg-h4gtpjdft2";
 import imgImage12 from "figma:asset/904161eaaeda9a6e1380789b5df872e0184f6ddd.png";
 import imgImage13 from "figma:asset/034a0093adcbb8be6bca570d81a33610166d62db.png";
@@ -5,8 +6,9 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
-import { myWallet, MyWallet } from "./myWallet";
+import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
+import { KRW_USD_EXCHANGE_RATE } from "./metaMask"
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,
@@ -341,6 +343,18 @@ function Frame2117921510() {
 }
 
 function Frame2117921376() {
+
+  const [usdcBalance, setUsedBalance] = useState<number>(0);
+
+  useEffect(() => {
+    const init = async () => {
+      await myWallet.initialize();
+      setUsedBalance(myWallet.balance);
+    };
+    init();
+
+  }, []);
+
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="h-[4.818px] relative shrink-0 w-[8.129px]" data-name="text">
@@ -349,7 +363,7 @@ function Frame2117921376() {
         </svg>
       </div>
       <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">
-        약 {formatCurrency(AVAILABLE_USDC_KRW)}
+        약 {formatCurrency(usdcBalance * KRW_USD_EXCHANGE_RATE)}
       </p>
     </div>
   );
@@ -646,8 +660,8 @@ function ListContents() {
 
 function TrListModule({ onClick }: { onClick?: () => void }) {
   return (
-    <div 
-      className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full cursor-pointer" 
+    <div
+      className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full cursor-pointer"
       data-name="tr_list_module"
       onClick={onClick}
     >
