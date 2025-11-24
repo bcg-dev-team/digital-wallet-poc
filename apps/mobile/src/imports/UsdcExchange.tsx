@@ -58,21 +58,11 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
     setUsdcAmount("");
   };
 
-  const handleSelectMax = () => {
-
-    // const [usdcBalance, setUsdcBalance] = useState<number>(0);
-
-    // useEffect(() => {
-    //   const init = async () => {
-    //     await myWallet.initialize();
-    //     setUsdcBalance(myWallet.balance);
-    //   };
-    //   init();
-
-    // }, []);
-
+  const handleSelectMax = async () => {
+    await myWallet.initialize();
+    const usdcBalance = myWallet.balance;
     setAmountMode("max");
-    setUsdcAmount(formatNumber(24));
+    setUsdcAmount(formatNumber(usdcBalance));
   };
 
   const isSubmitDisabled = usdcNumeric <= 0;
