@@ -9,7 +9,7 @@ import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
 import api from "../api/api";
 import { ethers } from "ethers";
-
+import { useDeposit } from "../contexts/DepositContext";
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
 const BRIDGE_FEE_RATE = 0.001;
@@ -30,6 +30,7 @@ interface UsdcExchangeProps {
 }
 
 export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeProps) {
+  const { setExchangeAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [usdcAmount, setUsdcAmount] = useState<string>("");
 
@@ -72,6 +73,8 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
       return;
     }
 
+    alert(`환전 요청 금액: ${usdcNumeric} USDC\n예상 수령액: ${Math.round(finalDt)} DT`);
+
     const usedNum = ethers.parseUnits(usdcNumeric.toString(), 18);
 
     const addr = myWallet.getAddress();
@@ -81,7 +84,7 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
         amount: usedNum.toString()
       });
 
-      alert(response.data);
+      //alert(response.data);
 
       if (response.status == 200) {
         // return { success: 200, data: response.data };
@@ -99,6 +102,9 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
       // }
     }
 
+    if (setExchangeAmount) {
+      setExchangeAmount(usdcNumeric);
+    }
     if (!onSubmit) {
       alert("onSubmit is not defined");
       return;

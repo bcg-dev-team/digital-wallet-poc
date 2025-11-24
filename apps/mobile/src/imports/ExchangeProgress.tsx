@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
-
+import { useDeposit } from "../contexts/DepositContext";
 import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
+import { on } from "events";
 
 const DEFAULT_TXID = "0xab123...def567";
 const DEFAULT_AMOUNT = formatNumber(AVAILABLE_USDC_AMOUNT);
@@ -24,13 +25,22 @@ function Frame2117921381({ onNavigateBack }: { onNavigateBack?: () => void }) {
 }
 
 function Btn({ onNavigateNext }: { onNavigateNext?: () => void }) {
+
+  const { setTxid, setDepositAmount } = useDeposit();
+
+  const onNavigate = () => {
+    if (onNavigateNext) {
+      onNavigateNext();
+    }
+  };
+
   return (
     <MobileStickyFooter className="z-10">
       <Button
         variant="primary"
         size="lg"
         className="w-full"
-        onClick={onNavigateNext}
+        onClick={onNavigate}
       >
         다음
       </Button>

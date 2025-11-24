@@ -111,20 +111,21 @@ export default function App() {
               <Route path="/deposit/amount" element={<DepositAmountEntry />} />
               <Route path="/deposit/processing" element={<DepositProcessing />} />
               <Route path="/deposit/completion" element={<DepositCompletion />} />
+
+              <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
+              <Route path="/usdc-exchange/processing" element={<ExchangeProcessing />} />
+              <Route path="/usdc-exchange/completion" element={<ExchangeCompletion />} />
+              <Route path="/withdrawal" element={<UsdcWithdrawal />} />
+              <Route path="/withdrawal/processing" element={<WithdrawalProcessing />} />
+              <Route path="/withdrawal/completion" element={<WithdrawalCompletion />} />
+              <Route path="/transaction-history" element={<TransactionHistory />} />
+              <Route path="/explorer/tx/:txid" element={<ExplorerView />} />
+              <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
+              <Route path="/token-securities/lilac" element={<TokenSecuritiesLilac />} />
+              <Route path="/token-securities/lilac/trade" element={<TokenTradingOrder />} />
+              <Route path="/menu" element={<GlobalMenuScreen />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
-            <Route path="/usdc-exchange" element={<UsdcExchangeFlow />} />
-            <Route path="/usdc-exchange/processing" element={<ExchangeProcessing />} />
-            <Route path="/usdc-exchange/completion" element={<ExchangeCompletion />} />
-            <Route path="/withdrawal" element={<UsdcWithdrawal />} />
-            <Route path="/withdrawal/processing" element={<WithdrawalProcessing />} />
-            <Route path="/withdrawal/completion" element={<WithdrawalCompletion />} />
-            <Route path="/transaction-history" element={<TransactionHistory />} />
-            <Route path="/explorer/tx/:txid" element={<ExplorerView />} />
-            <Route path="/token-securities" element={<TokenSecuritiesOverview />} />
-            <Route path="/token-securities/lilac" element={<TokenSecuritiesLilac />} />
-            <Route path="/token-securities/lilac/trade" element={<TokenTradingOrder />} />
-            <Route path="/menu" element={<GlobalMenuScreen />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
 

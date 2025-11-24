@@ -7,8 +7,11 @@ import {
   AVAILABLE_USDC_KRW,
   formatCurrency,
   formatNumber,
+  KRW_USD_EXCHANGE_RATE
 } from "../constants/wallet";
 import eventBannerImage from "../assets/699cfa03a5e35518b3e7e62482a35f444b42cc86.png";
+import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
+import { useDeposit } from "../contexts/DepositContext";
 
 interface ExchangeCompleteProps {
   onNavigateBack?: () => void;
@@ -25,8 +28,10 @@ export default function ExchangeComplete({
   onNavigateToHistory,
   onOpenExplorer,
 }: ExchangeCompleteProps) {
-  const formattedAmount = useMemo(() => formatNumber(AVAILABLE_USDC_AMOUNT), []);
-  const formattedKrw = useMemo(() => formatCurrency(AVAILABLE_USDC_KRW), []);
+  //const formattedAmount = useMemo(() => formatNumber(AVAILABLE_USDC_AMOUNT), []);
+  const { exchangeAmount } = useDeposit();
+  const formattedAmount = useMemo(() => formatNumber(exchangeAmount || 0), [exchangeAmount]);
+  const formattedKrw = useMemo(() => formatCurrency((exchangeAmount || 1) * KRW_USD_EXCHANGE_RATE), []);
   const completedAt = useMemo(() => {
     const now = new Date();
     return now.toLocaleString("ko-KR", {
@@ -38,6 +43,15 @@ export default function ExchangeComplete({
       second: "2-digit",
     });
   }, []);
+
+  const handleOpenExplorer = () => {
+    if (onOpenExplorer) {
+      onOpenExplorer();
+    }
+
+    window.open(`https://amoy.polygonscan.com/address/${POLYGON_BRIDGE_ADDRESS}`, "_blank", "noopener,noreferrer");
+  };
+
 
   return (
     <div className="bg-white flex min-h-full w-full max-w-[360px] flex-col">
@@ -80,6 +94,7 @@ export default function ExchangeComplete({
                 variant="outline"
                 size="sm"
                 className="w-full"
+                onClick={handleOpenExplorer}
               >
                 탐색기에서 보기
               </Button>

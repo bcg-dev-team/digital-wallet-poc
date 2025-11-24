@@ -9,8 +9,11 @@ import {
   formatCurrency,
   formatNumber,
   KRW_USD_EXCHANGE_RATE,
-  USDC_CONTRACT_ADDRESS,
 } from "../constants/wallet";
+import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, META_MSK_ADDRESS } from "./myWallet";
+import { Wallet, ethers } from "ethers";
+import api from "../api/api";
+
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
 const BRIDGE_FEE_RATE = 0.001;
@@ -233,8 +236,8 @@ function Frame9() {
           <InfoOutline />
           <p className="font-['Spoqa_Han_Sans_Neo:Regular',sans-serif] leading-[16px] not-italic relative shrink-0 text-[#2a3fec] text-[11px] text-nowrap whitespace-pre">DT는 원화(KRW)에 페깅됩니다 (1DT = 1KRW)</p>
         </div>
-              </div>
-            </div>
+      </div>
+    </div>
   );
 }
 
@@ -612,7 +615,7 @@ function Frame31({ withdrawalAmount, exchangeRate, expectedUsdc, bridgeFee }: { 
 function Frame41({ onNavigateBack, dtAmount, exchangeRate, lastUpdated, amountMode, onModeChange, withdrawalAmount, onWithdrawalAmountChange, expectedUsdc, address, onAddressChange, addressMode, onAddressModeChange }: { onNavigateBack?: () => void; dtAmount: number; exchangeRate: number; lastUpdated: string; amountMode: AmountMode; onModeChange: (mode: AmountMode) => void; withdrawalAmount: string; onWithdrawalAmountChange: (value: string) => void; expectedUsdc: number; address: string; onAddressChange: (value: string) => void; addressMode: "qr" | "recent"; onAddressModeChange: (mode: "qr" | "recent") => void }) {
   const withdrawalAmountNumeric = parseNumber(withdrawalAmount);
   const bridgeFee = withdrawalAmountNumeric * BRIDGE_FEE_RATE;
-  
+
   return (
     <div className="absolute content-stretch flex flex-col items-center left-0 top-0 w-[360px]">
       <Frame30 onNavigateBack={onNavigateBack} dtAmount={dtAmount} exchangeRate={exchangeRate} lastUpdated={lastUpdated} amountMode={amountMode} onModeChange={onModeChange} withdrawalAmount={withdrawalAmount} onWithdrawalAmountChange={onWithdrawalAmountChange} expectedUsdc={expectedUsdc} address={address} onAddressChange={onAddressChange} addressMode={addressMode} onAddressModeChange={onAddressModeChange} />
@@ -627,7 +630,7 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
   const [address, setAddress] = useState("");
   const [addressMode, setAddressMode] = useState<"qr" | "recent">("qr");
 
-  const dtAmount = AVAILABLE_USDC_KRW;
+  const dtAmount = myWallet.balance_dt;
   const exchangeRate = KRW_USD_EXCHANGE_RATE;
   const lastUpdated = useMemo(
     () =>
@@ -648,6 +651,7 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
   };
 
   const handleModeChange = (mode: AmountMode) => {
+    // alert("출금 신청 전 반드시 외부 지갑 주소와 출금 금액을 확인해주세요.");
     if (mode === "manual") {
       setAmountMode("manual");
       setWithdrawalAmount("");
@@ -658,16 +662,30 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
   };
 
   const handleAddressModeChange = (mode: "qr" | "recent") => {
+
     setAddressMode(mode);
     if (mode === "recent") {
-      setAddress(USDC_CONTRACT_ADDRESS);
+
+      setAddress(META_MSK_ADDRESS);
     }
   };
 
   const isSubmitDisabled = withdrawalAmountNumeric <= 0 || !address.trim();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isSubmitDisabled) return;
+
+    try {
+      const response = await api.post("/redeem", {
+        holder: address,
+        amount: dtAmount
+      });
+    } catch (error) {
+      alert("출금 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
+      console.error(error);
+      return;
+    }
+
     onSubmit?.({ dtAmount: withdrawalAmountNumeric, expectedUsdc, address });
   };
 

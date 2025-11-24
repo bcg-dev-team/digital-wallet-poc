@@ -11,6 +11,7 @@ const ERC20_ABI = [
     "function transfer(address to, uint256 amount) returns (bool)",
 ];
 
+export const META_MSK_ADDRESS = "0x13795956edd9CDcC373d14c4D4F8D792e20fB1Fb";
 export const USDC_CONTRACT_ADDRESS = "0xf178317C8353C8Fef671dB4531e11e57b9Ea0a71";  // mock usdc 주소
 export const DT_CONTRACT_ADDRESS = "0xdDA6327139485221633A1FcD65f4aC932E60A2e1";  // pulse dt 주소
 export const ST_CONTRACT_ADDRESS = "0xF328c11c4dF88d18FcBd30ad38d8B4714F4b33bF";

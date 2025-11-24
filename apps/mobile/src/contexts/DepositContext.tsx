@@ -5,6 +5,9 @@ interface DepositContextType {
   setTxid: (txid: string | null) => void;
   depositAmount: number;
   setDepositAmount: (depositAmount: number) => void;
+
+  exchangeAmount?: number;
+  setExchangeAmount: (exchangeAmount: number) => void;
 }
 
 const DepositContext = createContext<DepositContextType | undefined>(undefined);
@@ -12,9 +15,9 @@ const DepositContext = createContext<DepositContextType | undefined>(undefined);
 export const DepositProvider = ({ children }: { children: ReactNode }) => {
   const [txid, setTxid] = useState<string | null>(null);
   const [depositAmount, setDepositAmount] = useState<number>(0);
-
+  const [exchangeAmount, setExchangeAmount] = useState<number>(0);
   return (
-    <DepositContext.Provider value={{ txid, setTxid, depositAmount, setDepositAmount }}>
+    <DepositContext.Provider value={{ txid, setTxid, depositAmount, setDepositAmount, exchangeAmount, setExchangeAmount }}>
       {children}
     </DepositContext.Provider>
   );
