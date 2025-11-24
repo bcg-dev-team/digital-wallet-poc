@@ -117,7 +117,7 @@ function AssetSummaryLabel({ onSetAddress }: { onSetAddress?: (address: string) 
     const fullAddress = myWallet.getAddress();
     if (onSetAddress) {
       onSetAddress?.(fullAddress);
-      alert("총 자산 도움말 클릭됨. 주소가 설정되었습니다.");
+      alert("주소가 새로 설정되었습니다.");
     };
 
   };

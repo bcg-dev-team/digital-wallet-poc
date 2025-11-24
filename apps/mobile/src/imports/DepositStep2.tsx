@@ -14,6 +14,7 @@ import {
 import { metaMaskWallet } from "./metaMask";
 import { myWallet, MyWallet } from "./myWallet";
 import { useDeposit } from "../contexts/DepositContext";
+import { parse } from "path";
 
 
 interface DepositStep2Props {
@@ -73,8 +74,11 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
       return;
     }
 
+
+    const amtSend = parseNumber(amount);
+
     try {
-      const txid = await metaMaskWallet.sendErc20Token(USDC_CONTRACT_ADDRESS, address, amount);
+      const txid = await metaMaskWallet.sendErc20Token(USDC_CONTRACT_ADDRESS, address, amtSend.toString());
       setTxid(txid);
       setDepositAmount(numericAmount)
       console.log("Transaction ID:", txid);

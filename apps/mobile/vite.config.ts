@@ -64,6 +64,18 @@ export default defineConfig({
       // UI 패키지 변경사항 감지 (개발 모드)
       ignored: ["!**/packages/ui/src/**"],
     },
+    cors: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    proxy: {
+      // '/v1'로 시작하는 요청을 target으로 프록시합니다.
+      '/api': {
+        target: 'https://bridge-api-736820725831.asia-northeast3.run.app',
+        changeOrigin: true, // cross-origin을 허용합니다.
+        // rewrite: (path) => path.replace(/^\/api/, ''), // 요청 경로에서 '/api'를 제거합니다.
+      },
+    },
   },
   preview: {
     port: 3000,
