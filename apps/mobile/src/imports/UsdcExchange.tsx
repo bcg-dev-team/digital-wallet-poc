@@ -1,10 +1,12 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import clsx from "clsx";
 import { Clock, Info, RefreshCw } from "lucide-react";
 import { Button, Input, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
-import { AVAILABLE_USDC_AMOUNT, AVAILABLE_USDC_KRW, formatCurrency, formatNumber } from "../constants/wallet";
+import { AVAILABLE_USDC_AMOUNT, AVAILABLE_USDC_KRW, formatCurrency, formatNumber, KRW_USD_EXCHANGE_RATE } from "../constants/wallet";
+import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
+import { useMyWallet } from "../contexts/WalletContext";
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
 const BRIDGE_FEE_RATE = 0.001;
@@ -54,8 +56,20 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
   };
 
   const handleSelectMax = () => {
+
+    // const [usdcBalance, setUsdcBalance] = useState<number>(0);
+
+    // useEffect(() => {
+    //   const init = async () => {
+    //     await myWallet.initialize();
+    //     setUsdcBalance(myWallet.balance);
+    //   };
+    //   init();
+
+    // }, []);
+
     setAmountMode("max");
-    setUsdcAmount(formatNumber(AVAILABLE_USDC_AMOUNT));
+    setUsdcAmount(formatNumber(24));
   };
 
   const isSubmitDisabled = usdcNumeric <= 0;
@@ -74,7 +88,7 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
     },
     {
       label: "적용 환율",
-      value: `${formatDecimal(dtPerUsdc)}원/USD`,
+      value: `${formatDecimal(KRW_USD_EXCHANGE_RATE)}원/USD`,
     },
     {
       label: "예상 수령",
@@ -110,7 +124,7 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-[26px] font-bold leading-[32px] text-[#111111]">
-                  {formatDecimal(dtPerUsdc)}원
+                  {formatDecimal(KRW_USD_EXCHANGE_RATE)}원
                 </span>
                 <button
                   type="button"

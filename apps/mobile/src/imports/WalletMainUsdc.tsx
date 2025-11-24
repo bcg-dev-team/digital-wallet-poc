@@ -8,12 +8,13 @@ import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
 import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
-import { KRW_USD_EXCHANGE_RATE } from "./metaMask"
+
 import {
   AVAILABLE_USDC_AMOUNT,
   AVAILABLE_USDC_KRW,
   formatCurrency,
   formatNumber,
+  KRW_USD_EXCHANGE_RATE,
 } from "../constants/wallet";
 import MobileAppFooter from "../components/layout/MobileAppFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
@@ -344,12 +345,12 @@ function Frame2117921510() {
 
 function Frame2117921376() {
 
-  const [usdcBalance, setUsedBalance] = useState<number>(0);
+  const [usdcBalance, setUsdcBalance] = useState<number>(0);
 
   useEffect(() => {
     const init = async () => {
       await myWallet.initialize();
-      setUsedBalance(myWallet.balance);
+      setUsdcBalance(myWallet.balance);
     };
     init();
 
@@ -370,11 +371,21 @@ function Frame2117921376() {
 }
 
 function Frame2117921375() {
+  const [usdcBalance, setUsdcBalance] = useState<number>(0);
+
+  useEffect(() => {
+    const init = async () => {
+      await myWallet.initialize();
+      setUsdcBalance(myWallet.balance);
+    };
+    init();
+
+  }, []);
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[0] not-italic relative shrink-0 text-[#111111] text-[0px] w-[105px]">
         <span className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] text-[16px] tracking-[-0.08px]">
-          {formatNumber(AVAILABLE_USDC_AMOUNT)}
+          {formatNumber(usdcBalance)}
         </span>
         <span className="leading-[20px] text-[14px]">{` USDC`}</span>
       </p>
@@ -452,6 +463,15 @@ function Frame2117921509() {
 }
 
 function Frame2117921377() {
+  const [dtBalance, setDTBalance] = useState<number>(0);
+  useEffect(() => {
+    const init = async () => {
+      await myWallet.initialize();
+      setDTBalance(myWallet.balance_dt);
+    };
+    init();
+
+  }, []);
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="h-[4.818px] relative shrink-0 w-[8.129px]" data-name="text">
@@ -459,17 +479,27 @@ function Frame2117921377() {
           <path d={svgPaths.p3060fd40} fill="var(--fill-0, #777E8C)" id="text" />
         </svg>
       </div>
-      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">1,328,850 원</p>
+      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">{formatCurrency(dtBalance)} </p>
     </div>
   );
 }
 
 function Frame2117921378() {
+  const [dtBalance, setDTBalance] = useState<number>(0);
+
+  useEffect(() => {
+    const init = async () => {
+      await myWallet.initialize();
+      setDTBalance(myWallet.balance_dt);
+    };
+    init();
+
+  }, []);
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <p className="basis-0 font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium grow leading-[0] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[0px]">
-        <span className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] text-[16px] tracking-[-0.08px]">1,348,850</span>
-        <span className="leading-[20px] text-[14px]">{` USDC`}</span>
+        <span className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] text-[16px] tracking-[-0.08px]">{formatNumber(dtBalance)}</span>
+        <span className="leading-[20px] text-[14px]">{` DT`}</span>
       </p>
       <Frame2117921377 />
     </div>
@@ -613,6 +643,9 @@ function Component6() {
 }
 
 function Component8() {
+
+
+
   return (
     <div className="basis-0 content-stretch flex flex-col grow items-start min-h-px min-w-px relative shrink-0" data-name="종목명&부가정보">
       <p className="[white-space-collapse:collapse] font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[24px] not-italic overflow-ellipsis overflow-hidden relative shrink-0 text-[#333950] text-[16px] text-nowrap w-full">라일락 - IU</p>
@@ -659,14 +692,29 @@ function ListContents() {
 }
 
 function TrListModule({ onClick }: { onClick?: () => void }) {
+  const [stBalance, setSTBalance] = useState<number>(0);
+
+  useEffect(() => {
+    const init = async () => {
+      await myWallet.initialize();
+      setSTBalance(myWallet.balance_st);
+    };
+    init();
+
+  }, []);
+
   return (
-    <div
-      className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full cursor-pointer"
-      data-name="tr_list_module"
-      onClick={onClick}
-    >
-      <ListContents />
-    </div>
+    <>
+      {stBalance > 0 && (
+        <div
+          className="bg-white box-border content-stretch flex flex-col gap-[8px] h-[68px] items-start justify-center max-w-[320px] overflow-clip px-0 py-[12px] relative shrink-0 w-full cursor-pointer"
+          data-name="tr_list_module"
+          onClick={onClick}
+        >
+          <ListContents />
+        </div>
+      )}
+    </>
   );
 }
 

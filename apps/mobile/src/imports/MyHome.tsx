@@ -1,11 +1,11 @@
 import svgPaths from "./svg-nasujy059u";
 import img1 from "../assets/caaea4444e2cbaa2885cbabeaddc699ebe95dcb1.png";
 import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956c.png";
-import { img, img3, imgRectangle157576 } from "./svg-ukaqc";
+import { img, img3, imgRectangle157576 } from "./svg-ukaqc"; // Assuming this is correct
 import MobileAppFooter from "../components/layout/MobileAppFooter";
-import { useMyWallet } from "../contexts/WalletContext";
-import { useNavigate } from "react-router-dom";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
+import { myWallet, MyWallet } from "./myWallet";
+import { useEffect, useState } from "react";
 
 
 // =====================
@@ -103,26 +103,27 @@ function Header() {
 // =====================
 
 function Help() {
-  return (
-    <div className="relative shrink-0 size-[16px]" data-name="Help">
-      <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
-        <g clipPath="url(#clip0_1_5553)" id="Help">
-          <g id="Vector"></g>
-          <path d={svgPaths.pe934c00} fill="var(--fill-0, white)" id="Vector_2" />
-        </g>
-        <defs>
-          <clipPath id="clip0_1_5553">
-            <rect fill="white" height="16" width="16" />
-          </clipPath>
-        </defs>
-      </svg>
-    </div>
-  );
+  return <div className="relative shrink-0 size-[16px]" data-name="Help">
+    <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 16">
+      <g clipPath="url(#clip0_1_5553)" id="Help"><g id="Vector"></g><path d={svgPaths.pe934c00} fill="var(--fill-0, white)" id="Vector_2" /></g>
+      <defs><clipPath id="clip0_1_5553"><rect fill="white" height="16" width="16" /></clipPath></defs>
+    </svg>
+  </div>;
 }
 
-function AssetSummaryLabel() {
+function AssetSummaryLabel({ onSetAddress }: { onSetAddress?: (address: string) => void }) {
+
+  const handleClick = () => {
+    const fullAddress = myWallet.getAddress();
+    if (onSetAddress) {
+      onSetAddress?.(fullAddress);
+      alert("총 자산 도움말 클릭됨. 주소가 설정되었습니다.");
+    };
+
+  };
+
   return (
-    <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+    <div className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer" onClick={handleClick}>
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[#111111] text-[14px] text-center text-nowrap" style={{ fontWeight: 700 }}>
         <p className="leading-[20px] whitespace-pre">총 자산</p>
       </div>
@@ -164,10 +165,10 @@ function AssetSummaryAmount() {
   );
 }
 
-function AssetSummaryCard() {
+function AssetSummaryCard({ onSetAddress }: { onSetAddress?: (address: string) => void; }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-[182px]">
-      <AssetSummaryLabel />
+      <AssetSummaryLabel onSetAddress={onSetAddress} />
       <AssetSummaryAmount />
     </div>
   );
@@ -219,10 +220,10 @@ function PrivacyToggleControl() {
   );
 }
 
-function AssetSummaryHeader() {
+function AssetSummaryHeader({ onSetAddress }: { onSetAddress?: (address: string) => void; }) {
   return (
     <div className="bg-white box-border content-stretch flex items-center justify-between pb-0 pt-[12px] px-[20px] relative shrink-0 w-[360px]" data-name="tab_l1_sld_container">
-      <AssetSummaryCard />
+      <AssetSummaryCard onSetAddress={onSetAddress} />
       <PrivacyToggleControl />
     </div>
   );
@@ -432,8 +433,22 @@ function IndexArea() {
 }
 
 function Container() {
+
+  const handleClick = async () => {
+    alert("거래 가능 금액 영역 클릭됨.");
+
+    myWallet.getNewPrivateKey();
+
+    await myWallet.initialize();
+
+
+  };
+
+
   return (
-    <div className="bg-white relative shrink-0 w-full" data-name="container">
+    <div className="bg-white relative shrink-0 w-full" data-name="container"
+      onClick={handleClick}
+    >
       <div className="flex flex-col justify-center size-full">
         <div className="box-border content-stretch flex flex-col gap-[8px] items-start justify-center pb-[20px] pt-0 px-[20px] relative w-full">
           <p className="leading-[20px] not-italic relative shrink-0 text-[#333950] text-[14px] text-center text-nowrap whitespace-pre" style={{ fontWeight: 700 }}>거래 가능 금액</p>
@@ -448,10 +463,10 @@ function Container() {
  * MY홈 상단의 자산 요약 정보를 표시합니다.
  * @returns 총 자산과 보유 지표를 포함한 섹션
  */
-function AssetOverviewSection() {
+function AssetOverviewSection({ onSetAddress }: { onSetAddress?: (address: string) => void; }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="01_container">
-      <AssetSummaryHeader />
+      <AssetSummaryHeader onSetAddress={onSetAddress} />
       <AssetPerformanceRow />
       <Container />
     </div>
@@ -943,8 +958,8 @@ function WalletPromotionSection({ onSelectFirst }: { onSelectFirst?: () => void 
       className="bg-white content-stretch flex flex-col gap-[20px] items-center overflow-clip relative shrink-0 w-[360px]"
       data-name="실시간순위_거래대금"
     >
-      <div 
-        className="h-[104px] relative shrink-0 w-[320px] cursor-pointer z-10" 
+      <div
+        className="h-[104px] relative shrink-0 w-[320px] cursor-pointer z-10"
         data-name="img_08ac_bn_320x104_multi_01"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -1044,10 +1059,10 @@ function SectionDivider() {
  * @param onNavigateToWallet - 월렛 프로모션 선택 시 실행되는 콜백
  * @returns 자산 요약, 프로모션, 퀵 메뉴 묶음
  */
-function HomeSections({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
+function HomeSections({ onNavigateToWallet, onSetAddress }: { onNavigateToWallet?: () => void; onSetAddress?: (address: string) => void }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="all_contents">
-      <AssetOverviewSection />
+      <AssetOverviewSection onSetAddress={onSetAddress} />
       <WalletPromotionSection onSelectFirst={onNavigateToWallet} />
       <QuickMenuSection />
       <SectionDivider />
@@ -1515,10 +1530,10 @@ function Inner({ onNavigateMenu }: { onNavigateMenu?: () => void }) {
  * @param onNavigateToWallet - 월렛 진입 요청 시 호출되는 콜백
  * @returns MY홈 본문 컨테이너
  */
-function BodyContent({ onNavigateToWallet }: { onNavigateToWallet?: () => void }) {
+function BodyContent({ onNavigateToWallet, onSetAddress }: { onNavigateToWallet?: () => void; onSetAddress?: (address: string) => void }) {
   return (
     <div className="content-stretch flex flex-col h-[1259px] items-start relative shrink-0 w-full" data-name="contents+footer">
-      <HomeSections onNavigateToWallet={onNavigateToWallet} />
+      <HomeSections onNavigateToWallet={onNavigateToWallet} onSetAddress={onSetAddress} />
       <FooterSection />
     </div>
   );
@@ -1530,11 +1545,11 @@ function BodyContent({ onNavigateToWallet }: { onNavigateToWallet?: () => void }
  * @param onNavigateMenu - 하단 내비게이션 메뉴 이동 콜백
  * @returns MY홈 화면
  */
-export default function MyHome({ onNavigateToWallet, onNavigateMenu }: { onNavigateToWallet?: () => void; onNavigateMenu?: () => void }) {
+export default function MyHome({ onNavigateToWallet, onNavigateMenu, onSetAddress }: { onNavigateToWallet?: () => void; onNavigateMenu?: () => void; onSetAddress?: (address: string) => void }) {
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative w-full min-h-full pb-[72px]" data-name="MY홈_국내">
       <Header />
-      <BodyContent onNavigateToWallet={onNavigateToWallet} />
+      <BodyContent onNavigateToWallet={onNavigateToWallet} onSetAddress={onSetAddress} />
       <MobileAppFooter activeTab="home" onOpenMenu={onNavigateMenu} onNavigateOrder={onNavigateMenu} />
     </div>
   );

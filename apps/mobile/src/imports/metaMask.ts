@@ -2,15 +2,7 @@
 import { ethers} from "ethers";
 import axios from 'axios';
 import moment from 'moment';
-
-/**
- * 지갑 관련 전역 상수
- */
-export const AVAILABLE_USDC_AMOUNT = 1_000;
-export const AVAILABLE_USDC_KRW = 1_350_000;
-export const USDC_CONTRACT_ADDRESS = "0xf178317C8353C8Fef671dB4531e11e57b9Ea0a71";  // mock usdc 주소
-
-export const KRW_USD_EXCHANGE_RATE = 1450; // 1 USD = 1350 KRW (예시 환율)
+import { USDC_CONTRACT_ADDRESS } from "../constants/wallet";
 
 class MetaMaskWallet {
   provider: ethers.BrowserProvider | null = null;
