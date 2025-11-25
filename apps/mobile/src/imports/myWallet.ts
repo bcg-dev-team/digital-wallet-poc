@@ -4,6 +4,7 @@ import { ethers, Wallet, JsonRpcProvider, Contract, TransactionResponse } from "
 const AMOY_RPC_URL = "https://rpc-amoy.polygon.technology/";
 const PULSE_RPC_URL = "https://secuchain.testnet.stopulse.co.kr/";
 
+export const SECUCHAIN_BRIDGE_URL = "https://explorer.testnet.stopulse.co.kr/address/0x2b328FbB803B75EEFAbFF2405165978A7a3Ef0C5"
 // 잔액조회, 소수점, 전송을 위한 표준 ERC20 ABI
 const ERC20_ABI = [
     "function balanceOf(address owner) view returns (uint256)",

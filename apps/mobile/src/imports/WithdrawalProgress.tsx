@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
+import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, SECUCHAIN_BRIDGE_URL } from "./myWallet";
 
 const DEFAULT_TXID = "0xab123...def567";
 const DEFAULT_AMOUNT = formatNumber(AVAILABLE_USDC_AMOUNT);
@@ -321,7 +322,7 @@ function Frame2117921407() {
   const navigate = useNavigate();
 
   const handleOpenExplorer = () => {
-    window.open(`https://amoy.polygonscan.com/tx/${DEFAULT_TXID}`, "_blank", "noopener,noreferrer");
+    window.open(`${SECUCHAIN_BRIDGE_URL}`, "_blank", "noopener,noreferrer");
   };
 
   return (

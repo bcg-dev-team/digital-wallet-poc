@@ -13,7 +13,7 @@ import {
 import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, META_MSK_ADDRESS } from "./myWallet";
 import { Wallet, ethers } from "ethers";
 import api from "../api/api";
-
+import { useDeposit } from "../contexts/DepositContext";
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
 const BRIDGE_FEE_RATE = 0.001;
@@ -625,6 +625,7 @@ function Frame41({ onNavigateBack, dtAmount, exchangeRate, lastUpdated, amountMo
 }
 
 export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdrawalProps) {
+  const { setExtractAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [withdrawalAmount, setWithdrawalAmount] = useState<string>("");
   const [address, setAddress] = useState("");
@@ -673,12 +674,19 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
   const isSubmitDisabled = withdrawalAmountNumeric <= 0 || !address.trim();
 
   const handleSubmit = async () => {
-    if (isSubmitDisabled) return;
+    // if (isSubmitDisabled) return;
+
+
+    setExtractAmount(withdrawalAmountNumeric);
+    const withAmount = parseNumber(withdrawalAmount);
+
+    // alert(withAmount.toString() + " DT 출금 신청이 완료되었습니다. 출금 내역은 마이페이지에서 확인할 수 있습니다.");
+    alert(withdrawalAmount + " DT 출금 신청이 완료되었습니다. 출금 내역은 마이페이지에서 확인할 수 있습니다.");
 
     try {
       const response = await api.post("/redeem", {
         holder: address,
-        amount: dtAmount
+        amount: withAmount.toString()
       });
     } catch (error) {
       alert("출금 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -720,7 +728,7 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
             variant="primary"
             size="lg"
             className="flex-1"
-            disabled={isSubmitDisabled}
+            //disabled={isSubmitDisabled}
             onClick={handleSubmit}
           >
             출금신청
