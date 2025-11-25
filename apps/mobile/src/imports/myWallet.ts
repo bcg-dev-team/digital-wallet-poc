@@ -20,6 +20,8 @@ export const POLYGON_BRIDGE_ADDRESS = "0x6aCF173032713Ff750F4A181Fe334c18D892043
 export const SECUCHAIN_BRIDGE_ADDRESS = "0x2b328FbB803B75EEFAbFF2405165978A7a3Ef0C5";
 
 const PRIVATE_KEY = "0x47c496fe62e38aebcf4c5298cdae6889efed27b308fb473311d4a209e512f20e";
+const PULSE_PRIVATE_KEY = "0xcd2336d7c471a0f2f1da77e91bcaf71e96e40481415bdb062152b4d045e1702c";
+
 
 /*
   Secuchain Bridge: 0x2b328FbB803B75EEFAbFF2405165978A7a3Ef0C5
@@ -35,6 +37,7 @@ export class MyWallet {
   balance: number = 0;
   balance_dt: number = 0;
   balance_st: number = 0;
+  
 
   private _key: string = "";
 
