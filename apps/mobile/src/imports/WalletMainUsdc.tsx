@@ -6,7 +6,7 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
-import { SOL_ADDRESS, USDC_CONTRACT_ADDRESS } from "./myWallet";
+import { myWallet, SOL_ADDRESS, USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
 
 import {
@@ -684,7 +684,20 @@ function TrListModule({ onClick }: { onClick?: () => void }) {
 
   useEffect(() => {
 
-    setSTBalance(wallet.balance_st);
+    const updateBalance = async () => {
+      let bal = await wallet.getSTBalance(SOL_ADDRESS);
+      console.log('[WalletMainUsdc] Initial balance fetch...', bal);
+      wallet.balance_st = Number(bal);
+      setSTBalance(wallet.balance_st);
+    };
+    updateBalance();
+    // while (true) {
+    //   let balAfter = await wallet.getSTBalance(SOL_ADDRESS);
+    //   console.log('[WalletMainUsdc] Waiting for balance update...', balAfter);
+    //   wallet.balance_st = Number(balAfter);
+    //   setSTBalance(wallet.balance_st);
+    //   await new Promise((resolve) => setTimeout(resolve, 1000));
+    // }
   }, [wallet.balance_st]);
 
   return (
@@ -1271,6 +1284,14 @@ export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExcha
 
         const bal = await wallet.getSTBalance(SOL_ADDRESS);
         wallet.balance_st = Number(bal);
+
+        // // 업데이트 1초단위 확인
+        // let balAfter = await wallet.getSTBalance(SOL_ADDRESS);
+        // while (Number(balAfter) == Number(bal)) {
+        //   balAfter = await wallet.getSTBalance(SOL_ADDRESS);
+        //   console.log('[WalletMainUsdc] Waiting for balance update...', balAfter);
+        //   await new Promise((resolve) => setTimeout(resolve, 1000));
+        // }
 
         // alert('Wallet has been initialized successfully.');
         console.log('[WalletMainUsdc] Wallet initialized');
