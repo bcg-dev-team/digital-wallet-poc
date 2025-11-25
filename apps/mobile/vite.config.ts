@@ -74,6 +74,7 @@ export default defineConfig({
         target: 'https://bridge-api-736820725831.asia-northeast3.run.app',
         changeOrigin: true, // cross-origin을 허용합니다.
         secure: false,
+        rewriteWsOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ''), // 요청 경로에서 '/api'를 제거합니다.
       },
     },
