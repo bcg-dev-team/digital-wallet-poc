@@ -153,7 +153,7 @@ function Quickmenu() {
       <div className="absolute bg-white h-[52px] left-0 top-0 w-[360px]" />
       <BottomNavigationInner
         activeTab="order"
-        onOpenMenu={() => {}}
+        onOpenMenu={() => { }}
       />
     </div>
   );
@@ -298,8 +298,8 @@ function Header({ onNavigateBack }: { onNavigateBack?: () => void }) {
       <div className="absolute bg-white inset-0" data-name="Rectangle153562" />
       <div className="absolute content-stretch flex gap-[12px] items-center left-[12px] top-[10px] w-[336px]">
         <div className="basis-0 content-stretch flex gap-[8px] grow items-center min-h-px min-w-px relative shrink-0">
-          <div 
-            className="relative shrink-0 size-[28px] cursor-pointer" 
+          <div
+            className="relative shrink-0 size-[28px] cursor-pointer"
             data-name="ic_00com_28_line_arrow_l_111"
             onClick={onNavigateBack}
             data-interactive="true"

@@ -5,7 +5,7 @@ import { Button, Input, SmallButton } from "@digital-wallet/ui";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
 import { AVAILABLE_USDC_AMOUNT, AVAILABLE_USDC_KRW, formatCurrency, formatNumber, KRW_USD_EXCHANGE_RATE } from "../constants/wallet";
-import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
+import { USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
 import api from "../api/api";
 import { ethers } from "ethers";
@@ -30,9 +30,11 @@ interface UsdcExchangeProps {
 }
 
 export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeProps) {
+  const { wallet } = useMyWallet();
   const { setExchangeAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [usdcAmount, setUsdcAmount] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const usdcNumeric = useMemo(() => parseNumber(usdcAmount), [usdcAmount]);
   const expectedDt = useMemo(() => usdcNumeric * KRW_USD_EXCHANGE_RATE, [usdcNumeric]);
@@ -60,24 +62,24 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
   };
 
   const handleSelectMax = async () => {
-    await myWallet.initialize();
-    const usdcBalance = myWallet.balance;
     setAmountMode("max");
-    setUsdcAmount(formatNumber(usdcBalance));
+    setUsdcAmount(formatNumber(wallet.balance));
   };
 
-  const isSubmitDisabled = usdcNumeric <= 0;
+  const isSubmitDisabled = usdcNumeric <= 0 || isLoading;
 
   const handleSubmit = async () => {
     if (isSubmitDisabled) {
       return;
     }
+    setIsLoading(true);
+    document.body.style.cursor = 'wait';
 
-    alert(`환전 요청 금액: ${usdcNumeric} USDC\n예상 수령액: ${Math.round(finalDt)} DT`);
+    // alert(`환전 요청 금액: ${usdcNumeric} USDC\n예상 수령액: ${Math.round(finalDt)} DT`);
 
     const usedNum = ethers.parseUnits(usdcNumeric.toString(), 18);
 
-    const addr = myWallet.getAddress();
+    const addr = wallet.getAddress();
     try {
       const response = await api.post("/swap", {
         holder: addr,
@@ -94,6 +96,8 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
     } catch (err: Error | any) {
       alert("환전 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
       alert(err.message);
+      setIsLoading(false);
+      document.body.style.cursor = 'default';
       return;
       // if (err.status == 422) {
       //   return { success: 422, err_msg: err.message };
@@ -110,6 +114,8 @@ export default function UsdcExchange({ onNavigateBack, onSubmit }: UsdcExchangeP
       return;
     }
     onSubmit?.({ usdcAmount: usdcNumeric, expectedDt });
+    setIsLoading(false);
+    document.body.style.cursor = 'default';
   };
 
   const summaryRows = [

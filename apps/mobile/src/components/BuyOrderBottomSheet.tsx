@@ -5,6 +5,9 @@ import { img } from "../imports/svg-4g4dx";
 import { createPortal } from "react-dom";
 import { useMobileViewportContext } from "./layout/MobileViewportContext";
 import MobileBottomActionButton from "./ui/MobileBottomActionButton";
+import { SOL_ADDRESS, META_MSK_ADDRESS } from "../imports/myWallet";
+import { useMyWallet } from "../contexts/WalletContext";
+import { setMaxIdleHTTPParsers } from "http";
 
 interface BuyOrderBottomSheetProps {
   isOpen: boolean;
@@ -122,10 +125,25 @@ function BottomsheetContent({ onClose, onConfirm }: { onClose: () => void; onCon
 
 export default function BuyOrderBottomSheet({ isOpen, onClose, onConfirm }: BuyOrderBottomSheetProps) {
   const context = useMobileViewportContext();
+  const { wallet } = useMyWallet();
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+
     if (onConfirm) {
+
+      const bal = await wallet.getSTBalance(SOL_ADDRESS);
+
+      const tx = await wallet.sendSTToken(META_MSK_ADDRESS, SOL_ADDRESS, "10");
+
+      let balAfter = await wallet.getSTBalance(SOL_ADDRESS);
+      while (Number(balAfter) <= Number(bal)) {
+        balAfter = await wallet.getSTBalance(SOL_ADDRESS);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+
+      // alert(`매수주문이 완료되었습니다. \n\n트랜잭션 해시: ${tx.hash}`);
+
       onConfirm();
     } else {
       onClose();

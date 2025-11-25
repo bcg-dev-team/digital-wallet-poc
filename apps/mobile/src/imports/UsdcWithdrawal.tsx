@@ -10,10 +10,12 @@ import {
   formatNumber,
   KRW_USD_EXCHANGE_RATE,
 } from "../constants/wallet";
-import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, META_MSK_ADDRESS } from "./myWallet";
+import { USDC_CONTRACT_ADDRESS, META_MSK_ADDRESS } from "./myWallet";
 import { Wallet, ethers } from "ethers";
 import api from "../api/api";
 import { useDeposit } from "../contexts/DepositContext";
+import { metaMaskWallet } from "./metaMask";
+import { useMyWallet } from "../contexts/WalletContext";
 
 const dtPerUsdc = AVAILABLE_USDC_KRW / AVAILABLE_USDC_AMOUNT;
 const BRIDGE_FEE_RATE = 0.001;
@@ -625,13 +627,15 @@ function Frame41({ onNavigateBack, dtAmount, exchangeRate, lastUpdated, amountMo
 }
 
 export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdrawalProps) {
+  const { wallet } = useMyWallet();
   const { setExtractAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [withdrawalAmount, setWithdrawalAmount] = useState<string>("");
   const [address, setAddress] = useState("");
   const [addressMode, setAddressMode] = useState<"qr" | "recent">("qr");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dtAmount = myWallet.balance_dt;
+  const dtAmount = wallet.balance_dt;
   const exchangeRate = KRW_USD_EXCHANGE_RATE;
   const lastUpdated = useMemo(
     () =>
@@ -662,39 +666,47 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
     }
   };
 
-  const handleAddressModeChange = (mode: "qr" | "recent") => {
+  const handleAddressModeChange = async (mode: "qr" | "recent") => {
 
     setAddressMode(mode);
     if (mode === "recent") {
 
-      setAddress(META_MSK_ADDRESS);
+      await metaMaskWallet.initialize(80002);
+      setAddress(metaMaskWallet.account);
     }
   };
 
-  const isSubmitDisabled = withdrawalAmountNumeric <= 0 || !address.trim();
+  const isSubmitDisabled = withdrawalAmountNumeric <= 0 || !address.trim() || isLoading;
 
   const handleSubmit = async () => {
-    // if (isSubmitDisabled) return;
-
-
+    if (isSubmitDisabled) return;
     setExtractAmount(withdrawalAmountNumeric);
+    setIsLoading(true);
     const withAmount = parseNumber(withdrawalAmount);
-
     // alert(withAmount.toString() + " DT 출금 신청이 완료되었습니다. 출금 내역은 마이페이지에서 확인할 수 있습니다.");
-    alert(withdrawalAmount + " DT 출금 신청이 완료되었습니다. 출금 내역은 마이페이지에서 확인할 수 있습니다.");
-
+    // alert(withdrawalAmount + " DT 출금 신청이 완료되었습니다. 출금 내역은 마이페이지에서 확인할 수 있습니다.");
+    const myaddress = wallet.getAddress();
+    // parseNumber(expectedUsdc);
+    formatNumber(expectedUsdc);
+    // alert(formatNumber(expectedUsdc));
     try {
       const response = await api.post("/redeem", {
-        holder: address,
+        holder: myaddress,
         amount: withAmount.toString()
       });
+
+      const tx = await wallet.sendERC20Token(USDC_CONTRACT_ADDRESS, address, formatNumber(expectedUsdc));
+
+
     } catch (error) {
       alert("출금 요청 중 오류가 발생했습니다. 다시 시도해주세요.");
       console.error(error);
+      setIsLoading(false);
       return;
     }
 
     onSubmit?.({ dtAmount: withdrawalAmountNumeric, expectedUsdc, address });
+    setIsLoading(false);
   };
 
   return (
@@ -728,7 +740,7 @@ export default function UsdcWithdrawal({ onNavigateBack, onSubmit }: UsdcWithdra
             variant="primary"
             size="lg"
             className="flex-1"
-            //disabled={isSubmitDisabled}
+            disabled={isSubmitDisabled}
             onClick={handleSubmit}
           >
             출금신청

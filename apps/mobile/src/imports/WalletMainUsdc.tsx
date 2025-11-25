@@ -6,7 +6,7 @@ import imgImage2 from "figma:asset/f476cb1ee6d48a8a10be4f9745528859aa46ad63.png"
 import imgImage3 from "figma:asset/a6a6ebcc2d3bd9ac456d7376e2a094dae5097638.png";
 import { imgImage1, img, img1, imgRectangle157576 } from "./svg-d2lo7";
 import { Button, ActionCard } from "@digital-wallet/ui";
-import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS } from "./myWallet";
+import { SOL_ADDRESS, USDC_CONTRACT_ADDRESS } from "./myWallet";
 import { useMyWallet } from "../contexts/WalletContext";
 
 import {
@@ -344,17 +344,12 @@ function Frame2117921510() {
 }
 
 function Frame2117921376() {
-
+  const { wallet } = useMyWallet();
   const [usdcBalance, setUsdcBalance] = useState<number>(0);
 
   useEffect(() => {
-    const init = async () => {
-      await myWallet.initialize();
-      setUsdcBalance(myWallet.balance);
-    };
-    init();
-
-  }, []);
+    setUsdcBalance(wallet.balance);
+  }, [wallet.balance]);
 
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
@@ -371,16 +366,13 @@ function Frame2117921376() {
 }
 
 function Frame2117921375() {
+  const { wallet } = useMyWallet();
   const [usdcBalance, setUsdcBalance] = useState<number>(0);
 
   useEffect(() => {
-    const init = async () => {
-      await myWallet.initialize();
-      setUsdcBalance(myWallet.balance);
-    };
-    init();
+    setUsdcBalance(wallet.balance);
+  }, [wallet.balance]);
 
-  }, []);
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[0] not-italic relative shrink-0 text-[#111111] text-[0px] w-[105px]">
@@ -463,15 +455,13 @@ function Frame2117921509() {
 }
 
 function Frame2117921377() {
+  const { wallet } = useMyWallet();
   const [dtBalance, setDTBalance] = useState<number>(0);
-  useEffect(() => {
-    const init = async () => {
-      await myWallet.initialize();
-      setDTBalance(myWallet.balance_dt);
-    };
-    init();
 
-  }, []);
+  useEffect(() => {
+    setDTBalance(wallet.balance_dt);
+  }, [wallet.balance_dt]);
+
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
       <div className="h-[4.818px] relative shrink-0 w-[8.129px]" data-name="text">
@@ -485,16 +475,13 @@ function Frame2117921377() {
 }
 
 function Frame2117921378() {
+  const { wallet } = useMyWallet();
   const [dtBalance, setDTBalance] = useState<number>(0);
 
   useEffect(() => {
-    const init = async () => {
-      await myWallet.initialize();
-      setDTBalance(myWallet.balance_dt);
-    };
-    init();
+    setDTBalance(wallet.balance_dt);
+  }, [wallet.balance_dt]);
 
-  }, []);
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
       <p className="basis-0 font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium grow leading-[0] min-h-px min-w-px not-italic relative shrink-0 text-[#111111] text-[0px]">
@@ -680,7 +667,7 @@ function ListContents() {
     <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-full" data-name="list_contents">
       <LeftInfo />
       <div className="content-stretch flex flex-col items-end relative shrink-0 w-[80px]" data-name="현재가&등락률_두줄">
-        <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] min-w-full not-italic relative shrink-0 text-[#2d78fa] text-[16px] text-right w-[min-content]">50 ST</p>
+        <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-bold leading-[24px] min-w-full not-italic relative shrink-0 text-[#2d78fa] text-[16px] text-right w-[min-content]">10 ST</p>
         <div className="bg-[#f3f9fe] box-border content-stretch flex gap-[8px] items-center justify-end px-[4px] py-px relative rounded-[4px] shrink-0" data-name="tradingflag_h20">
           <div className="flex flex-col font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#2d78fa] text-[12px] text-nowrap text-right">
             <p className="leading-[18px] whitespace-pre">-1.35%</p>
@@ -692,16 +679,13 @@ function ListContents() {
 }
 
 function TrListModule({ onClick }: { onClick?: () => void }) {
+  const { wallet } = useMyWallet();
   const [stBalance, setSTBalance] = useState<number>(0);
 
   useEffect(() => {
-    const init = async () => {
-      await myWallet.initialize();
-      setSTBalance(myWallet.balance_st);
-    };
-    init();
 
-  }, []);
+    setSTBalance(wallet.balance_st);
+  }, [wallet.balance_st]);
 
   return (
     <>
@@ -1277,6 +1261,27 @@ interface Component04UsdcProps {
 }
 
 export default function Component04Usdc({ onNavigateToDeposit, onNavigateToExchange, onNavigateToHome, onNavigateToWithdrawal, onNavigateToHistory, onNavigateToTokenSecurities, onNavigateToLilacDetail, onOpenMenu }: Component04UsdcProps) {
+  const { wallet, isInitialized } = useMyWallet();
+
+  useEffect(() => {
+    const initializeWallet = async () => {
+      // if (!isInitialized) {
+      try {
+        await wallet.initialize();
+
+        const bal = await wallet.getSTBalance(SOL_ADDRESS);
+        wallet.balance_st = Number(bal);
+
+        // alert('Wallet has been initialized successfully.');
+        console.log('[WalletMainUsdc] Wallet initialized');
+      } catch (error) {
+        console.error('[WalletMainUsdc] Failed to initialize wallet:', error);
+      }
+      // }
+    };
+    initializeWallet();
+  }, [isInitialized, wallet]);
+
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full pb-[72px]" data-name="04.홈-디지털월렛 메인-USDC탭">
       <ContentsFooter onNavigateToDeposit={onNavigateToDeposit} onNavigateToExchange={onNavigateToExchange} onNavigateToHome={onNavigateToHome} onNavigateToWithdrawal={onNavigateToWithdrawal} onNavigateToHistory={onNavigateToHistory} onNavigateToTokenSecurities={onNavigateToTokenSecurities} onNavigateToLilacDetail={onNavigateToLilacDetail} />

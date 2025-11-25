@@ -12,8 +12,8 @@ import {
 } from "../constants/wallet";
 
 import { metaMaskWallet } from "./metaMask";
-import { myWallet, MyWallet } from "./myWallet";
 import { useDeposit } from "../contexts/DepositContext";
+import { useMyWallet } from "../contexts/WalletContext";
 import { parse } from "path";
 
 
@@ -30,6 +30,7 @@ const parseNumber = (value: string) => {
 };
 
 export default function DepositStep2({ onNavigateBack, onNavigateNext }: DepositStep2Props) {
+  const { wallet } = useMyWallet();
   const { setTxid, setDepositAmount } = useDeposit();
   const [amountMode, setAmountMode] = useState<AmountMode>("manual");
   const [amount, setAmount] = useState<string>("");
@@ -40,7 +41,7 @@ export default function DepositStep2({ onNavigateBack, onNavigateNext }: Deposit
     const init = async () => {
       await metaMaskWallet.initialize(80002);
       setHelperText(`최대 한도 ${formatNumber(metaMaskWallet.balance)} USDC`);
-      setAddress(await myWallet.getAddress());
+      setAddress(wallet.getAddress());
     };
     init();
 

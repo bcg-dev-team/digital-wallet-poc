@@ -6,8 +6,9 @@ import { AVAILABLE_USDC_AMOUNT, formatNumber } from "../constants/wallet";
 import MobileStickyFooter from "../components/layout/MobileStickyFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
 import { useDeposit } from "../contexts/DepositContext";
-import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
+import { USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
 import { on } from "events";
+import { useMyWallet } from "../contexts/WalletContext";
 
 const DEFAULT_TXID = "0xab123...def567";
 const DEFAULT_AMOUNT = formatNumber(AVAILABLE_USDC_AMOUNT);

@@ -30,8 +30,8 @@ function Button({ onConfirm }: { onConfirm: () => void }) {
             </svg>
           </div>
         </div>
-        <div 
-          className="absolute inset-[21.74%_5.56%] cursor-pointer" 
+        <div
+          className="absolute inset-[21.74%_5.56%] cursor-pointer"
           data-name="np_02tr_btn_r8_buy_sld_n.9"
           onClick={onConfirm}
         >
@@ -140,8 +140,8 @@ function Bottomsheet({ onClose, onConfirm }: { onClose: () => void; onConfirm: (
       </p>
       <Button onConfirm={onConfirm} />
       <Text />
-      <div 
-        className="absolute inset-[10.7%_5.56%_84.36%_87.78%] cursor-pointer" 
+      <div
+        className="absolute inset-[10.7%_5.56%_84.36%_87.78%] cursor-pointer"
         data-name="ic_00com_24_solid_close"
         onClick={onClose}
       >
@@ -163,24 +163,25 @@ export default function BuyOrderBottomSheet({ isOpen, onClose }: BuyOrderBottomS
 
   const handleConfirm = () => {
     // 매수주문 처리
+
     onClose();
   };
 
   return (
     <>
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-black/50 z-40"
         onClick={onClose}
-        style={{ 
-          left: '50%', 
+        style={{
+          left: '50%',
           transform: 'translateX(-50%)',
           width: '360px',
         }}
       />
-      
+
       {/* Bottom Sheet */}
-      <div 
+      <div
         className="fixed bottom-0 left-1/2 -translate-x-1/2 z-50"
         style={{ width: '360px', height: '486px' }}
       >

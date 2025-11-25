@@ -19,10 +19,32 @@ class MetaMaskWallet {
       throw new Error("MetaMask is not installed");
     }
     const accounts = await this.provider.send("eth_requestAccounts", []);
-    this.account = accounts[0];
 
-    await this.provider.send("wallet_switchEthereumChain", [{ chainId: ethers.toQuantity(chainId) }]);
-    this.balance = Number(await this.getERC20Balance(USDC_CONTRACT_ADDRESS, this.account));
+    if (accounts.length === 0) {
+      throw new Error("No accounts found");
+    }
+    this.account = accounts[0];
+    // alert(chainId)
+
+    try {
+      await this.provider.send("wallet_switchEthereumChain", [{ chainId: ethers.toQuantity(chainId) }]);
+    } catch (switchError: any) {
+      alert(JSON.stringify(switchError));
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        throw new Error("Please add the network to MetaMask");
+      } else {
+        throw switchError;
+      }
+    }
+    //await this.provider.send("wallet_switchEthereumChain", [{ chainId: ethers.toQuantity(chainId) }]);
+
+    try {
+        this.balance = Number(await this.getERC20Balance(USDC_CONTRACT_ADDRESS, this.account));
+    } catch (error) {
+        console.error("Failed to fetch USDC balance:", error);
+        this.balance = 0;
+    }
   }
 
 

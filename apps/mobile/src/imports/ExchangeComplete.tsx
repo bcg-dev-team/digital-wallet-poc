@@ -10,8 +10,9 @@ import {
   KRW_USD_EXCHANGE_RATE
 } from "../constants/wallet";
 import eventBannerImage from "../assets/699cfa03a5e35518b3e7e62482a35f444b42cc86.png";
-import { myWallet, MyWallet, USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
+import { USDC_CONTRACT_ADDRESS, POLYGON_BRIDGE_ADDRESS } from "./myWallet";
 import { useDeposit } from "../contexts/DepositContext";
+import { useMyWallet } from "../contexts/WalletContext";
 
 interface ExchangeCompleteProps {
   onNavigateBack?: () => void;

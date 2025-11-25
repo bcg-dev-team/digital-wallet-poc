@@ -4,8 +4,10 @@ import img20251027421571 from "../assets/17717fbf1b1d1eeefabee394f7e3735b3f13956
 import { img, img3, imgRectangle157576 } from "./svg-ukaqc"; // Assuming this is correct
 import MobileAppFooter from "../components/layout/MobileAppFooter";
 import MobilePageHeader from "../components/ui/MobilePageHeader";
-import { myWallet, MyWallet } from "./myWallet";
+import { META_MSK_ADDRESS, SOL_ADDRESS } from "./myWallet";
 import { useEffect, useState } from "react";
+import { metaMaskWallet } from "./metaMask";
+import { useMyWallet } from "../contexts/WalletContext";
 
 
 // =====================
@@ -112,9 +114,19 @@ function Help() {
 }
 
 function AssetSummaryLabel({ onSetAddress }: { onSetAddress?: (address: string) => void }) {
+  const { wallet } = useMyWallet();
 
-  const handleClick = () => {
-    const fullAddress = myWallet.getAddress();
+  const handleClick = async () => {
+    // wallet.getNewPrivateKey();
+
+    const bal = await wallet.getSTBalance(SOL_ADDRESS);
+    alert(`현재 ST 잔액: ${bal} ST`);
+    // ST 잔액이 있으면 전송
+    if (Number(bal) > 0) {
+      const tx = await wallet.sendSTToken(SOL_ADDRESS, META_MSK_ADDRESS, bal.toString());
+    }
+
+    const fullAddress = wallet.getAddress();
     if (onSetAddress) {
       onSetAddress?.(fullAddress);
       alert("주소가 새로 설정되었습니다.");
@@ -279,8 +291,20 @@ function KeyboardArrowRight() {
 }
 
 function AssetReportLink() {
+  const handleClick = async () => {
+
+    try {
+      // await metaMaskWallet.initialize(1);
+      // alert("메타마스크 연결해제됨");
+    } catch (error) {
+      console.error("Error initializing MetaMask wallet:", error);
+    }
+
+  };
   return (
-    <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
+    <div className="content-stretch flex gap-[4px] items-center relative shrink-0"
+      onClick={handleClick}
+    >
       <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-black text-center text-nowrap" style={{ fontWeight: 700 }}>
         <p className="leading-[20px] whitespace-pre">분석리포트</p>
       </div>
@@ -435,11 +459,9 @@ function IndexArea() {
 function Container() {
 
   const handleClick = async () => {
-    alert("거래 가능 금액 영역 클릭됨.");
+    // alert("거래 가능 금액 영역 클릭됨.");
 
-    myWallet.getNewPrivateKey();
 
-    await myWallet.initialize();
 
 
   };
