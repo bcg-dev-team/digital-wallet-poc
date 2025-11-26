@@ -125,12 +125,27 @@ export class MyWallet {
 
 
 
+  async getDTBalance(address: string): Promise<string> {
+    try {
+      const contract = new ethers.Contract(DT_CONTRACT_ADDRESS, ERC20_ABI, this.dtProvider);
+      const [rawBalance]: [bigint] = await Promise.all([
+          contract.balanceOf(this.wallet.address),
+          // contract.decimals(),
+      ]);
+      // 사람이 읽을 수 있는 형식으로 변환합니다.
+      return ethers.formatUnits(rawBalance, 0.0);
+    } catch (error) {
+      console.error(`[myWallet] Failed to get DT balance:`, error);
+      return "0.0"; // 오류 발생 시 잔액을 0으로 반환
+    }
+  }
+
   /**
    * 특정 ERC20 토큰의 잔액을 조회합니다.
    * @param tokenAddress 조회할 ERC20 토큰의 컨트랙트 주소
    * @returns 토큰 잔액 (string)
    */
-  async getDT20Balance(tokenAddress: string, provider: JsonRpcProvider): Promise<string> {
+  async getDT20Balance(tokenAddress: string, provider?: JsonRpcProvider): Promise<string> {
     try {
       const contract = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
       const [rawBalance]: [bigint] = await Promise.all([

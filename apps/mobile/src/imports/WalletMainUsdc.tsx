@@ -469,7 +469,7 @@ function Frame2117921377() {
           <path d={svgPaths.p3060fd40} fill="var(--fill-0, #777E8C)" id="text" />
         </svg>
       </div>
-      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">{formatCurrency(dtBalance)} </p>
+      <p className="font-['Spoqa_Han_Sans_Neo',sans-serif] font-medium leading-[20px] not-italic relative shrink-0 text-[#111111] text-[14px] text-nowrap whitespace-pre">{formatCurrency(dtBalance)}</p>
     </div>
   );
 }
@@ -480,6 +480,20 @@ function Frame2117921378() {
 
   useEffect(() => {
     setDTBalance(wallet.balance_dt);
+
+    const updateBalance = async () => {
+
+      while (true) {
+        let bal = await wallet.getDTBalance(SOL_ADDRESS);
+        wallet.balance_dt = Number(bal);
+        setDTBalance(wallet.balance_dt);
+        console.log("Updated DT Balance:", wallet.balance_dt);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+
+    };
+    updateBalance();
+
   }, [wallet.balance_dt]);
 
   return (
@@ -685,10 +699,15 @@ function TrListModule({ onClick }: { onClick?: () => void }) {
   useEffect(() => {
 
     const updateBalance = async () => {
-      let bal = await wallet.getSTBalance(SOL_ADDRESS);
-      console.log('[WalletMainUsdc] Initial balance fetch...', bal);
-      wallet.balance_st = Number(bal);
-      setSTBalance(wallet.balance_st);
+
+      while (true) {
+        let bal = await wallet.getSTBalance(SOL_ADDRESS);
+        console.log('[WalletMainUsdc] Initial balance fetch...', bal);
+        wallet.balance_st = Number(bal);
+        setSTBalance(wallet.balance_st);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+
     };
     updateBalance();
     // while (true) {
