@@ -736,7 +736,8 @@ function TrListModule({ onClick }: { onClick?: () => void }) {
 
       while (true) {
         let bal = await wallet.getSTBalance(SOL_ADDRESS);
-        console.log('[WalletMainUsdc] Initial balance fetch...', bal);
+        // console.log('[WalletMainUsdc] Initial balance fetch...', bal);
+        console.log("Updated ST Balance:", wallet.balance_st);
         wallet.balance_st = Number(bal);
         setSTBalance(wallet.balance_st);
         await new Promise((resolve) => setTimeout(resolve, 2000));
