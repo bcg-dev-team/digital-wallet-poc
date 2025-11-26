@@ -351,20 +351,20 @@ function Frame2117921376() {
     setUsdcBalance(wallet.balance);
   }, [wallet.balance]);
 
-  // useEffect(() => {
-  //   setUsdcBalance(wallet.balance);
-  //   const updateBalance = async () => {
-  //     while (true) {
-  //       let bal = await wallet.getDTBalance(SOL_ADDRESS);
-  //       wallet.balance = Number(bal);
-  //       setUsdcBalance(wallet.balance);
-  //       console.log("Updated USDC Balance:", wallet.balance);
-  //       await new Promise((resolve) => setTimeout(resolve, 2000));
-  //     }
+  useEffect(() => {
+    setUsdcBalance(wallet.balance);
+    const updateBalance = async () => {
+      while (true) {
+        let bal = await wallet.getUSDCBalance(SOL_ADDRESS);
+        wallet.balance = Number(bal);
+        setUsdcBalance(wallet.balance);
+        console.log("Updated USDC Balance:", wallet.balance);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
 
-  //   };
-  //   updateBalance();
-  // }, [wallet.balance]);
+    };
+    updateBalance();
+  }, [wallet.balance]);
 
   return (
     <div className="content-stretch flex gap-[4px] items-center relative shrink-0">
@@ -384,8 +384,27 @@ function Frame2117921375() {
   const { wallet } = useMyWallet();
   const [usdcBalance, setUsdcBalance] = useState<number>(0);
 
+  // useEffect(() => {
+  //   setUsdcBalance(wallet.balance);
+  // }, [wallet.balance]);
+
   useEffect(() => {
     setUsdcBalance(wallet.balance);
+  }, [wallet.balance]);
+
+  useEffect(() => {
+    setUsdcBalance(wallet.balance);
+    const updateBalance = async () => {
+      while (true) {
+        let bal = await wallet.getUSDCBalance(SOL_ADDRESS);
+        wallet.balance = Number(bal);
+        setUsdcBalance(wallet.balance);
+        console.log("Updated USDC Balance:", wallet.balance);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+
+    };
+    updateBalance();
   }, [wallet.balance]);
 
   return (

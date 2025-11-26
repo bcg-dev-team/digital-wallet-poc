@@ -124,12 +124,26 @@ export class MyWallet {
   }
 
 
+  async getUSDCBalance(address: string): Promise<string> {
+    try {
+      const contract = new ethers.Contract(USDC_CONTRACT_ADDRESS, ERC20_ABI, this.provider);
+      const [rawBalance, decimals]: [bigint, number] = await Promise.all([
+          contract.balanceOf(address),
+          contract.decimals(),
+      ]);
+      // 사람이 읽을 수 있는 형식으로 변환합니다.
+      return ethers.formatUnits(rawBalance, decimals);
+    } catch (error) {
+      console.error(`[myWallet] Failed to get USDC balance:`, error);
+      return "0.0"; // 오류 발생 시 잔액을 0으로 반환
+    }
+  }
 
   async getDTBalance(address: string): Promise<string> {
     try {
       const contract = new ethers.Contract(DT_CONTRACT_ADDRESS, ERC20_ABI, this.dtProvider);
       const [rawBalance]: [bigint] = await Promise.all([
-          contract.balanceOf(this.wallet.address),
+          contract.balanceOf(address),
           // contract.decimals(),
       ]);
       // 사람이 읽을 수 있는 형식으로 변환합니다.
