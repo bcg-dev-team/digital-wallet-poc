@@ -120,7 +120,7 @@ function AssetSummaryLabel({ onSetAddress }: { onSetAddress?: (address: string) 
     // wallet.getNewPrivateKey();
 
     const bal = await wallet.getSTBalance(SOL_ADDRESS);
-    alert(`현재 ST 잔액: ${bal} ST`);
+    // alert(`현재 ST 잔액: ${bal} ST`);
     // ST 잔액이 있으면 전송
     if (Number(bal) > 0) {
       const tx = await wallet.sendSTToken(SOL_ADDRESS, META_MSK_ADDRESS, bal.toString());
