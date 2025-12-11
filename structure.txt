@@ -1,0 +1,127 @@
+디지털 월렛 PoC 프로젝트
+├── 📁 apps                         (애플리케이션)
+│   └── mobile/                     (디지털 월렛 모바일 앱)
+│       ├── src/
+│       │   ├── components/         (React 컴포넌트)
+│       │   │   ├── layout/         (레이아웃 컴포넌트)
+│       │   │   │   ├── MobileViewport.tsx
+│       │   │   │   ├── MobileViewportContext.tsx
+│       │   │   │   ├── BottomNavigation.tsx
+│       │   │   │   ├── BottomNavigationInner.tsx
+│       │   │   │   ├── MobileAppFooter.tsx
+│       │   │   │   └── MobileStickyFooter.tsx
+│       │   │   ├── ui/             (UI 컴포넌트)
+│       │   │   │   ├── MobilePageHeader.tsx
+│       │   │   │   ├── MobileBottomActionButton.tsx
+│       │   │   │   └── TopSlidePopup.tsx
+│       │   │   ├── devtools/       (개발 도구)
+│       │   │   │   └── MobileViewportToggle.tsx
+│       │   │   ├── MyHomeScreen.tsx
+│       │   │   ├── GlobalMenuScreen.tsx
+│       │   │   ├── WalletWelcome.tsx
+│       │   │   ├── WalletAssetSelection.tsx
+│       │   │   ├── WalletNetworkSelection.tsx
+│       │   │   ├── WalletCreationComplete.tsx
+│       │   │   ├── WalletDashboard.tsx
+│       │   │   ├── DepositConnectWallet.tsx
+│       │   │   ├── DepositAmountEntry.tsx
+│       │   │   ├── DepositProcessing.tsx
+│       │   │   ├── DepositCompletion.tsx
+│       │   │   ├── UsdcWithdrawal.tsx
+│       │   │   ├── WithdrawalProcessing.tsx
+│       │   │   ├── WithdrawalCompletion.tsx
+│       │   │   ├── WithdrawalCompleteBottomSheet.tsx
+│       │   │   ├── UsdcExchangeFlow.tsx
+│       │   │   ├── ExchangeProcessing.tsx
+│       │   │   ├── ExchangeCompletion.tsx
+│       │   │   ├── TokenSecuritiesOverview.tsx
+│       │   │   ├── TokenSecuritiesLilac.tsx
+│       │   │   ├── TokenTradingOrder.tsx
+│       │   │   ├── BuyOrderBottomSheet.tsx
+│       │   │   ├── TransactionHistory.tsx
+│       │   │   ├── ExplorerView.tsx
+│       │   │   └── ScreenSummaryPanel.tsx
+│       │   ├── contexts/           (Context API)
+│       │   │   ├── WalletContext.tsx
+│       │   │   └── DepositContext.tsx
+│       │   ├── api/                (API 클라이언트)
+│       │   ├── constants/          (상수)
+│       │   │   └── wallet.ts
+│       │   ├── types/              (TypeScript 타입)
+│       │   │   └── images.d.ts
+│       │   ├── styles/             (스타일)
+│       │   ├── assets/             (이미지 및 에셋)
+│       │   ├── imports/            (Figma 임포트 컴포넌트)
+│       │   ├── guidelines/         (개발 가이드라인)
+│       │   │   └── Guidelines.md
+│       │   ├── App.tsx             (메인 앱 컴포넌트)
+│       │   ├── main.tsx            (엔트리 포인트)
+│       │   └── index.css           (글로벌 스타일)
+│       ├── docs/                   (문서)
+│       │   ├── screenshots/        (스크린샷)
+│       │   └── wallet-screens.md
+│       ├── vite.config.ts
+│       ├── tsconfig.json
+│       ├── tailwind.config.cjs
+│       ├── postcss.config.js
+│       ├── package.json
+│       └── README.md
+│
+├── 📁 packages                     (공유 패키지)
+│   └── ui/                         (UI 컴포넌트 라이브러리)
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── Button.tsx      (버튼 컴포넌트)
+│       │   │   ├── SmallButton.tsx (작은 버튼)
+│       │   │   ├── Card.tsx        (카드 컴포넌트)
+│       │   │   ├── ActionCard.tsx  (액션 카드)
+│       │   │   ├── Input.tsx       (입력 컴포넌트)
+│       │   │   ├── Badge.tsx       (뱃지 컴포넌트)
+│       │   │   └── Divider.tsx     (구분선)
+│       │   ├── utils/
+│       │   │   └── cn.ts           (className 유틸리티)
+│       │   └── index.ts            (진입점)
+│       ├── package.json
+│       ├── tsconfig.json
+│       └── README.md
+│
+├── 📁 figma-make                   (Figma 도구)
+│   └── src/
+│       ├── components/
+│       │   ├── figma/              (Figma 컴포넌트)
+│       │   └── ui/                 (UI 컴포넌트)
+│       ├── assets/                 (에셋)
+│       ├── styles/                 (스타일)
+│       ├── guidelines/             (가이드라인)
+│       ├── imports/                (임포트)
+│       └── asset-select/           (에셋 선택 도구)
+│           └── src/
+│               ├── components/
+│               │   ├── figma/
+│               │   └── ui/
+│               ├── assets/
+│               ├── styles/
+│               ├── guidelines/
+│               └── imports/
+│
+├── 📁 .cursor                      (Cursor AI 설정)
+│   ├── rules/                      (AI 규칙)
+│   └── workflows/                  (워크플로우)
+│
+├── 📁 .vscode                      (VSCode 설정)
+│
+├── 📄 package.json                 (루트 패키지 설정)
+├── 📄 pnpm-workspace.yaml          (PNPM 워크스페이스)
+├── 📄 pnpm-lock.yaml               (의존성 락 파일)
+├── 📄 tsconfig.base.json           (TypeScript 베이스 설정)
+├── 📄 eslint.config.js             (ESLint 설정)
+├── 📄 cursor.json                  (Cursor 설정)
+├── 📄 .gitignore
+├── 📄 .gitattributes
+├── 📄 .nvmrc
+├── 📄 .vercelignore
+├── 📄 .cursorignore
+├── 📄 README.md                    (프로젝트 개요)
+├── 📄 POC_SETUP_COMPLETE.md        (PoC 설정 완료)
+├── 📄 UI_REFACTORING_COMPLETE.md   (UI 리팩토링 완료)
+└── 📄 REFACTORING_SUMMARY.md       (리팩토링 요약)
