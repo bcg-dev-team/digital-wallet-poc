@@ -26,6 +26,7 @@ import TokenTradingOrder from "./components/TokenTradingOrder";
 import UsdcExchangeFlow from "./components/UsdcExchangeFlow";
 import { ScreenSummaryPanel } from "./components/ScreenSummaryPanel";
 import GlobalMenuScreen from "./components/GlobalMenuScreen";
+import { useWideWorkspaceLayout } from "./hooks/useWideWorkspaceLayout";
 
 import { DepositProvider } from "./contexts/DepositContext";
 import { MyWalletProvider } from "./contexts/WalletContext";
@@ -47,6 +48,7 @@ function ScrollToTop() {
 }
 
 function WorkspaceLayout() {
+  const isWideWorkspace = useWideWorkspaceLayout();
   const [isQuickAccessVisible, setIsQuickAccessVisible] = useState(true);
 
   // localStorage에 설정 저장 (페이지 새로고침 시 유지)
@@ -63,16 +65,22 @@ function WorkspaceLayout() {
     localStorage.setItem("quickAccessVisible", String(newValue));
   };
 
+  const showQuickAccessPanel = isWideWorkspace && isQuickAccessVisible;
+
   return (
     <div className="flex min-h-screen bg-[#eef1f6]">
-      {isQuickAccessVisible && <ScreenSummaryPanel />}
+      {showQuickAccessPanel && <ScreenSummaryPanel />}
       <main className="flex flex-1 items-center justify-center">
         <MobileViewport>
           <ScrollToTop />
           <Outlet />
         </MobileViewport>
       </main>
-      <QuickAccessToggle isVisible={isQuickAccessVisible} onToggle={toggleQuickAccess} />
+      <QuickAccessToggle
+        isVisible={isQuickAccessVisible}
+        onToggle={toggleQuickAccess}
+        layoutSupportsQuickAccess={isWideWorkspace}
+      />
     </div>
   );
 }

@@ -4,17 +4,22 @@ import clsx from "clsx";
 /**
  * 개발 모드에서 Quick Access (ScreenSummaryPanel)를 토글할 수 있는 플로팅 버튼
  * 단축키: Cmd/Ctrl + Shift + A (Quick Access의 A)
+ * @param layoutSupportsQuickAccess - false면 단축키·버튼을 렌더하지 않음(모바일 폭 등)
  */
 export function QuickAccessToggle({
   isVisible,
   onToggle,
+  layoutSupportsQuickAccess,
 }: {
   isVisible: boolean;
   onToggle: () => void;
+  layoutSupportsQuickAccess: boolean;
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
+    if (!import.meta.env.DEV || !layoutSupportsQuickAccess) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       // Cmd/Ctrl + Shift + A (Quick Access)
       if ((event.metaKey || event.ctrlKey) && event.shiftKey && event.key === "a") {
@@ -25,9 +30,9 @@ export function QuickAccessToggle({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onToggle]);
+  }, [onToggle, layoutSupportsQuickAccess]);
 
-  if (!import.meta.env.DEV) {
+  if (!import.meta.env.DEV || !layoutSupportsQuickAccess) {
     return null;
   }
 

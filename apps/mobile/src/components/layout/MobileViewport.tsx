@@ -38,10 +38,10 @@ export default function MobileViewport({
 
   return (
     <MobileViewportContext.Provider value={contextValue}>
-      <div className="flex min-h-screen items-center justify-center bg-[#eef1f6] py-6">
+      <div className="flex min-h-screen items-center justify-center bg-[#eef1f6]">
         <div
           className={clsx(
-            "mobile-viewport relative h-[776px] w-[360px] overflow-hidden rounded-[10px] bg-white shadow-[0_20px_60px_rgba(29,31,89,0.1)]",
+            "mobile-viewport relative h-[932px] w-[360px] overflow-hidden rounded-[10px] bg-white shadow-[0_20px_60px_rgba(29,31,89,0.1)]",
             className
           )}
           ref={viewportRef}
